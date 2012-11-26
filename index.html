@@ -35,6 +35,7 @@
       let tail xs = (jsarray xs).slice 1
 
       // xs :: IO ()
+      // TODO: generalize to monads if possible
       let sequence xs = \() ->
         if empty xs then
           []
