@@ -12,13 +12,6 @@
     <script src="lib/tryroy.js"></script>
     <script src="lib/royloader.js"></script>
     <script>
-      window.royhelper = {
-        array : {
-          length: function(xs) { return xs.length },
-          concat: function(xs, ys) { return xs.concat(ys) },
-          slice: function(xs, i) { return xs.slice(i) }
-        }
-      }
       window.turtle = {
         lt: function(degrees) { console.log("lt " + degrees)},
         rt: function(degrees) { console.log("rt " + degrees)},
@@ -33,12 +26,13 @@
 
       let always x = (\() -> x)
 
-      let length xs = royhelper.array.length xs
+      let jsarray xs = (Array.apply null xs)
+      let length xs = (jsarray xs).length
       let empty xs = (length xs) == 0
-      let concat xs ys = royhelper.array.concat xs ys
+      let concat xs ys = (jsarray xs).concat ys
       let cons x xs = concat [x] xs
       let head xs = xs@0
-      let tail xs = royhelper.array.slice xs 1
+      let tail xs = (jsarray xs).slice 1
 
       // xs :: IO ()
       let sequence xs = \() ->
