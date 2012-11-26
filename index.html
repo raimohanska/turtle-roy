@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dawghaus</title>
+
+    <link rel="stylesheet" href="tryroy.css" />
+
+    <script src="lib/jquery-1.8.2.min.js"></script>
+    <script src="lib/jquery.console.js"></script>
+    <script src="lib/roy.js"></script>
+    <script src="lib/tryroy.js"></script>
+    <script src="lib/royloader.js"></script>
+    <script>
+      window.royhelper = {
+        array : {
+          length: function(xs) { return xs.length },
+          concat: function(xs, ys) { return xs.concat(ys) },
+          slice: function(xs, i) { return xs.slice(i) }
+        }
+      }
+      window.turtle = {
+        lt: function(degrees) { console.log("lt " + degrees)},
+        rt: function(degrees) { console.log("rt " + degrees)},
+        fd: function(distance) { console.log("fd " + distance)}
+      }
+    </script>
+    <script type="text/roy" language="roy">
+      let show x = (Object x).toString()
+      let fd d = \() -> turtle.fd d
+      let lt a = \() -> turtle.lt a
+      let rt a = \() -> turtle.rt a
+
+      let always x = (\() -> x)
+
+      let length xs = royhelper.array.length xs
+      let empty xs = (length xs) == 0
+      let concat xs ys = royhelper.array.concat xs ys
+      let cons x xs = concat [x] xs
+      let head xs = xs@0
+      let tail xs = royhelper.array.slice xs 1
+
+      // xs :: IO ()
+      let sequence xs = \() ->
+        if empty xs then
+          always []
+        else
+          always (cons ((head xs) ()) (sequence(tail xs)))
+
+      let ioMonad = {
+        return: \x -> always x
+        bind: \action f -> 
+                           (\() -> 
+                             let value = action ()
+                             let action2 = f value
+                             action2 ()
+                           )
+      }
+
+      let runIO action = action ()
+
+      let putStrLn line = \() -> 
+        console.log line
+
+      let main = do ioMonad
+        text <- (\() -> "hello")
+        _ <- putStrLn text
+        _ <- putStrLn 1
+        putStrLn 2
+    </script>
+
+  </head>
+  <body>
+     <div class="console"></div>
+  </body>
+</html>

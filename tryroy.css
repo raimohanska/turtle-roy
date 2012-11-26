@@ -1,0 +1,47 @@
+/* Colors from Solarized: http://ethanschoonover.com/solarized#the-values */
+
+body {
+  background-color: #002b36;
+  padding: 0em 1em;
+  font-family: "Menlo", monospace;
+  font-size: 14px;
+  color: #839496;
+}
+
+.console {
+  padding: 1em 0em;
+  background-color: #002b36;
+}
+
+.jquery-console-cursor {
+  background: #073642;
+}
+
+.jquery-console-prompt-label {
+  color: #586e75;
+}
+
+.jquery-console-message-value {
+  color: #268bd2;
+}
+
+.jquery-console-message-type {
+  color: #2aa198;
+}
+
+.jquery-console-message-error {
+  color: #dc322f;
+}
+
+a:link {
+  color: #268bd2;
+}
+
+a:visited {
+  color: #6c71c4;
+}
+
+.cheatsheet pre {
+  background: #073642;
+  padding: 1em;
+}

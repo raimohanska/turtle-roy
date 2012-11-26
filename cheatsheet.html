@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Roy cheat sheet</title>
+    <link rel="stylesheet" href="tryroy.css" />
+  </head>
+  <body class="cheatsheet">
+    <!-- FIXME totally needs some bretvictorizing -->
+
+      <h2>Cheatsheet</h2>
+
+      <p>Functions:</p>
+
+<pre>
+let succ x = x + 1
+console.log (succ 5)
+
+let gcd a b =
+  if b == 0 then
+    a
+  else
+    gcd b (a % b)
+
+console.log (gcd 49 35)
+</pre>
+
+      <p>Lambdas:</p>
+
+<pre>
+console.log ((\x -&gt; x + 1) 6) 
+</pre>
+
+      <p>Type aliases:</p>
+
+<pre>
+type Person = {firstName: String, lastName: String}
+let getName (x : Person) = x.firstName ++ " " ++ x.lastName
+
+let brian = {firstName: "Brian", lastName: "McKenna"}
+console.log (getName brian)
+</pre>
+
+      <p>Tagged unions:</p>
+<pre>
+data Maybe a =
+  Some a | None
+
+let none = None ()
+
+let printSomething m = match m
+  case (Some x) = console.log x
+  case None = console.log "Empty"
+</pre>
+
+
+      <p>Monads:</p>
+
+<pre>
+type Request = {url: String, payload: String}
+
+let ajaxRequest = {
+  return: \x -&gt; x
+  bind: \(x : Request) f -&gt;
+    $.get x.url x.payload f
+}
+
+let v = (do ajaxRequest
+  value <- {url: 'prelude.roy', payload: 'stuff'}
+  console.log value
+  return value
+)
+
+console.log v
+</pre>
+
+    <a href="https://github.com/miikka/tryroy"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
+  </body>
+</html>

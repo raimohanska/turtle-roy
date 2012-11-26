@@ -1,0 +1,111 @@
+let id a = a
+let flip f a b = f b a
+
+let not a =
+  if a then
+    false
+  else
+    true
+
+let even a = (a % 2) == 0
+let odd a = not (even a)
+
+let succ n = n + 1
+let pred n = n - 1
+
+//let compose f g = λx → f (g x)
+//let ∘ = compose
+//let elem =
+//let ∈ = elem
+//let ∉ = not ∘ elem
+//let negate n = -n
+
+// List type
+
+// data List a = Cons a (List a) | Nil
+
+// let nil = Nil ()
+
+// let map f l = match l
+//   case (Cons v r) = Cons (f v) (map f r)
+//   case Nil = nil
+
+// let filter f l = match l
+//   case (Cons v r) = if (f v) then
+//       Cons v r
+//     else
+//       r
+//   case Nil = nil
+
+// let head l = match l
+//   case (Cons v _) = v
+
+// let tail l = match l
+//   case (Cons _ r) = r
+//   case Nil = nil
+
+// let empty l = match l
+//   case (Cons a b) = false
+//   case Nil = true
+
+// let length l = match l
+//   case (Cons _ r) = 1 + (length r)
+//   case Nil = 0
+
+// let foldl f i l = match l
+//   case (Cons v r) = foldl f (f i v) r
+//   case Nil = i
+
+// let replicate n v =
+//   if (n == 0) then
+//     nil
+//   else
+//     Cons v (replicate (n - 1) v)
+
+// let take n l = match l
+//   case (Cons v r) = if n == 0 then
+//       nil
+//     else
+//       Cons v (take (n - 1) r)
+//   case Nil = nil
+
+// Option type
+
+data Option a = Some a | None
+
+let maybe n f o = match o
+  case (Some s) = f s
+  case None = n
+
+let optionMonad = {
+  return: λx →
+    Some x
+  bind: λx f → match x
+    case (Some a) = f a
+    case None = None
+}
+
+// Either type.
+data Either a b = Left a | Right b
+
+let rightMonad = {
+  return: λx → Right x
+
+  bind: λx f → match x
+    case (Left a) = Left a
+    case (Right a) = f a
+}
+
+let leftMonad = {
+  return: λx → Left x
+
+  bind: λx f → match x 
+    case (Left a) = f a
+    case (Right a) = Right a
+}
+
+// Math constants.
+let π: Number = Math.PI
+let π2 = π * 2
+// tauday.com
+let τ = π2
