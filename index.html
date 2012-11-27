@@ -46,12 +46,8 @@
 
       // xs :: IO ()
       let sequence xs = \() ->
-        if empty xs then
-          []
-        else
-          let first = (head xs) ()
-          let rest = (sequence (tail xs)) ()
-          (cons first rest)
+        let invoke f = f ()
+        map invoke xs
 
       let map f xs = 
         if empty xs then
