@@ -11,18 +11,20 @@
     <script src="lib/roy.js"></script>
     <script src="lib/htmlrepl.js"></script>
     <script src="lib/royloader.js"></script>
+    <script src="turtle.js"></script>
     <script>
-      window.turtle = {
-        lt: function(degrees) { console.log("lt " + degrees)},
-        rt: function(degrees) { console.log("rt " + degrees)},
-        fd: function(distance) { console.log("fd " + distance)}
-      }
+      $(function() {
+        context = $("canvas").get(0).getContext('2d');
+        turtle = Turtle(context, 450, 150)
+      })
     </script>
     <script type="text/roy" language="roy">
       let show x = (Object x).toString()
       let fd d = \() -> turtle.fd d
       let lt a = \() -> turtle.lt a
       let rt a = \() -> turtle.rt a
+      let pendown = \() -> turtle.pendown ()
+      let penup = \() -> turtle.penup ()
 
       let always x = (\() -> x)
 
@@ -68,7 +70,7 @@
 
   </head>
   <body>
-     <canvas></canvas>
+     <canvas width="900" height="300"></canvas>
      <div class="console"></div>
   </body>
 </html>

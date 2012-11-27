@@ -9,7 +9,6 @@ body {
 }
 
 canvas {
-  width: 900px; height: 300px;
   background: white;
 }
 
