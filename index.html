@@ -28,37 +28,29 @@
       }
     </script>
     <script type="text/roy" language="roy">
-      let show x = (Object x).toString()
+      // Turtle interface in Roy
+
       let fd d = \() -> turtle.fd d
       let lt a = \() -> turtle.lt a
       let rt a = \() -> turtle.rt a
       let pendown = \() -> turtle.pendown ()
       let penup = \() -> turtle.penup ()
 
-      let always x = (\() -> x)
+      // Array utils
 
+      let always x = (\() -> x)
       let length xs = royhelper.arrays.length xs
       let empty xs = (length xs) == 0
       let concat xs ys = royhelper.arrays.concat xs ys
       let cons x xs = concat [x] xs
       let head xs = xs@0
       let tail xs = royhelper.arrays.tail xs
-
-      // xs :: IO ()
-      let sequence fs = \() ->
-        let invoke f = f ()
-        map invoke fs
-
-      let repeat n f = sequence (times n f)
-
       let times n x = map (always x) (series 1 n)
-
       let map f xs = 
         if empty xs then
           []
         else
           cons (f (head xs)) (map f (tail xs))
-
       let filter f xs = 
         if empty xs then
           []
@@ -67,33 +59,18 @@
             cons (head xs) (filter f (tail xs))
           else
             filter f (tail xs)
-
       let series start end = 
         if start > end then
           []
         else
           cons start (series (start+1) end)
 
-      let ioMonad = {
-        return: \x -> always x
-        bind: \action f -> 
-                           (\() -> 
-                             let value = action ()
-                             let action2 = f value
-                             action2 ()
-                           )
-      }
+      // Action sequencing / repeat utils
 
-      let runIO action = action ()
-
-      let putStrLn line = \() -> 
-        console.log line
-
-      let main = do ioMonad
-        text <- (\() -> "hello")
-        _ <- putStrLn text
-        _ <- putStrLn 1
-        putStrLn 2
+      let sequence fs = \() ->
+        let invoke f = f ()
+        map invoke fs
+      let repeat n f = sequence (times n f)
     </script>
 
   </head>
