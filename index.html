@@ -17,6 +17,16 @@
         turtle = Turtle($("#turtlegraphics"), 900, 300)
       })
     </script>
+    <script>
+      royhelper = {
+        arrays: {
+          concat: function(xs, ys) { return xs.concat(ys) },
+          length: function(xs) { return xs.length },
+          tail: function(xs) { return xs.slice(1) }
+
+        }
+      }
+    </script>
     <script type="text/roy" language="roy">
       let show x = (Object x).toString()
       let fd d = \() -> turtle.fd d
@@ -27,13 +37,12 @@
 
       let always x = (\() -> x)
 
-      let jsarray xs = (Array.apply null xs)
-      let length xs = (jsarray xs).length
+      let length xs = royhelper.arrays.length xs
       let empty xs = (length xs) == 0
-      let concat xs ys = (jsarray xs).concat ys
+      let concat xs ys = royhelper.arrays.concat xs ys
       let cons x xs = concat [x] xs
       let head xs = xs@0
-      let tail xs = (jsarray xs).slice 1
+      let tail xs = royhelper.arrays.tail xs
 
       // xs :: IO ()
       // TODO: generalize to monads if possible
