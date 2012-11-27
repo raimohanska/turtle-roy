@@ -14,8 +14,7 @@
     <script src="turtle.js"></script>
     <script>
       $(function() {
-        context = $("canvas").get(0).getContext('2d');
-        turtle = Turtle(context, 450, 150)
+        turtle = Turtle($("#turtlegraphics"), 900, 300)
       })
     </script>
     <script type="text/roy" language="roy">
@@ -70,7 +69,8 @@
 
   </head>
   <body>
-     <canvas width="900" height="300"></canvas>
+     <div id="turtlegraphics">
+     </div>
      <div class="console"></div>
   </body>
 </html>
