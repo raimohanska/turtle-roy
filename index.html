@@ -59,6 +59,15 @@
         else
           cons (f (head xs)) (map f (tail xs))
 
+      let filter f xs = 
+        if empty xs then
+          []
+        else
+          if f (head xs) then
+            cons (head xs) (filter f (tail xs))
+          else
+            filter f (tail xs)
+
       let series start end = 
         if start > end then
           []
