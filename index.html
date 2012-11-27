@@ -45,6 +45,12 @@
           let rest = (sequence (tail xs)) ()
           (cons first rest)
 
+      let series start end = 
+        if start > end then
+          []
+        else
+          cons start (series (start+1) end)
+
       let ioMonad = {
         return: \x -> always x
         bind: \action f -> 
