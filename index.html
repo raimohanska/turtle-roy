@@ -45,9 +45,13 @@
       let tail xs = royhelper.arrays.tail xs
 
       // xs :: IO ()
-      let sequence xs = \() ->
+      let sequence fs = \() ->
         let invoke f = f ()
-        map invoke xs
+        map invoke fs
+
+      let repeat n f = sequence (times n f)
+
+      let times n x = map (always x) (series 1 n)
 
       let map f xs = 
         if empty xs then
