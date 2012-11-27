@@ -1,16 +1,23 @@
 /* Colors from Solarized: http://ethanschoonover.com/solarized#the-values */
 
 body {
-  background-color: #002b36;
   padding: 0em 1em;
   font-family: "Menlo", monospace;
   font-size: 14px;
   color: #839496;
+  background: #eeeeee;
+}
+
+canvas {
+  width: 900px; height: 300px;
+  background: white;
 }
 
 .console {
   padding: 1em 0em;
   background-color: #002b36;
+  width: 900px; height: 200px;
+  overflow: auto;
 }
 
 .jquery-console-cursor {
