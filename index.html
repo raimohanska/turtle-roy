@@ -39,7 +39,7 @@
       let cons x xs = concat [x] xs
       let head xs = xs@0
       let tail xs = (jsarray xs).slice 1
-      let times n x = map (always x) (series 1 n)
+      let times n x = map (always x) (range 1 n)
       let map f xs = 
         if empty xs then
           []
@@ -53,11 +53,11 @@
             cons (head xs) (filter f (tail xs))
           else
             filter f (tail xs)
-      let series start end = 
+      let range start end = 
         if start > end then
           []
         else
-          cons start (series (start+1) end)
+          cons start (range (start+1) end)
 
       // Action sequencing / repeat utils
 
