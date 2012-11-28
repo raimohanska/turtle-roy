@@ -67,14 +67,17 @@
         repeat(times - 1, f)
       }
     }
+    function delayed(f) {
+      return function() {
+        enqueue(f)
+      }
+    }
     function stepper(total, step, f) {
       if (total < 0) step = -step
       function delayedStep(s) {
-        return function() {
-          enqueue(function() {
+        return delayed(function() {
             f(s)
-          })
-        }
+        })
       }
       repeat(Math.floor(Math.abs(total / step)), delayedStep(step))
       var remainder = total % step
@@ -109,10 +112,10 @@
           drawTurtle()
         })
       },
-      pendown: enqueue(function() {
+      pendown: delayed(function() {
         pendown = true
       }),
-      penup: enqueue(function() {
+      penup: delayed(function() {
         pendown = false
       }),
       spin: function(degrees, delay) {
