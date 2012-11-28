@@ -1,18 +1,15 @@
-# Try Roy
+# Turtle Roy
 
-![](http://cl.ly/image/2w0F2W033W3T/Kuvankaappaus%202012-10-16%20kello%2021.36.23.png)
+A Roy programming/learning environment with Turtle Graphics, as in the
+Logo programming language.
 
-Roy is a small functional programming language that compiles to JavaScript.
-This is a quick hack to bring a [Roy][roy] REPL into your browser. It's a mix
-of Roy and the following ingredients:
+This is still largely in the works, so move along :) I'll hopefully publish an online
+demo soon.
 
-* [jquery-console](https://github.com/chrisdone/jquery-console)
-* [Solarized color scheme](http://ethanschoonover.com/solarized)
+You can of course try it on your own box by running the "run" script.
 
-It was created by [Miikka "arcatan" Koskinen][miikka]. To make it better, [open
-an issue][issues] or send a pull request on GitHub.
+# Credits
 
-[roy]: http://roy.brianmckenna.org
-[miikka]: http://miikka.me/
-[arcatan]: http://twitter.com/arcatan
-[issues]: https://github.com/miikka/tryroy/issues
+Thanks to Miikka "arcatan" Koskinen for creating [tryroy](https://github.com/miikka/tryroy), from where I shamelessly stole the Roy browser REPL.
+
+Thanks to Brian McKenna for the [Roy](https://github.com/pufuwozu/roy) language and support.
