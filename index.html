@@ -16,7 +16,7 @@
     <script language="roy" src="script/turtle.roy"></script>
     <script>
       $(function() {
-        royRepl.init($(".console"))
+        var console = royRepl.init($(".console"))
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
         var square = "let square = repeat 4 (sequence[fd 50, lt 90])"
@@ -46,18 +46,11 @@
         }
         $("#cookbook li").click(function() {
           var text = $(this).attr("data-code")
-          pasteToConsole(text)
-        })
-        function pasteToConsole(text) {
-          $(".jquery-console-typer").trigger("paste").val(text).focus()
-          var e = jQuery.Event("keydown");
-          e.which = 13;
-          e.keyCode = 13;
+          console.pasteToConsole(text)
           setTimeout(function() {
-            $(".jquery-console-typer").trigger(e);
             $("#cookbook ul").slideUp("fast")
           }, 100)
-        }
+        })
       })
     </script>
   </head>
