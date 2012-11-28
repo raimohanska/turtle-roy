@@ -34,7 +34,6 @@
     var queue = []
     var polling = false
     var delay = 1
-    var chunk = 5
 
     function enqueue(f) {
       queue.push(f)
@@ -50,6 +49,7 @@
 
     function checkQueue() {
       polling = false
+      var chunk = Math.max(1, queue.length / 100)
       var left = chunk
       while (left > 0 && queue.length > 0) {
         var first = queue.splice(0,1)[0]
