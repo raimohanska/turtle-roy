@@ -1,0 +1,12 @@
+let fd d = \() -> turtle.fd d
+let lt a = \() -> turtle.lt a
+let rt a = \() -> turtle.rt a
+let pendown = \() -> turtle.pendown ()
+let penup = \() -> turtle.penup ()
+
+// Action sequencing / repeat utils
+
+let sequence fs = \() ->
+  let invoke f = f ()
+  map invoke fs
+let repeat n f = sequence (times n f)

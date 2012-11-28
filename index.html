@@ -12,61 +12,13 @@
     <script src="lib/htmlrepl.js"></script>
     <script src="lib/royloader.js"></script>
     <script src="turtle.js"></script>
+    <script language="roy" src="lib/arrays.roy"></script>
+    <script language="roy" src="turtle.roy"></script>
     <script>
       $(function() {
         turtle = Turtle($("#turtlegraphics"), 900, 300)
       })
     </script>
-    <script type="text/roy" language="roy">
-      // Turtle interface in Roy
-
-      let fd d = \() -> turtle.fd d
-      let lt a = \() -> turtle.lt a
-      let rt a = \() -> turtle.rt a
-      let pendown = \() -> turtle.pendown ()
-      let penup = \() -> turtle.penup ()
-
-      // Array utils
-
-      let jsarray xs =
-        let plusOne = Array.prototype.concat.apply [1] xs
-        let jsarr = Array.apply null plusOne
-        jsarr.slice 1
-      let always x = (\() -> x)
-      let length xs = (jsarray xs).length
-      let empty xs = (length xs) == 0
-      let concat xs ys = (jsarray xs).concat ys
-      let cons x xs = concat [x] xs
-      let head xs = xs@0
-      let tail xs = (jsarray xs).slice 1
-      let times n x = map (always x) (range 1 n)
-      let map f xs = 
-        if empty xs then
-          []
-        else
-          cons (f (head xs)) (map f (tail xs))
-      let filter f xs = 
-        if empty xs then
-          []
-        else
-          if f (head xs) then
-            cons (head xs) (filter f (tail xs))
-          else
-            filter f (tail xs)
-      let range start end = 
-        if start > end then
-          []
-        else
-          cons start (range (start+1) end)
-
-      // Action sequencing / repeat utils
-
-      let sequence fs = \() ->
-        let invoke f = f ()
-        map invoke fs
-      let repeat n f = sequence (times n f)
-    </script>
-
   </head>
   <body>
      <div id="turtlegraphics">
