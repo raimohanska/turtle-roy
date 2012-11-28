@@ -61,15 +61,6 @@
       }
     }
 
-    function delayed(f) {
-      return function() {
-        var args = arguments
-        var command = function() {
-          f.apply(null, args)
-        }
-        enqueue(command)
-      };
-    }
     function repeat(times, f) {
       if (times > 0) {
         f()
@@ -118,10 +109,10 @@
           drawTurtle()
         })
       },
-      pendown: delayed(function() {
+      pendown: enqueue(function() {
         pendown = true
       }),
-      penup: delayed(function() {
+      penup: enqueue(function() {
         pendown = false
       }),
       spin: function(degrees, delay) {
