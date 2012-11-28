@@ -18,6 +18,23 @@
       $(function() {
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
+        $("#cookbook").hover(function() {
+          $("#cookbook ul").slideToggle("fast")
+        })
+        function pasteToConsole(text) {
+          $(".jquery-console-typer").trigger("paste").val(text)
+        }
+        function addExample(name, code) {
+          var element = $("<li>").attr("data-code", code).text(name)
+          $("#cookbook ul").append(element)
+        }
+        var square = "let square = repeat 4 (sequence[fd 50, lt 90])"
+        addExample("Square", square)
+        addExample("Flower", square + "\nlet flower = repeat 36 (rt 10, square)")
+        $("#cookbook li").click(function() {
+          var text = $(this).attr("data-code")
+          pasteToConsole(text)
+        })
       })
     </script>
   </head>
@@ -32,5 +49,12 @@
      <div id="turtlegraphics">
      </div>
      <div class="console"></div>
+     <div id="bottom">
+       <div id="cookbook">
+         <label>Examples</label>
+         <ul>
+         </ul>
+       </div>
+     </div>
   </body>
 </html>

@@ -28,6 +28,39 @@ body {
   background: white;
 }
 
+#bottom {
+  position: relative;
+  width: 900px; height: 30px;
+}
+
+#cookbook {
+  position: absolute;
+  right: 0;
+}
+
+#cookbook label {
+  z-index: 1000;
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+#cookbook ul {
+  display: none;
+  position: absolute;
+  bottom: 3px;
+  right: 0;
+  list-style: none;
+  padding: 10px;
+  background: #eeeeee;
+  border-radius: 10px 0 0 0;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+#cookbook li {
+  margin: 0;
+}
+
 .console {
   padding: 1em 0em;
   background-color: #002b36;
