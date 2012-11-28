@@ -21,6 +21,7 @@
         var square = "let square = repeat 4 (sequence[fd 50, lt 90])"
         addExample("Turtle moves", "fd 50\nlt 45\nfd 50\nrt 45\nfd 50")
         addExample("Square", square + "\nsquare")
+        addExample("Circle", "let circle = repeat 360 (sequence [fd 1, rt 1])\ncircle")
         addExample("Flower", square + "\nlet flower = repeat 36 (rt 10, square)\nflower")
         addExample("Factorial", "let factorial n = if n==1 then 1 else n * (factorial n - 1)\nfactorial 5")
         addExample("Strings", '"Apple" ++ "sauce"')
