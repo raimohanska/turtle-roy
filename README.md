@@ -5,8 +5,6 @@ A [Roy](http://roy.brianmckenna.org/) programming/learning environment with [Tur
 
 Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
-You can of course try it on your own box too by running the "run" script.
-
 # Turtle Roy API
 
     fd x    | moves x pixels forward
@@ -57,6 +55,10 @@ Lists
     length [1,2,3]
     let reverse xs = if (empty xs) then [] else concat (reverse (tail xs)) [head xs]
     reverse [1,2,3]
+    
+# Running
+
+    ./sbt ~container:start
 
 # Credits
 
