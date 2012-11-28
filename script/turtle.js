@@ -31,8 +31,47 @@
       turtle.lineTo(0, -10);
       turtle.stroke();
     }
+    var queue = []
+    var polling = false
+    var delay = 1
+    var chunk = 5
+
+    function enqueue(f) {
+      queue.push(f)
+      schedule()
+    }
+
+    function schedule() {
+      if (!polling) {
+        polling = true
+        setTimeout(checkQueue, delay)
+      }
+    }
+
+    function checkQueue() {
+      polling = false
+      var left = chunk
+      while (left > 0 && queue.length > 0) {
+        var first = queue.splice(0,1)[0]
+        first()
+        left--
+      }
+      if (queue.length > 0) {
+        schedule()
+      }
+    }
+
+    function delayed(f) {
+      return function() {
+        var args = arguments
+        var command = function() {
+          f.apply(null, args)
+        }
+        enqueue(command)
+      };
+    }
     var api = {
-      fd: function(dist) {
+      fd: delayed(function(dist) {
         if (pendown) {
           paper.beginPath()
           paper.moveTo(0, 0)
@@ -43,22 +82,22 @@
         paper.translate(0, -dist)
         turtle.translate(0, -dist)
         drawTurtle()
-      },
+      }),
       lt: function(angle) {
         this.rt(-angle)
       },
-      rt: function(angle) {
+      rt: delayed(function(angle) {
         clearTurtle()
         paper.rotate(angle * Math.PI / 180)
         turtle.rotate(angle * Math.PI / 180)
         drawTurtle()
-      },
-      pendown: function() {
+      }),
+      pendown: delayed(function() {
         pendown = true
-      },
-      penup: function() {
+      }),
+      penup: delayed(function() {
         pendown = false
-      },
+      }),
       spin: function(degrees, delay) {
         this.lt(10)
         if (degrees > 10) {
