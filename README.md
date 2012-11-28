@@ -3,10 +3,9 @@
 A Roy programming/learning environment with Turtle Graphics, as in the
 Logo programming language.
 
-This is still largely in the works, so move along :) I'll hopefully publish an online
-demo soon.
+Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
-You can of course try it on your own box by running the "run" script.
+You can of course try it on your own box too by running the "run" script.
 
 # Examples
 
