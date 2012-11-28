@@ -19,8 +19,17 @@
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
         var square = "let square = repeat 4 (sequence[fd 50, lt 90])"
-        addExample("Square", square)
-        addExample("Flower", square + "\nlet flower = repeat 36 (rt 10, square)")
+        addExample("Turtle moves", "fd 50\nlt 45\nfd 50\nrt 45\nfd 50")
+        addExample("Square", square + "\nsquare")
+        addExample("Flower", square + "\nlet flower = repeat 36 (rt 10, square)\nflower")
+        addExample("Factorial", "let factorial n = if n==1 then 1 else n * (factorial n - 1)\nfactorial 5")
+        addExample("Strings", '"Apple" ++ "sauce"')
+        addExample("Lists - range", "range 1 10")
+        addExample("Lists - head", "head [1,2,3]")
+        addExample("Lists - tail", "tail [1,2,3]")
+        addExample("Lists - concat", "concat [1,2,3] [4,5,6]")
+        addExample("Lists - reverse", "let reverse xs = if (empty xs) then [] else concat (reverse (tail xs)) [head xs]\nreverse [1,2,3]")
+
         
         $("#cookbook").hover(function() {
           $("#cookbook ul").slideToggle("fast")

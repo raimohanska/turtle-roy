@@ -44,16 +44,21 @@ body {
   cursor: pointer;
 }
 
+#cookbook {
+  color: black;
+}
+
 #cookbook ul {
   display: none;
   position: absolute;
+  width: 135px;
   bottom: 3px;
   right: 0;
   list-style: none;
   padding: 10px;
   background: #eeeeee;
   border-radius: 10px 0 0 0;
-  line-height: 20px;
+  line-height: 30px;
   cursor: pointer;
 }
 
