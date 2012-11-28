@@ -44,6 +44,12 @@
         })
         function pasteToConsole(text) {
           $(".jquery-console-typer").trigger("paste").val(text).focus()
+          var e = jQuery.Event("keydown");
+          e.which = 13;
+          e.keyCode = 13;
+          setTimeout(function() {
+            $(".jquery-console-typer").trigger(e);
+          }, 100)
         }
       })
     </script>
