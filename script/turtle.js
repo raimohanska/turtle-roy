@@ -31,7 +31,7 @@
       turtle.lineTo(0, -10);
       turtle.stroke();
     }
-    return {
+    var api = {
       fd: function(dist) {
         if (pendown) {
           paper.beginPath()
@@ -58,7 +58,16 @@
       },
       penup: function() {
         pendown = false
+      },
+      spin: function(degrees, delay) {
+        this.lt(10)
+        if (degrees > 10) {
+          setTimeout(function() {
+            api.spin(degrees - 10, delay)
+          }, delay)
+        }
       }
     }
+    return api
   }
 })()
