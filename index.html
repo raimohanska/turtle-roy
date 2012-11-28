@@ -17,16 +17,6 @@
         turtle = Turtle($("#turtlegraphics"), 900, 300)
       })
     </script>
-    <script>
-      royhelper = {
-        arrays: {
-          concat: function(xs, ys) { return xs.concat(ys) },
-          length: function(xs) { return xs.length },
-          tail: function(xs) { return xs.slice(1) }
-
-        }
-      }
-    </script>
     <script type="text/roy" language="roy">
       // Turtle interface in Roy
 
@@ -38,13 +28,17 @@
 
       // Array utils
 
+      let jsarray xs =
+        let plusOne = Array.prototype.concat.apply [1] xs
+        let jsarr = Array.apply null plusOne
+        jsarr.slice 1
       let always x = (\() -> x)
-      let length xs = royhelper.arrays.length xs
+      let length xs = (jsarray xs).length
       let empty xs = (length xs) == 0
-      let concat xs ys = royhelper.arrays.concat xs ys
+      let concat xs ys = (jsarray xs).concat ys
       let cons x xs = concat [x] xs
       let head xs = xs@0
-      let tail xs = royhelper.arrays.tail xs
+      let tail xs = (jsarray xs).slice 1
       let times n x = map (always x) (series 1 n)
       let map f xs = 
         if empty xs then
