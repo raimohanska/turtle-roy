@@ -32,6 +32,9 @@
 
         
         $("#cookbook").hover(function() {
+          $("#cookbook ul").slideDown("fast")
+        }, function() {})
+        $("#cookbook label").click(function() {
           $("#cookbook ul").slideToggle("fast")
         })
         function addExample(name, code) {
@@ -49,6 +52,7 @@
           e.keyCode = 13;
           setTimeout(function() {
             $(".jquery-console-typer").trigger(e);
+            $("#cookbook ul").slideUp("fast")
           }, 100)
         }
       })

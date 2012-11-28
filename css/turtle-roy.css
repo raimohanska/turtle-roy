@@ -39,7 +39,6 @@ body {
 }
 
 #cookbook label {
-  z-index: 1000;
   background: #eeeeee;
   cursor: pointer;
 }
@@ -49,6 +48,7 @@ body {
 }
 
 #cookbook ul {
+  z-index: 1000;
   display: none;
   position: absolute;
   width: 135px;
@@ -64,6 +64,10 @@ body {
 
 #cookbook li {
   margin: 0;
+}
+
+#cookbook li:hover {
+  background: yellow;
 }
 
 .console {
