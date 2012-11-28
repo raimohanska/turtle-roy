@@ -7,12 +7,20 @@
     element.css({position: "relative", width: w, height: h})
     var paper = createCanvas(0)
     var turtle = createCanvas(1)
-    turtle.clearRect(0, 0, w, h)
+    paper.save()
+    turtle.save()
 
-    paper.translate(x, y);
-    turtle.translate(x, y);
+    init()
 
-    drawTurtle()
+    function init() {
+      clearTurtle()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
+      paper.clearRect(0, 0, w, h)
+      paper.translate(x, y);
+      turtle.translate(x, y);
+      drawTurtle()
+    }
     function createCanvas(zIndex) {
       var canvas = $("<canvas></canvas>").attr("width", w).attr("height", h)
       canvas.css({position: "absolute", left: 0, right: 0})
@@ -120,7 +128,10 @@
       }),
       spin: function(degrees, delay) {
         this.lt(360)
-      }
+      },
+      clear: delayed(function() {
+        init()
+      })
     }
     return api
   }

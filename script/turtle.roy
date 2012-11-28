@@ -3,6 +3,7 @@ let lt a = \() -> turtle.lt a
 let rt a = \() -> turtle.rt a
 let pendown = \() -> turtle.pendown ()
 let penup = \() -> turtle.penup ()
+let clear = \() -> turtle.clear ()
 
 // Action sequencing / repeat utils
 
