@@ -71,6 +71,7 @@ body {
 }
 
 #share {
+  display: none;
   position: absolute;
   left: 0;
 }
