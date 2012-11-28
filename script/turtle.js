@@ -70,28 +70,54 @@
         enqueue(command)
       };
     }
-    var api = {
-      fd: delayed(function(dist) {
-        if (pendown) {
-          paper.beginPath()
-          paper.moveTo(0, 0)
-          paper.lineTo(0, -dist)
-          paper.stroke()
+    function repeat(times, f) {
+      if (times > 0) {
+        f()
+        repeat(times - 1, f)
+      }
+    }
+    function stepper(total, step, f) {
+      if (total < 0) step = -step
+      function delayedStep(s) {
+        return function() {
+          enqueue(function() {
+            f(s)
+          })
         }
-        clearTurtle()
-        paper.translate(0, -dist)
-        turtle.translate(0, -dist)
-        drawTurtle()
-      }),
+      }
+      repeat(Math.floor(Math.abs(total / step)), delayedStep(step))
+      var remainder = total % step
+      if (remainder) {
+        delayedStep(remainder)()
+      }
+    }
+
+    var api = {
+      fd: function(dist) {
+        stepper(dist, 5, function(step) {
+          if (pendown) {
+            paper.beginPath()
+            paper.moveTo(0, 0)
+            paper.lineTo(0, -step)
+            paper.stroke()
+          }
+          clearTurtle()
+          paper.translate(0, -step)
+          turtle.translate(0, -step)
+          drawTurtle()
+        })
+      },
       lt: function(angle) {
         this.rt(-angle)
       },
-      rt: delayed(function(angle) {
-        clearTurtle()
-        paper.rotate(angle * Math.PI / 180)
-        turtle.rotate(angle * Math.PI / 180)
-        drawTurtle()
-      }),
+      rt: function(angle) {
+        stepper(angle, 10, function(a) {
+          clearTurtle()
+          paper.rotate(a * Math.PI / 180)
+          turtle.rotate(a * Math.PI / 180)
+          drawTurtle()
+        })
+      },
       pendown: delayed(function() {
         pendown = true
       }),
@@ -99,12 +125,7 @@
         pendown = false
       }),
       spin: function(degrees, delay) {
-        this.lt(10)
-        if (degrees > 10) {
-          setTimeout(function() {
-            api.spin(degrees - 10, delay)
-          }, delay)
-        }
+        this.lt(360)
       }
     }
     return api
