@@ -7,7 +7,18 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
 You can of course try it on your own box too by running the "run" script.
 
+# Turtle Roy API
+
+    fd x    | moves x pixels forward
+    lt x    | turns left x degrees
+    rt x    | turns right x degrees
+    penup   | lifts the pen, no trace left when moving
+    pendown | lowers the pen again for drawing
+    clear   | clear the paper and reset turtle to center
+
 # Examples
+
+Bunch of examples available in the demo menu. Some more stuff here.
 
 Basic Turtle commands
 
