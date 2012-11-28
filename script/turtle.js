@@ -17,6 +17,7 @@
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
+      paper.clearRect(0, 0, w, h)
       paper.translate(x, y);
       turtle.translate(x, y);
       drawTurtle()
@@ -29,7 +30,7 @@
       return canvas.get(0).getContext('2d');
     }
     function clearTurtle() {
-      turtle.clearRect(-10, -10, 21, 21)
+      turtle.clearRect(-11, -11, 23, 23)
     }
     function drawTurtle() {
       turtle.beginPath(); 
