@@ -8,6 +8,22 @@ body {
   background: #eeeeee;
 }
 
+#top {
+  width: 900px; height: 50px;
+  position: relative;
+}
+
+#info {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#info p {
+  margin: 0;
+}
+
 #turtlegraphics {
   background: white;
 }
