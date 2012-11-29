@@ -42,7 +42,6 @@
         }, function() {})
         $("#cookbook label").click(function() {
           $("#cookbook ul").slideToggle("fast")
-          console.log(repl.history)
         })
         function addExample(name, code) {
           var element = $("<li>").attr("data-code", code).text(name)
@@ -68,16 +67,13 @@
         description = Bacon.UI.textFieldValue($("#description"))
         shareClick = shareButton.asEventStream("click")
         shared = shareClick.map(true).toProperty(false)
-        shareData = nickname.combine(description, function(nick, desc) {
-          var code = _(repl.history).join("\n")
-          return {
-            author: nick,
-            description: desc,
+        code = repl.history.map(function(h) { return h.join("\n") })
+        shareData = Bacon.combineTemplate({
+            author: nickname,
+            description: description,
             code: code
-          }
-        })
+          })
         shareResult = shareClick.map(shareData).map(function(data) {
-          var code = _(repl.history).join("\n")
           return {
             url: "/turtle",
             type: "post",
@@ -87,14 +83,26 @@
         }).ajax()
         pending = shareResult.pending(shareClick)
         pending.assign($("#share .ajax"), "toggle")
-        okToShare = nickname.map(nonEmpty).and(description.map(nonEmpty)).and(pending.not())
+        changedSinceShare = shareClick.pending(code.changes())
+        okToShare = nickname.map(nonEmpty)
+          .and(description.map(nonEmpty)).and(pending.not())
+          .and(changedSinceShare)
         okToShare.not().assign(shareButton, "attr", "disabled")
         shareLink = $("#share a")
-        shared.and(pending.not()).assign(shareLink, "toggle")
+        var showLink = shared.and(pending.not()).and(changedSinceShare.not())
+        Bacon.UI.toggle(showLink, shareLink)
+        Bacon.UI.toggle(showLink.not(), shareButton)
         shareResult.map(".id").onValue(function(id) {
           shareLink.attr("href", "/?turtle=" + id)
-          shareLink.text(id)
+          shareLink.text("share this link!")
         })
+        var inputs = $("#share input")
+        shareResult.onValue(function() { 
+          $("#description").val("").trigger("keyup")
+        })
+        Bacon.UI.enable(showLink.not(), inputs)
+        anythingToShare = code.changes().map(true).toProperty(false)
+        Bacon.UI.fadeToggle(anythingToShare, $("#share"), "slow")
         var turtleId = document.location.search.split("=")[1]
         if (turtleId) {
           $.ajax("/turtle/" + turtleId).done(function(turtle) {

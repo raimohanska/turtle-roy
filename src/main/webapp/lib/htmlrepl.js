@@ -9,7 +9,8 @@
   function fmtError(value) { return fmt(value, "error"); }
   
   function init(console) {
-    var history = []
+    var history = new Bacon.Bus()
+
     setTimeout(function() {
       setInterval(function() {$(".jquery-console-cursor").toggleClass("blink")}, 500)
     }, 2500)
@@ -68,7 +69,7 @@
       }
     });
     return {
-      history: history,
+      history: history.scan([], ".concat"),
       paste: function(text) {
         console.find(".jquery-console-typer").trigger("paste").val(text).focus()
         var e = jQuery.Event("keydown");

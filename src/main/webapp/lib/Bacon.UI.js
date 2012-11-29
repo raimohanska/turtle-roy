@@ -46,5 +46,27 @@
     var initialValue = options.filter(':checked').val()
     return options.asEventStream("change").map('.target.value').toProperty(initialValue)
   }
+  Bacon.UI.toggle = function(property, element) {
+    property.assign(element, "toggle")
+  }
+  Bacon.UI.fadeToggle = function(property, element, param) {
+    property.onValue(function(val) {
+      element[val?"fadeIn":"fadeOut"](param)
+    })
+  }
+  Bacon.UI.slideToggle = function(property, element, param) {
+    property.onValue(function(val) {
+      element[val?"slideDown":"slideUp"](param)
+    })
+  }
+  Bacon.UI.enable = function(property, element) {
+    property.onValue(function(val) {
+      if (val) {
+        element.removeAttr("disabled")
+      } else {
+        element.attr("disabled", "disabled")
+      }
+    })
+  }
 })();
 
