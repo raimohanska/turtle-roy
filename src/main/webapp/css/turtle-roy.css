@@ -52,7 +52,7 @@ body {
   display: none;
   position: absolute;
   width: 135px;
-  bottom: 3px;
+  bottom: 2px;
   right: 0;
   list-style: none;
   padding: 10px;
@@ -86,7 +86,7 @@ body {
   display: none;
   position: absolute;
   width: 135px;
-  bottom: 17px;
+  bottom: 16px;
   left: 0;
   background: #eeeeee;
   border-radius: 0 10px 0 0;
