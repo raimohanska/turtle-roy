@@ -12,17 +12,23 @@ trait TurtleStorage {
 }
 
 class MongoStorage extends TurtleStorage with MongoDBSupport {
-  def localMongo = {
-    val server = new ServerAddress("localhost")
-    MongoConnection(server)("turtleroy")
+  def initMongo = {
+    val uri = Option.apply(java.lang.System.getenv("MONGOHQ_URL"))
+    uri match {
+      case Some(uri) => {
+        val mongoURI = MongoURI(uri);
+        val db = mongoURI.connectDB;
+        db.authenticate(mongoURI.username, new String(mongoURI.password))
+        db
+      }
+      case None => {
+        val server = new ServerAddress("localhost")
+        MongoConnection(server)("turtleroy")
+      }
+    }
+
   }
-  def hqMongo = {
-    val mongoURI = MongoURI(java.lang.System.getenv("MONGOHQ_URL"));
-    val db = mongoURI.connectDB;
-    db.authenticate(mongoURI.username, new String(mongoURI.password))
-    db
-  }
-  lazy val mongoDB = hqMongo
+  lazy val mongoDB = initMongo
   protected def turtleCollection = mongoDB("turtle")
   def findTurtle(id: String) = turtleCollection.findOne(MongoDBObject("id" -> id)).map(toObject[Turtle])
   def storeTurtle(turtle: Turtle) = turtleCollection.findAndModify(

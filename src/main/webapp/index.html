@@ -12,6 +12,8 @@
     <script src="lib/roy.js"></script>
     <script src="lib/htmlrepl.js"></script>
     <script src="lib/royloader.js"></script>
+    <script src="lib/Bacon.js"></script>
+    <script src="lib/Bacon.UI.js"></script>
     <script src="script/turtle.js"></script>
     <script language="roy" src="lib/arrays.roy"></script>
     <script language="roy" src="script/turtle.roy"></script>
@@ -53,10 +55,53 @@
             $("#cookbook ul").slideUp("fast")
           }, 100)
         })
-        $("#share").click(function() {
-          var code = _(repl.history).join("\n")
-          console.log(code)
+        shareButton = $("#share button")
+        $("#share label").hover(function() {
+          $("#share form").slideDown("fast")
+        }, function() {})
+        $("#share label").click(function() {
+          $("#share form").slideToggle("fast")
         })
+
+        function nonEmpty(x) { return x.length > 0 }
+        nickname = Bacon.UI.textFieldValue($("#nick"))
+        description = Bacon.UI.textFieldValue($("#description"))
+        shareClick = shareButton.asEventStream("click")
+        shared = shareClick.map(true).toProperty(false)
+        shareData = nickname.combine(description, function(nick, desc) {
+          var code = _(repl.history).join("\n")
+          return {
+            author: nick,
+            description: desc,
+            code: code
+          }
+        })
+        shareResult = shareClick.map(shareData).map(function(data) {
+          var code = _(repl.history).join("\n")
+          return {
+            url: "/turtle",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(data)
+          }
+        }).ajax()
+        pending = shareResult.pending(shareClick)
+        pending.assign($("#share .ajax"), "toggle")
+        okToShare = nickname.map(nonEmpty).and(description.map(nonEmpty)).and(pending.not())
+        okToShare.not().assign(shareButton, "attr", "disabled")
+        shareLink = $("#share a")
+        shared.and(pending.not()).assign(shareLink, "toggle")
+        shareResult.map(".id").onValue(function(id) {
+          shareLink.attr("href", "/?turtle=" + id)
+          shareLink.text(id)
+        })
+        var turtleId = document.location.search.split("=")[1]
+        if (turtleId) {
+          $.ajax("/turtle/" + turtleId).done(function(turtle) {
+            var code = turtle.content.code
+            repl.paste(code)
+          })
+        }
       })
     </script>
   </head>
@@ -72,7 +117,15 @@
      </div>
      <div class="console"></div>
      <div id="bottom">
-       <a id="share" href="#">Share</a>
+       <div id="share">
+         <label>Save & Share</label>
+         <form>
+           <input id="nick" placeholder="nickname">
+           <input id="description" placeholder="program name" autocomplete="off">
+           <button>Save</button><em class="ajax"></em>
+           <a href="#">Link to share</a>
+         </form>
+       </div>
        <div id="cookbook">
          <label>Examples</label>
          <ul>

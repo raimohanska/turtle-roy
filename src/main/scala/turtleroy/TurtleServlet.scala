@@ -10,7 +10,8 @@ class TurtleServlet extends ScalatraServlet {
   val storage : TurtleStorage = new MongoStorage
 
   post("/turtle") {
-    val turtle = Turtle(idGenerator.nextId, request.body)
+    val turtle = Turtle(idGenerator.nextId,
+      Serialization.read[TurtleData](request.body))
     storage.storeTurtle(turtle)
     response.setHeader("Location", request.getRequestURL.toString + "/" + turtle.id)
     response.setStatus(201)
@@ -28,4 +29,5 @@ class TurtleServlet extends ScalatraServlet {
   }
 }
 
-case class Turtle(id: String, content: String)
+case class Turtle(id: String, content: TurtleData)
+case class TurtleData(author: String, description: String, code: String)

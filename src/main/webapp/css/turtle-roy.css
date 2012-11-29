@@ -71,9 +71,49 @@ body {
 }
 
 #share {
-  display: none;
   position: absolute;
   left: 0;
+  color: black;
+}
+
+#share label {
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+#share form {
+  z-index: 1000;
+  display: none;
+  position: absolute;
+  width: 135px;
+  bottom: 17px;
+  left: 0;
+  background: #eeeeee;
+  border-radius: 0 10px 0 0;
+  padding: 10px;
+  line-height: 24px;
+}
+
+#share a {
+  display: none;
+  font-size: 11px;
+}
+
+.ajax {
+  background: url('../images/ajax.gif') 0 4px no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 20px;
+  margin-top: -2px;
+  margin-left: 6px;
+}
+
+input {
+  border-radius: 5px;
+}
+
+input:focus {
+  outline:none;
 }
 
 .console {
