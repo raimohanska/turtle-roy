@@ -97,7 +97,7 @@
           shareLink.text("share this link!")
         })
         var inputs = $("#share input")
-        shareResult.onValue(function() { 
+        code.changes().onValue(function() { 
           $("#description").val("").trigger("keyup")
         })
         Bacon.UI.enable(showLink.not(), inputs)
