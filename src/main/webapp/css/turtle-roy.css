@@ -117,7 +117,7 @@ input:focus {
   outline:none;
 }
 
-.console {
+.jquery-console-inner {
   padding: 1em 0em;
   background-color: #002b36;
   width: 900px; height: 200px;
