@@ -116,6 +116,11 @@
           $(".editor").toggle()
           $(".console").toggle()
         })
+
+        $(".run-link").click(function() {
+          var program = $(".editor textarea").val()
+          repl.paste(program)
+        })
       })
     </script>
   </head>
