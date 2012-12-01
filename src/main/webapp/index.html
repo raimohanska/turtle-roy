@@ -15,11 +15,13 @@
     <script src="lib/Bacon.js"></script>
     <script src="lib/Bacon.UI.js"></script>
     <script src="lib/smoothly.js"></script>
+    <script src="speak.js/speakClient.js"></script>
     <script src="script/turtle.js"></script>
     <script language="roy" src="lib/arrays.roy"></script>
     <script language="roy" src="script/turtle.roy"></script>
     <script>
       $(function() {
+        window.say = function(text) { return function() { speak(text) } }
         var repl = royRepl.init($(".console"))
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
@@ -169,5 +171,6 @@
          </ul>
        </div>
      </div>
+     <div id="audio"></div>
   </body>
 </html>
