@@ -137,10 +137,12 @@ input:focus {
   outline:none;
 }
 
-.editor .run-link {
+.editor .links {
   position: absolute;
-  bottom: 2px;
-  left: 2px;
+  top: 2px;
+  right: 20px;
+}
+.editor a {
   text-decoration: none;
 }
 
@@ -148,10 +150,10 @@ input:focus {
   position: relative;
 }
 
-.editor-link {
+.console .editor-link {
   position: absolute;
-  bottom: 2px;
-  right: 2px;
+  top: 2px;
+  right: 20px;
   text-decoration: none;
 }
 
