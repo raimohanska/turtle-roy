@@ -23,6 +23,11 @@ let filter f xs =
       cons (head xs) (filter f (tail xs))
     else
       filter f (tail xs)
+let foldl f seed xs =
+  if empty xs then
+    seed
+  else
+    foldl f (f seed (head xs)) (tail xs)
 let range start end = 
   if start > end then
     []
