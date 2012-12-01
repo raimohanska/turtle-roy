@@ -12,6 +12,7 @@ let rt a = callbacks.make(\() -> turtle.rt a)
 let pendown = callbacks.make(\() -> turtle.pendown ())
 let penup = callbacks.make(\() -> turtle.penup ())
 let clear = callbacks.make(\() -> turtle.clear ())
+let wait seconds = (\callback -> setTimeout callback (seconds * 1000))
 
 // Action sequencing / repeat utils
 
