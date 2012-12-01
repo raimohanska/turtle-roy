@@ -47,9 +47,11 @@
           var element = $("<li>").attr("data-code", code).text(name)
           $("#cookbook ul").append(element)
         }
+        var editor = $(".editor textarea")
         $("#cookbook li").click(function() {
           var text = $(this).attr("data-code")
           repl.paste(text)
+          editor.val(text)
           setTimeout(function() {
             $("#cookbook ul").slideUp("fast")
           }, 100)
@@ -117,7 +119,6 @@
           $(".console").toggle()
         })
 
-        var editor = $(".editor textarea")
         var ctrlSpace = editor.asEventStream("keyup")
           .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
           .do(".preventDefault")
