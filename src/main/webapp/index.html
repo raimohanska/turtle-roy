@@ -110,6 +110,12 @@
             repl.paste(code)
           })
         }
+        code.assign($(".editor textarea"), "val")
+        $(".editor").hide()
+        $(".editor-link").asEventStream("click").onValue(function() {
+          $(".editor").toggle()
+          $(".console").toggle()
+        })
       })
     </script>
   </head>
@@ -123,7 +129,14 @@
      </div>
      <div id="turtlegraphics">
      </div>
-     <div class="console"></div>
+     <div class="console">
+       <a class="editor-link" href="#">show editor</a>
+     </div>
+     <div class="editor">
+       <a class="editor-link" href="#">show console</a>
+       <a class="run-link" href="#">run</a>
+       <textarea></textarea>
+     </div>
      <div id="bottom">
        <div id="share">
          <label>Save & Share</label>

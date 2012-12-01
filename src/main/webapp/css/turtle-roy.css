@@ -8,6 +8,11 @@ body {
   background: #eeeeee;
 }
 
+body, .editor textarea {
+  font-family: "Menlo", monospace;
+  font-size: 14px;
+}
+
 #top {
   width: 900px; height: 50px;
   position: relative;
@@ -117,10 +122,44 @@ input:focus {
   outline:none;
 }
 
+.editor, .console {
+  position: relative;
+  width: 900px; height: 200px;
+}
+
+.editor textarea {
+  width: 897px;
+  height: 196px;
+  resize: none;
+  background-color: #002b36;
+  color: white;
+  border: none;
+  outline:none;
+}
+
+.editor .run-link {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  text-decoration: none;
+}
+
+.console {
+  position: relative;
+}
+
+.editor-link {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  text-decoration: none;
+}
+
 .jquery-console-inner {
+  width: 900px;
+  height: 172px;
   padding: 1em 0em;
   background-color: #002b36;
-  width: 900px; height: 200px;
   overflow: auto;
 }
 
