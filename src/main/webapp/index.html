@@ -110,7 +110,7 @@
             repl.paste(code)
           })
         }
-        code.assign($(".editor textarea"), "val")
+        code.filter(function() { return $(".console:visible").length }).assign($(".editor textarea"), "val")
         $(".editor").hide()
         $(".editor-link").asEventStream("click").onValue(function() {
           $(".editor").toggle()
