@@ -26,6 +26,7 @@
         }
       }
     })()
+    var error = new Bacon.Bus()
 
     setTimeout(function() {
       setInterval(function() {$(".jquery-console-cursor").toggleClass("blink")}, 500)
@@ -67,6 +68,7 @@
           try {
             var evaled = royloader.evalRoy(line);
             history.push(line)
+            error.push("")
 
             if (evaled != undefined) {
               // TODO: hack
@@ -79,13 +81,15 @@
               return true;
             }
           } catch(e) {
-            return [fmtError(e.toString())];
+            var msg = fmtError(e.toString())
+            error.push(msg.msg)
+            return [msg];
           }
         }
       }
     });
     return {
-      history: history.toProperty(),
+      history: history.toProperty(""),
       paste: function(text) {
         Bacon.sequentially(200, text.split("\n")).onValue(function(line) {
           var typer = consoleElement.find(".jquery-console-typer")
@@ -102,7 +106,8 @@
       replace: function(text) {
         history.reset()
         this.paste(text)
-      }
+      },
+      error: error.toProperty()
     }
   }
 

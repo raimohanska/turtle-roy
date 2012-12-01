@@ -146,6 +146,13 @@ input:focus {
   text-decoration: none;
 }
 
+.editor .error {
+  color: red;
+  position: absolute;
+  right: 20px;
+  bottom: 2px;
+}
+
 .console {
   position: relative;
 }

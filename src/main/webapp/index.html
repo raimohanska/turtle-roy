@@ -121,6 +121,7 @@
           var program = $(".editor textarea").val()
           repl.replace(program)
         })
+        repl.error.onValue($(".editor .error"), "text")
       })
     </script>
   </head>
@@ -144,6 +145,7 @@
          <a class="editor-link" href="#">show console</a>
        </div>
        <textarea></textarea>
+       <em class="error"></em>
      </div>
      <div id="bottom">
        <div id="share">
