@@ -1,13 +1,23 @@
-let fd d = \() -> turtle.fd d
-let lt a = \() -> turtle.lt a
-let rt a = \() -> turtle.rt a
-let pendown = \() -> turtle.pendown ()
-let penup = \() -> turtle.penup ()
-let clear = \() -> turtle.clear ()
+let callbacks = {
+  make: \f ->
+    \callback ->
+      f ()
+      callMaybe callback
+}
+let callMaybe callback = if (callback != null) then callback () else null
+
+let fd d = callbacks.make (\() -> turtle.fd d)
+let lt a = callbacks.make (\() -> turtle.lt a)
+let rt a = callbacks.make(\() -> turtle.rt a)
+let pendown = callbacks.make(\() -> turtle.pendown ())
+let penup = callbacks.make(\() -> turtle.penup ())
+let clear = callbacks.make(\() -> turtle.clear ())
 
 // Action sequencing / repeat utils
 
-let sequence fs = \() ->
-  let invoke f = f ()
-  map invoke fs
+let sequence fs = \callback ->
+  if empty fs then
+    callMaybe callback
+  else
+    (head fs) (\() -> (sequence (tail fs)) callback)
 let repeat n f = sequence (times n f)
