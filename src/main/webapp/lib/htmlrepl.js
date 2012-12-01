@@ -9,7 +9,23 @@
   function fmtError(value) { return fmt(value, "error"); }
   
   function init(consoleElement) {
-    var history = new Bacon.Bus()
+    var history = (function() {
+      var lines = []
+      var bus = new Bacon.Bus()
+      return {
+        push: function(line) {
+          lines.push(line)
+          bus.push(lines)
+        },
+        reset: function() {
+          lines = []
+          bus.push(lines)
+        },
+        toProperty: function() {
+          return bus.toProperty(lines)
+        }
+      }
+    })()
 
     setTimeout(function() {
       setInterval(function() {$(".jquery-console-cursor").toggleClass("blink")}, 500)
@@ -69,7 +85,7 @@
       }
     });
     return {
-      history: history.scan([], ".concat"),
+      history: history.toProperty(),
       paste: function(text) {
         Bacon.sequentially(200, text.split("\n")).onValue(function(line) {
           var typer = consoleElement.find(".jquery-console-typer")
@@ -82,7 +98,12 @@
             typer.trigger(e);
           }, 100)
         })
-      }}
+      }, 
+      replace: function(text) {
+        history.reset()
+        this.paste(text)
+      }
+    }
   }
 
   window.royRepl = {
