@@ -3,6 +3,7 @@ package turtleroy
 import mongodb.{MongoStorage, TurtleStorage}
 import org.scalatra._
 import net.liftweb.json._
+import java.util.Date
 
 class TurtleServlet extends ScalatraServlet {
   implicit val formats = DefaultFormats
@@ -23,11 +24,14 @@ class TurtleServlet extends ScalatraServlet {
       case None => halt(404, "Turtle not found")
     }
   }
+  get("/turtles") {
+    render(storage.turtles)
+  }
   private def render(content: AnyRef) = {
     contentType = "application/json"
     net.liftweb.json.Serialization.write(content)
   }
 }
 
-case class Turtle(id: String, content: TurtleData)
+case class Turtle(id: String, content: TurtleData, date: Date = new Date)
 case class TurtleData(author: String, description: String, code: String)

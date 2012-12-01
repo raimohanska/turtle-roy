@@ -9,6 +9,7 @@ import turtleroy.Turtle
 trait TurtleStorage {
   def storeTurtle(turtle: Turtle)
   def findTurtle(id: String): Option[Turtle]
+  def turtles: Iterable[Turtle]
 }
 
 class MongoStorage extends TurtleStorage with MongoDBSupport {
@@ -33,6 +34,7 @@ class MongoStorage extends TurtleStorage with MongoDBSupport {
   def findTurtle(id: String) = turtleCollection.findOne(MongoDBObject("id" -> id)).map(toObject[Turtle])
   def storeTurtle(turtle: Turtle) = turtleCollection.findAndModify(
     MongoDBObject("id" -> turtle.id), null, null, false, toDBObject(turtle), true, true).map(toObject[Turtle])
+  def turtles = turtleCollection.find.map(toObject[Turtle]).toList.sortBy(_.date).reverse
 }
 
 trait MongoDBSupport extends Imports with CommonsImports with QueryImports {
