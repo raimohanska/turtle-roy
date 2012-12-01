@@ -8,13 +8,13 @@
   function fmtType(value) { return fmt(value, "type"); }
   function fmtError(value) { return fmt(value, "error"); }
   
-  function init(console) {
+  function init(consoleElement) {
     var history = new Bacon.Bus()
 
     setTimeout(function() {
       setInterval(function() {$(".jquery-console-cursor").toggleClass("blink")}, 500)
     }, 2500)
-    var controller = console.console({
+    var controller = consoleElement.console({
       promptLabel: 'λ> ',
       autofocus: true,
       animateScroll: true,
@@ -71,13 +71,17 @@
     return {
       history: history.scan([], ".concat"),
       paste: function(text) {
-        console.find(".jquery-console-typer").trigger("paste").val(text).focus()
-        var e = jQuery.Event("keydown");
-        e.which = 13;
-        e.keyCode = 13;
-        setTimeout(function() {
-          console.find(".jquery-console-typer").trigger(e);
-        }, 100)
+        Bacon.sequentially(200, text.split("\n")).onValue(function(line) {
+          var typer = consoleElement.find(".jquery-console-typer")
+          console.log("line:" + line + ".")
+          typer.trigger("paste").val(line).focus()
+          var e = jQuery.Event("keydown");
+          e.which = 13;
+          e.keyCode = 13;
+          setTimeout(function() {
+            typer.trigger(e);
+          }, 100)
+        })
       }}
   }
 
