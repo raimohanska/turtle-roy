@@ -88,10 +88,13 @@
         }
       }
     });
+    function nonEmpty(x) {
+      return x && x.trim().length > 0
+    }
     return {
       history: history.toProperty(""),
       paste: function(text) {
-        Bacon.sequentially(200, text.split("\n")).onValue(function(line) {
+        Bacon.sequentially(200, text.split("\n")).filter(nonEmpty).onValue(function(line) {
           var typer = consoleElement.find(".jquery-console-typer")
           console.log("line:" + line + ".")
           typer.trigger("paste").val(line).focus()

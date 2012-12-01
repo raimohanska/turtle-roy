@@ -117,8 +117,12 @@
           $(".console").toggle()
         })
 
-        $(".run-link").click(function() {
-          var program = $(".editor textarea").val()
+        var editor = $(".editor textarea")
+        var ctrlSpace = editor.asEventStream("keyup")
+          .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
+          .do(".preventDefault")
+        $(".run-link").asEventStream("click").merge(ctrlSpace).onValue(function() {
+          var program = editor.val()
           repl.replace(program)
         })
         repl.error.onValue($(".editor .error"), "text")
