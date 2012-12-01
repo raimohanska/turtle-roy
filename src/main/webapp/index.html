@@ -21,7 +21,6 @@
     <script language="roy" src="script/turtle.roy"></script>
     <script>
       $(function() {
-        window.say = function(text) { return function() { speak(text) } }
         var repl = royRepl.init($(".console"))
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
@@ -30,6 +29,7 @@
         addExample("Square", square + "\nsquare")
         addExample("Circle", "let circle = repeat 360 (sequence [fd 1, rt 1])\ncircle")
         addExample("Flower", square + "\nlet flower = repeat 36 (rt 10, square)\nflower")
+        addExample("Speaking Turtle", 'sequence [say "Hello", wait 3, say "I am turtle roy", wait 3, say "Nice to meet you"]')
         addExample("Clear", "clear")
         addExample("Factorial", "let factorial n = if n==1 then 1 else n * (factorial n - 1)\nfactorial 5")
         addExample("Strings", '"Apple" ++ "sauce"')
