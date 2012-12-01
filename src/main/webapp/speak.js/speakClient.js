@@ -1,6 +1,6 @@
 var speakWorker;
 try {
-  speakWorker = new Worker('speak/speakWorker.js');
+  speakWorker = new Worker('speak.js/speakWorker.js');
 } catch(e) {
   console.log('speak.js warning: no worker support');
 }
