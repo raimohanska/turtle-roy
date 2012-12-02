@@ -94,7 +94,7 @@
     return {
       history: history.toProperty(""),
       paste: function(text) {
-        Bacon.sequentially(200, text.split("\n")).filter(nonEmpty).onValue(function(line) {
+        Bacon.sequentially(200, royloader.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
           var typer = consoleElement.find(".jquery-console-typer")
           console.log("line:" + line + ".")
           typer.trigger("paste").val(line).focus()

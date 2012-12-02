@@ -24,9 +24,31 @@ window.royloader = {};
   function royEnv(term) {
     return env[term]
   }
+  function splitRoy(code) {
+    var result = []
+    var lines = removeIndent(code).split("\n")
+    var chunkLines = []
+    function spit() {
+      if (chunkLines.length) {
+        chunkCode = chunkLines.join("\n")
+        result.push(chunkCode)
+        chunkLines = []
+      }
+    }
+    for (i in lines) {
+      var line = lines[i]
+      if (indentation(line).length == 0) {
+        spit()
+      }
+      chunkLines.push(line)
+    }
+    spit()
+    return result
+  }
   royloader.evalRoy = evalRoy
   royloader.compileRoy = compileRoy
   royloader.royEnv = royEnv
+  royloader.splitRoy = splitRoy
 })();
 
 (function() {

@@ -1,19 +1,27 @@
 let callbacks = {
-  make: \f ->
+  return: \x ->
+    \callback -> callback x
+  bind: \action1 f ->
+    \callback ->
+      let callback1 = \x ->
+        let action2 = f x
+        action2 callback
+      action1 callback1
+}
+let makeCallback = \f ->
     \callback ->
       f ()
       callMaybe callback
-}
 let callMaybe callback = if (callback != null) then callback () else null
 
-let fd d = callbacks.make (\() -> turtle.fd d)
-let lt a = callbacks.make (\() -> turtle.lt a)
-let rt a = callbacks.make(\() -> turtle.rt a)
-let pendown = callbacks.make(\() -> turtle.pendown ())
-let penup = callbacks.make(\() -> turtle.penup ())
-let clear = callbacks.make(\() -> turtle.clear ())
+let fd d = makeCallback (\() -> turtle.fd d)
+let lt a = makeCallback (\() -> turtle.lt a)
+let rt a = makeCallback(\() -> turtle.rt a)
+let pendown = makeCallback(\() -> turtle.pendown ())
+let penup = makeCallback(\() -> turtle.penup ())
+let clear = makeCallback(\() -> turtle.clear ())
 let wait seconds = (\callback -> setTimeout callback (seconds * 1000))
-let say text = callbacks.make (\() -> speak text)
+let say text = makeCallback (\() -> speak text)
 
 // Action sequencing / repeat utils
 
