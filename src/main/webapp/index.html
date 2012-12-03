@@ -113,7 +113,7 @@
           })
         }
       }
-      var royEnv = {
+      function RoyEnv() { return {
         royEnv: royloader.royEnv,
         compileRoy: royloader.compileRoy,
         evalRoy: function(code) {
@@ -127,8 +127,8 @@
           })
           return evaled
         }
-      }
-      function Editor(repl) {
+      }}
+      function Editor(royEnv, repl) {
         var editorElement = $(".editor textarea")
         var code = Bacon.UI.textFieldValue(editorElement)
         $(".editor").hide()
@@ -158,11 +158,11 @@
         }
       }
       $(function() {
+        var royEnv = RoyEnv()
         var repl = royRepl.init($(".console"), royEnv)
-
         turtle = Turtle($("#turtlegraphics"), 900, 300)
         turtle.spin(360, 10)
-        var editor = Editor(repl)
+        var editor = Editor(royEnv, repl)
         Cookbook(editor, repl)
         Sharing(editor.code)
         TurtleLoader(repl)
