@@ -8,24 +8,8 @@
   function fmtType(value) { return fmt(value, "type"); }
   function fmtError(value) { return fmt(value, "error"); }
   
-  function init(consoleElement) {
-    var history = (function() {
-      var lines = []
-      var bus = new Bacon.Bus()
-      return {
-        push: function(line) {
-          lines.push(line)
-          bus.push(lines)
-        },
-        reset: function() {
-          lines = []
-          bus.push(lines)
-        },
-        toProperty: function() {
-          return bus.toProperty(lines)
-        }
-      }
-    })()
+  function init(consoleElement, roy) {
+    var history = new Bacon.Bus()
     var error = new Bacon.Bus()
 
     setTimeout(function() {
@@ -48,7 +32,7 @@
         switch (parts[0]) {
         case ":t":
           var term = parts[1]
-          var env = royloader.royEnv(term)
+          var env = roy.royEnv(term)
           if (env) {
             return [fmtType(env)];
           } else {
@@ -58,7 +42,7 @@
         case ":c":
           try {
             var code = parts.slice(1).join(" ");
-            var compiled = royloader.compileRoy(code)
+            var compiled = roy.compileRoy(code)
             return [fmt(compiled.output, "code")];
           } catch(e) {
             return [fmtError(e.toString())];
@@ -66,16 +50,10 @@
 
         default:
           try {
-            var evaled = royloader.evalRoy(line);
+            var evaled = roy.evalRoy(line);
             history.push(line)
             error.push("")
-
             if (evaled != undefined) {
-              // TODO: hack
-              if (typeof evaled.result == "function") {
-                evaled.result = evaled.result()
-                return ""
-              }
               return [fmtValue(JSON.stringify(evaled.result))];
             } else {
               return true;
@@ -88,11 +66,8 @@
         }
       }
     });
-    function nonEmpty(x) {
-      return x && x.trim().length > 0
-    }
     return {
-      history: history.toProperty(""),
+      history: history,
       paste: function(text) {
         Bacon.sequentially(200, royloader.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
           var typer = consoleElement.find(".jquery-console-typer")
@@ -105,16 +80,12 @@
             typer.trigger(e);
           }, 100)
         })
-      }, 
-      replace: function(text) {
-        history.reset()
-        this.paste(text)
       },
       error: error.toProperty()
     }
   }
 
   window.royRepl = {
-    init: function(element) { return init(element) },
+    init: function(element, roy) { return init(element, roy) },
   }
 })()

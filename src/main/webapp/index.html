@@ -20,6 +20,7 @@
     <script language="roy" src="lib/arrays.roy"></script>
     <script language="roy" src="script/turtle.roy"></script>
     <script>
+      function nonEmpty(x) { return x.length > 0 }
       function Cookbook(editor, repl) {
         var square = "let square = repeat 4 (sequence[fd 50, lt 90])"
         addExample("Turtle moves", "fd 50\nlt 45\nfd 50\nrt 45\nfd 50")
@@ -48,8 +49,8 @@
         }
         $("#cookbook li").click(function() {
           var text = $(this).attr("data-code")
+          editor.reset()
           repl.paste(text)
-          editor.val(text)
           setTimeout(function() {
             $("#cookbook ul").slideUp("fast")
           }, 100)
@@ -82,7 +83,6 @@
         }).ajax()
         pending = shareResult.pending(shareClick)
         pending.assign($("#share .ajax"), "toggle")
-        function nonEmpty(x) { return x.length > 0 }
         changedSinceShare = shareClick.pending(code.changes())
         okToShare = nickname.map(nonEmpty)
           .and(description.map(nonEmpty)).and(pending.not())
@@ -113,33 +113,59 @@
           })
         }
       }
-      $(function() {
-        var editor = $(".editor textarea")
-        var repl = royRepl.init($(".console"))
-
-        turtle = Turtle($("#turtlegraphics"), 900, 300)
-        turtle.spin(360, 10)
-        Cookbook(editor, repl)
-
-        code = repl.history.map(function(h) { return h.join("\n") })
-        Sharing(code)
-        TurtleLoader(repl)
-
-        code.filter(function() { return $(".console:visible").length }).assign($(".editor textarea"), "val")
+      var royEnv = {
+        royEnv: royloader.royEnv,
+        compileRoy: royloader.compileRoy,
+        evalRoy: function(code) {
+          var evaled;
+          _(royloader.splitRoy(code)).each(function(line) {
+            evaled = royloader.evalRoy(line)
+            if (typeof evaled.result == "function") {
+              evaled.result()
+              evaled.result = undefined
+            }
+          })
+          return evaled
+        }
+      }
+      function Editor(repl) {
+        var editorElement = $(".editor textarea")
+        var code = Bacon.UI.textFieldValue(editorElement)
         $(".editor").hide()
         $(".editor-link").asEventStream("click").onValue(function() {
           $(".editor").toggle()
           $(".console").toggle()
         })
 
-        var ctrlSpace = editor.asEventStream("keyup")
+        repl.history.onValue(function(line) {
+          editorElement.val(editorElement.val() ? editorElement.val() + "\n" + line : line)
+          editorElement.trigger("paste")
+        })
+
+        var ctrlSpace = editorElement.asEventStream("keyup")
           .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
           .do(".preventDefault")
-        $(".run-link").asEventStream("click").merge(ctrlSpace).onValue(function() {
-          var program = editor.val()
-          repl.replace(program)
+        $(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
+          royEnv.evalRoy(program)
         })
-        repl.error.onValue($(".editor .error"), "text")
+
+        return {
+          code: code,
+          reset: function() {
+            editorElement.val("")
+            editorElement.trigger("paste")
+          }
+        }
+      }
+      $(function() {
+        var repl = royRepl.init($(".console"), royEnv)
+
+        turtle = Turtle($("#turtlegraphics"), 900, 300)
+        turtle.spin(360, 10)
+        var editor = Editor(repl)
+        Cookbook(editor, repl)
+        Sharing(editor.code)
+        TurtleLoader(repl)
       })
     </script>
   </head>
