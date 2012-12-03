@@ -43,53 +43,53 @@
         // Constants
         // Some are enums, data types, others just for optimisation
         var keyCodes = {
-	    // left
-	    37: moveBackward,
-	    // right
-	    39: moveForward,
-	    // up
-	    38: previousHistory,
-	    // down
-	    40: nextHistory,
-	    // backspace
-	    8:  backDelete,
-	    // delete
-	    46: forwardDelete,
+            // left
+            37: moveBackward,
+            // right
+            39: moveForward,
+            // up
+            38: previousHistory,
+            // down
+            40: nextHistory,
+            // backspace
+            8:  backDelete,
+            // delete
+            46: forwardDelete,
             // end
-	    35: moveToEnd,
-	    // start
-	    36: moveToStart,
-	    // return
-	    13: commandTrigger,
-	    // tab
-	    18: doNothing
-	};
-	var ctrlCodes = {
-	    // C-a
-	    65: moveToStart,
-	    // C-e
-	    69: moveToEnd,
-	    // C-d
-	    68: forwardDelete,
-	    // C-n
-	    78: nextHistory,
-	    // C-p
-	    80: previousHistory,
-	    // C-b
-	    66: moveBackward,
-	    // C-f
-	    70: moveForward,
-	    // C-k
-	    75: deleteUntilEnd
-	};
-	var altCodes = {
-	    // M-f
-	    70: moveToNextWord,
-	    // M-b
-	    66: moveToPreviousWord,
-	    // M-d
-	    68: deleteNextWord
-	};
+            35: moveToEnd,
+            // start
+            36: moveToStart,
+            // return
+            13: commandTrigger,
+            // tab
+            18: doNothing
+        };
+        var ctrlCodes = {
+            // C-a
+            65: moveToStart,
+            // C-e
+            69: moveToEnd,
+            // C-d
+            68: forwardDelete,
+            // C-n
+            78: nextHistory,
+            // C-p
+            80: previousHistory,
+            // C-b
+            66: moveBackward,
+            // C-f
+            70: moveForward,
+            // C-k
+            75: deleteUntilEnd
+        };
+        var altCodes = {
+            // M-f
+            70: moveToNextWord,
+            // M-b
+            66: moveToPreviousWord,
+            // M-d
+            68: deleteNextWord
+        };
         var cursor = '<span class="jquery-console-cursor">&nbsp;</span>';
 
         ////////////////////////////////////////////////////////////////////////
@@ -120,10 +120,10 @@
         // variable below to ignore the keypress event if the keydown
         // event succeeds.
         var cancelKeyPress = 0;
-	// When this value is false, the prompt will not respond to input
-	var acceptInput = true;
-	// When this value is true, the command has been canceled
-	var cancelCommand = false;
+        // When this value is false, the prompt will not respond to input
+        var acceptInput = true;
+        // When this value is true, the command has been canceled
+        var cancelCommand = false;
 
         // External exports object
         var extern = {};
@@ -158,9 +158,9 @@
                 inner.find('div').each(function(){
                     if (!welcome) {
                         $(this).remove();
-		    } else {
-			welcome = false;
-		    }
+                    } else {
+                        welcome = false;
+                    }
                 });
                 newPromptBox();
                 inner.parent().fadeIn(function(){
@@ -203,8 +203,8 @@
         function newPromptBox() {
             column = 0;
             promptText = '';
-	    ringn = 0; // Reset the position of the history ring
-	    enableInput();
+            ringn = 0; // Reset the position of the history ring
+            enableInput();
             promptBox = $('<div class="jquery-console-prompt-box"></div>');
             var label = $('<span class="jquery-console-prompt-label"></span>');
             var labelText = extern.continuedPrompt? continuedPromptLabel : promptLabel;
@@ -254,27 +254,27 @@
         typer.keydown(function(e){
             cancelKeyPress = 0;
             var keyCode = e.keyCode;
-	    // C-c: cancel the execution
-	    if(e.ctrlKey && keyCode == 67) {
-		cancelKeyPress = keyCode;
-		cancelExecution();
-		return false;
-	    }
-	    if (acceptInput) {
-		if (keyCode in keyCodes) {
+            // C-c: cancel the execution
+            if(e.ctrlKey && keyCode == 67) {
+                cancelKeyPress = keyCode;
+                cancelExecution();
+                return false;
+            }
+            if (acceptInput) {
+                if (keyCode in keyCodes) {
                     cancelKeyPress = keyCode;
-		    (keyCodes[keyCode])();
-		    return false;
-		} else if (e.ctrlKey && keyCode in ctrlCodes) {
+                    (keyCodes[keyCode])();
+                    return false;
+                } else if (e.ctrlKey && keyCode in ctrlCodes) {
                     cancelKeyPress = keyCode;
-		    (ctrlCodes[keyCode])();
-		    return false;
-		} else if (e.altKey  && keyCode in altCodes) {
+                    (ctrlCodes[keyCode])();
+                    return false;
+                } else if (e.altKey  && keyCode in altCodes) {
                     cancelKeyPress = keyCode;
-		    (altCodes[keyCode])();
-		    return false;
-		}
-	    }
+                    (altCodes[keyCode])();
+                    return false;
+                }
+            }
         });
 
         ////////////////////////////////////////////////////////////////////////
@@ -329,13 +329,13 @@
             updatePromptDisplay();
         };
 
-	function previousHistory() {
-	    rotateHistory(-1);
-	};
+        function previousHistory() {
+            rotateHistory(-1);
+        };
 
-	function nextHistory() {
-	    rotateHistory(1);
-	};
+        function nextHistory() {
+            rotateHistory(1);
+        };
 
         // Add something to the history ring
         function addToHistory(line){
@@ -354,40 +354,40 @@
             } else return false;
         };
 
-	function backDelete() {
+        function backDelete() {
             if (moveColumn(-1)){
                 deleteCharAtPos();
                 updatePromptDisplay();
             }
-	};
+        };
 
-	function forwardDelete() {
+        function forwardDelete() {
             if (deleteCharAtPos())
                 updatePromptDisplay();
-	};
+        };
 
-	function deleteUntilEnd() {
-	    while(deleteCharAtPos()) {
-		updatePromptDisplay();
-	    }
-	};
+        function deleteUntilEnd() {
+            while(deleteCharAtPos()) {
+                updatePromptDisplay();
+            }
+        };
 
-	function deleteNextWord() {
-	    // A word is defined within this context as a series of alphanumeric
-	    // characters.
-	    // Delete up to the next alphanumeric character
-	    while(column < promptText.length &&
-		  !isCharAlphanumeric(promptText[column])) {
-		deleteCharAtPos();
-		updatePromptDisplay();
-	    }
-	    // Then, delete until the next non-alphanumeric character
-	    while(column < promptText.length &&
-		  isCharAlphanumeric(promptText[column])) {
-		deleteCharAtPos();
-		updatePromptDisplay();
-	    }
-	};
+        function deleteNextWord() {
+            // A word is defined within this context as a series of alphanumeric
+            // characters.
+            // Delete up to the next alphanumeric character
+            while(column < promptText.length &&
+                  !isCharAlphanumeric(promptText[column])) {
+                deleteCharAtPos();
+                updatePromptDisplay();
+            }
+            // Then, delete until the next non-alphanumeric character
+            while(column < promptText.length &&
+                  isCharAlphanumeric(promptText[column])) {
+                deleteCharAtPos();
+                updatePromptDisplay();
+            }
+        };
 
         ////////////////////////////////////////////////////////////////////////
         // Validate command and trigger it if valid, or show a validation error
@@ -417,17 +417,17 @@
             }
         };
 
-	function cancelExecution() {
-	    if(typeof config.cancelHandle == 'function') {
-		config.cancelHandle();
-	    }
-	}
+        function cancelExecution() {
+            if(typeof config.cancelHandle == 'function') {
+                config.cancelHandle();
+            }
+        }
 
         ////////////////////////////////////////////////////////////////////////
         // Handle a command
         function handleCommand() {
             if (typeof config.commandHandle == 'function') {
-		disableInput();
+                disableInput();
                 addToHistory(promptText);
                 var text = promptText;
                 if (extern.continuedPrompt) {
@@ -461,14 +461,14 @@
 
         ////////////////////////////////////////////////////////////////////////
         // Disable input
-	function disableInput() {
-	    acceptInput = false;
-	};
+        function disableInput() {
+            acceptInput = false;
+        };
 
         // Enable input
-	function enableInput() {
-	    acceptInput = true;
-	}
+        function enableInput() {
+            acceptInput = true;
+        }
 
         ////////////////////////////////////////////////////////////////////////
         // Reset the prompt in invalid command
@@ -523,67 +523,67 @@
             } else return false;
         };
 
-	function moveForward() {
+        function moveForward() {
             if(moveColumn(1)) {
-		updatePromptDisplay();
-		return true;
-	    }
-	    return false;
-	};
+                updatePromptDisplay();
+                return true;
+            }
+            return false;
+        };
 
-	function moveBackward() {
+        function moveBackward() {
             if(moveColumn(-1)) {
-		updatePromptDisplay();
-		return true;
-	    }
-	    return false;
-	};
+                updatePromptDisplay();
+                return true;
+            }
+            return false;
+        };
 
-	function moveToStart() {
+        function moveToStart() {
             if (moveColumn(-column))
                 updatePromptDisplay();
-	};
+        };
 
-	function moveToEnd() {
+        function moveToEnd() {
             if (moveColumn(promptText.length-column))
                 updatePromptDisplay();
-	};
+        };
 
-	function moveToNextWord() {
-	    while(column < promptText.length &&
-		  !isCharAlphanumeric(promptText[column]) &&
-		  moveForward()) {
-	    }
-	    while(column < promptText.length &&
-		  isCharAlphanumeric(promptText[column]) &&
-		  moveForward()) {
-	    }
-	};
+        function moveToNextWord() {
+            while(column < promptText.length &&
+                  !isCharAlphanumeric(promptText[column]) &&
+                  moveForward()) {
+            }
+            while(column < promptText.length &&
+                  isCharAlphanumeric(promptText[column]) &&
+                  moveForward()) {
+            }
+        };
 
-	function moveToPreviousWord() {
-	    // Move backward until we find the first alphanumeric
-	    while(column -1 >= 0 &&
-		  !isCharAlphanumeric(promptText[column-1]) &&
-		  moveBackward()) {
-	    }
-	    // Move until we find the first non-alphanumeric
-	    while(column -1 >= 0 &&
-		  isCharAlphanumeric(promptText[column-1]) &&
-		  moveBackward()) {
-	    }
-	};
+        function moveToPreviousWord() {
+            // Move backward until we find the first alphanumeric
+            while(column -1 >= 0 &&
+                  !isCharAlphanumeric(promptText[column-1]) &&
+                  moveBackward()) {
+            }
+            // Move until we find the first non-alphanumeric
+            while(column -1 >= 0 &&
+                  isCharAlphanumeric(promptText[column-1]) &&
+                  moveBackward()) {
+            }
+        };
 
-	function isCharAlphanumeric(charToTest) {
-	    if(typeof charToTest == 'string') {
-		var code = charToTest.charCodeAt();
-		return (code >= 'A'.charCodeAt() && code <= 'Z'.charCodeAt()) ||
-		    (code >= 'a'.charCodeAt() && code <= 'z'.charCodeAt()) ||
-		    (code >= '0'.charCodeAt() && code <= '9'.charCodeAt());
-	    }
-	    return false;
-	};
+        function isCharAlphanumeric(charToTest) {
+            if(typeof charToTest == 'string') {
+                var code = charToTest.charCodeAt();
+                return (code >= 'A'.charCodeAt() && code <= 'Z'.charCodeAt()) ||
+                    (code >= 'a'.charCodeAt() && code <= 'z'.charCodeAt()) ||
+                    (code >= '0'.charCodeAt() && code <= '9'.charCodeAt());
+            }
+            return false;
+        };
 
-	function doNothing() {};
+        function doNothing() {};
 
         extern.promptText = function(text){
             if (text) {
