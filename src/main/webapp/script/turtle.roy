@@ -25,14 +25,9 @@ let say text = makeCallback (\() -> speak text)
 
 // Action sequencing / repeat utils
 
-let sequence fs =
-  let sequence_ fs depth = \callback ->
-    if empty fs then
-      callMaybe callback
-    else
-      let next () = (sequence_ (tail fs) (depth + 1)) callback
-      let schedule () = setTimeout next 0
-      // avoid stack overflow with ugly hack
-      (head fs) (if depth > 100 then schedule else next)
-  sequence_ fs 0
+let sequence fs = \callback ->
+  if empty fs then
+    callMaybe callback
+  else
+    (head fs) (\() -> (sequence (tail fs)) callback)
 let repeat n f = sequence (times n f)
