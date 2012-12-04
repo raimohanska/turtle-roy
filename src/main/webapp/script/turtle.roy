@@ -25,9 +25,11 @@ let say text = makeCallback (\() -> speak text)
 
 // Action sequencing / repeat utils
 
-let sequence fs = \callback ->
-  if empty fs then
-    callMaybe callback
-  else
-    (head fs) (\() -> (sequence (tail fs)) callback)
+let sequence = \fs -> 
+  let action = \callback ->
+    if empty fs then
+      callMaybe callback
+    else
+      (head fs) (\() -> (sequence (tail fs)) callback)
+  tco action
 let repeat n f = sequence (times n f)
