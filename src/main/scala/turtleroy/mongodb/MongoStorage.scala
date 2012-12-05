@@ -32,11 +32,13 @@ class MongoStorage extends TurtleStorage with MongoDBSupport {
   }
   lazy val mongoDB = initMongo
   protected def turtleCollection = mongoDB("turtle")
-  def findTurtle(id: String) = turtleCollection.findOne(MongoDBObject("id" -> id)).map(toObject[Turtle])
-  def findTurtle(author: String, name: String) = turtleCollection.findOne(MongoDBObject("content.author" -> author, "content.description" -> name)).map(toObject[Turtle])
+  def findTurtle(id: String) = findOne(MongoDBObject("id" -> id))
+  def findTurtle(author: String, name: String) = findOne(MongoDBObject("content.author" -> author, "content.description" -> name))
   def storeTurtle(turtle: Turtle) = turtleCollection.findAndModify(
     MongoDBObject("id" -> turtle.id), null, null, false, toDBObject(turtle), true, true).map(toObject[Turtle])
-  def turtles = turtleCollection.find.map(toObject[Turtle]).toList.sortBy(_.date).reverse
+  def turtles = findAll(MongoDBObject())
+  private def findOne(query: MongoDBObject) = findAll(query).headOption
+  private def findAll(query: MongoDBObject) =turtleCollection.find(query).map(toObject[Turtle]).toList.sortBy(_.date).reverse
 }
 
 trait MongoDBSupport extends Imports with CommonsImports with QueryImports {
