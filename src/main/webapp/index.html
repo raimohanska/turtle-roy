@@ -109,11 +109,15 @@
       }
       function TurtleLoader(repl) {
         var turtleId = document.location.search.split("=")[1]
-        if (turtleId) {
-          $.ajax("/turtle/" + turtleId).done(function(turtle) {
+        function loadTurtle(url) {
+          $.ajax(url).done(function(turtle) {
             repl.paste(turtle.content.code)
             document.title = turtle.content.description + " -" + document.title
           })
+        }
+        if (turtleId) loadTurtle("/turtle/" + turtleId)
+        return {
+          load: loadTurtle
         }
       }
       function RoyEnv() { return {
@@ -168,7 +172,11 @@
         var editor = Editor(royEnv, repl)
         Cookbook(editor, repl)
         Sharing(editor.code)
-        TurtleLoader(repl)
+        var turtleLoader = TurtleLoader(repl)
+        window.loadTurtle = function(name) {
+          var author = $("#nick").val()
+          turtleLoader.load("/turtle/" + author + "/" + name)
+        }
       })
     </script>
   </head>

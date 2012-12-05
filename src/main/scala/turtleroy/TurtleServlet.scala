@@ -18,14 +18,21 @@ class TurtleServlet extends ScalatraServlet {
     response.setStatus(201)
     render(turtle)
   }
+
   get("/turtle/:id") {
-    storage.findTurtle(params("id")) match {
-      case Some(turtle) => render(turtle)
-      case None => halt(404, "Turtle not found")
-    }
+    handleTurtle(storage.findTurtle(params("id")))
   }
+
+  get("/turtle/:author/:name") {
+    handleTurtle(storage.findTurtle(params("author"), params("name")))
+  }
+
   get("/turtles") {
     render(storage.turtles)
+  }
+  private def handleTurtle(maybeTurtle : Option[Turtle]) = maybeTurtle match {
+    case Some(turtle) => render(turtle)
+    case None => halt(404, "Turtle not found")
   }
   private def render(content: AnyRef) = {
     contentType = "application/json"
