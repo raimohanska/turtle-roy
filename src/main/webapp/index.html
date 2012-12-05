@@ -109,8 +109,8 @@
         var turtleId = document.location.search.split("=")[1]
         if (turtleId) {
           $.ajax("/turtle/" + turtleId).done(function(turtle) {
-            var code = turtle.content.code
-            repl.paste(code)
+            repl.paste(turtle.content.code)
+            document.title = turtle.content.description + " -" + document.title
           })
         }
       }
