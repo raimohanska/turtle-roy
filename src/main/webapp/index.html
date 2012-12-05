@@ -8,6 +8,7 @@
 
     <script src="lib/jquery-1.8.2.min.js"></script>
     <script src="lib/jquery.console.js"></script>
+    <script src="lib/jquery.cookie.js"></script>
     <script src="lib/lodash.min.js"></script>
     <script src="lib/tco.js"></script>
     <script src="lib/roy.js"></script>
@@ -67,7 +68,8 @@
         })
         shareClick = shareButton.asEventStream("click")
         shared = shareClick.map(true).toProperty(false)
-        nickname = Bacon.UI.textFieldValue($("#nick"))
+        nickname = Bacon.UI.textFieldValue($("#nick"), $.cookie("author"))
+        nickname.assign($.cookie, "author")
         description = Bacon.UI.textFieldValue($("#description"))
         shareData = Bacon.combineTemplate({
             author: nickname,
