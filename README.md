@@ -7,12 +7,18 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
 # Turtle Roy API
 
-    fd x    | moves x pixels forward
-    lt x    | turns left x degrees
-    rt x    | turns right x degrees
-    penup   | lifts the pen, no trace left when moving
-    pendown | lowers the pen again for drawing
-    clear   | clear the paper and reset turtle to center
+    fd 100       | moves 100 pixelx forward
+    lt 45        | turns left 45 degrees
+    rt 90        | turns right 90 degrees
+    penup        | lifts the pen, no trace left when moving
+    pendown      | lowers the pen again for drawing
+    clear        | clear the paper and reset turtle to center
+    say "wat"    | speak!
+    print "x"    | print to console
+    login "raimo"| login as "raimo" (this is the author name in your saved work)
+    save "asdf"  | save current work as "asdf"
+    open "asdf"  | open saved work "asdf" (presuming you've saved with this name and current author name)
+    whoami       | show the author name of the logged-in user (this is just saved in a cookie)
 
 # Examples
 
