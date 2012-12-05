@@ -11,6 +11,8 @@
   function init(consoleElement, roy) {
     var history = new Bacon.Bus()
     var error = new Bacon.Bus()
+    var sendToConsole;
+    var skipHistory
 
     setTimeout(function() {
       setInterval(function() {$(".jquery-console-cursor").toggleClass("blink")}, 500)
@@ -27,6 +29,7 @@
       },
 
       commandHandle: function (line, report) {
+        sendToConsole = report
         var parts = line.split(" ");
 
         switch (parts[0]) {
@@ -51,7 +54,11 @@
         default:
           try {
             var evaled = roy.evalRoy(line);
-            history.push(line)
+            if (skipHistory) {
+              skipHistory = false
+            } else {
+              history.push(line)
+            }
             error.push("")
             if (evaled != undefined) {
               return [fmtValue(JSON.stringify(evaled.result))];
@@ -81,7 +88,13 @@
           }, 100)
         })
       },
-      error: error.toProperty()
+      error: error.toProperty(),
+      print: function(line) {
+        sendToConsole(line) 
+      },
+      skipHistory: function() {
+        skipHistory = true
+      }
     }
   }
 

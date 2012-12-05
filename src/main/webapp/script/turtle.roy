@@ -22,6 +22,7 @@ let penup = makeCallback(\() -> turtle.penup ())
 let clear = makeCallback(\() -> turtle.clear ())
 let wait seconds = (\callback -> setTimeout callback (seconds * 1000))
 let say text = makeCallback (\() -> speak text)
+let print = window.repl.print
 
 // Action sequencing / repeat utils
 
