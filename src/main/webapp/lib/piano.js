@@ -32,30 +32,34 @@ function Piano() {
     "b": 493.88
   }
   osc = Oscillator()
+  defaultDuration = 500
   piano = {
-     play: function(note) {
+     play: function(note, duration) {
+       if (!duration) duration = defaultDuration
        return function(done) {
          if (note instanceof Array) {
            if (note.length)
              piano.play(note[0])(function() {
-               piano.play(note.slice(1), done)
+               piano.play(note.slice(1))(done)
              })
          } else {
-           osc.note(freqTable[note.toLowerCase()], 500)
+           var freq = freqTable[note]
+           if (!freq) freq = note
+           osc.note(freq, defaultDuration)
            if (done) {
-             setTimeout(done, 500)
+             setTimeout(done, defaultDuration)
            }
          }
        }
      },
-     pause: function(done) {
-       setTimeout(done, 500)
+     pause: function(done, duration) {
+       if (!duration) duration = defaultDuration
+       setTimeout(done, defaultDuration)
      }
    }
+   _.extend(piano, freqTable)
    return piano
 }
 
 var piano = Piano()
-var play = piano.play
-var pause = piano.pause
-var c = "c", d = "d", e = "e", f = "f", g = "g", b = "b"
+_.extend(window, piano)
