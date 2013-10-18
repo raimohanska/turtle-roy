@@ -45,9 +45,7 @@ function Piano() {
     return osc
   }
   function releaseOscillator(osc) {
-    return function() {
-      oscillators.push(osc)
-    }
+    oscillators.push(osc)
   }
   piano = {
      play: function(note, duration) {
@@ -63,9 +61,11 @@ function Piano() {
            if (note != " ") {
              var freq = freqTable[note]
              if (!freq) freq = note
-             osc.note(freq, duration, releaseOscillator(osc))
-           }
-           if (done) {
+             osc.note(freq, duration, function() {
+               releaseOscillator(osc)
+               if (done) done()
+             })
+           } else if (done) {
              setTimeout(done, duration)
            }
          }
