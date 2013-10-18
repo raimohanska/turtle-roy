@@ -33,8 +33,10 @@ let sequence = \fs ->
     else
       (head fs) (\() -> (sequence (tail fs)) callback)
   tco action
+
+let nop x = undefined
 let par = \fs ->
- makeCallback (\() -> map (\f -> f()) fs)
+ \() -> map (\f -> f(nop)) fs
 let repeat n f = sequence (times n f)
 let s = sequence
 let r = repeat
