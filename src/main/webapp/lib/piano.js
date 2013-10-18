@@ -43,9 +43,11 @@ function Piano() {
                piano.play(note.slice(1))(done)
              })
          } else {
-           var freq = freqTable[note]
-           if (!freq) freq = note
-           osc.note(freq, defaultDuration)
+           if (note != " ") {
+             var freq = freqTable[note]
+             if (!freq) freq = note
+             osc.note(freq, defaultDuration)
+           }
            if (done) {
              setTimeout(done, defaultDuration)
            }
