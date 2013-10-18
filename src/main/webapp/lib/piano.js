@@ -14,9 +14,12 @@ function Oscillator() {
     }
 
     return {
-      note: function(freq, duration) {
+      note: function(freq, duration, done) {
         play(freq)
-        setTimeout(stop, duration)
+        setTimeout(function(){
+          stop()
+          done()
+        }, duration)
       }
     }
 }
@@ -29,10 +32,23 @@ function Piano() {
     "f": 349.23,
     "g": 392.00,
     "a": 440.00,
-    "b": 493.88
+    "b": 493.88,
+    "h": 493.88
   }
-  osc = Oscillator()
   defaultDuration = 500
+  var oscillators = []
+
+  function getOscillator() {
+    var osc = oscillators.splice(oscillators.length - 1)[0]
+    if (!osc) 
+      osc = Oscillator()
+    return osc
+  }
+  function releaseOscillator(osc) {
+    return function() {
+      oscillators.push(osc)
+    }
+  }
   piano = {
      play: function(note, duration) {
        if (!duration) duration = defaultDuration
@@ -43,10 +59,11 @@ function Piano() {
                piano.play(note.slice(1))(done)
              })
          } else {
+           var osc = getOscillator()
            if (note != " ") {
              var freq = freqTable[note]
              if (!freq) freq = note
-             osc.note(freq, defaultDuration)
+             osc.note(freq, defaultDuration, releaseOscillator(osc))
            }
            if (done) {
              setTimeout(done, defaultDuration)
@@ -57,6 +74,9 @@ function Piano() {
      pause: function(done, duration) {
        if (!duration) duration = defaultDuration
        setTimeout(done, defaultDuration)
+     },
+     tempo: function(tempo) {
+       defaultDuration = tempo
      }
    }
    _.extend(piano, freqTable)

@@ -33,6 +33,8 @@ let sequence = \fs ->
     else
       (head fs) (\() -> (sequence (tail fs)) callback)
   tco action
+let par = \fs ->
+ makeCallback (\() -> map (\f -> f()) fs)
 let repeat n f = sequence (times n f)
 let s = sequence
 let r = repeat
