@@ -34,3 +34,5 @@ let sequence = \fs ->
       (head fs) (\() -> (sequence (tail fs)) callback)
   tco action
 let repeat n f = sequence (times n f)
+let s = sequence
+let r = repeat
