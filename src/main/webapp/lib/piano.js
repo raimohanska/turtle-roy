@@ -55,18 +55,18 @@ function Piano() {
        return function(done) {
          if (note instanceof Array) {
            if (note.length)
-             piano.play(note[0])(function() {
-               piano.play(note.slice(1))(done)
+             piano.play(note[0], duration)(function() {
+               piano.play(note.slice(1), duration)(done)
              })
          } else {
            var osc = getOscillator()
            if (note != " ") {
              var freq = freqTable[note]
              if (!freq) freq = note
-             osc.note(freq, defaultDuration, releaseOscillator(osc))
+             osc.note(freq, duration, releaseOscillator(osc))
            }
            if (done) {
-             setTimeout(done, defaultDuration)
+             setTimeout(done, duration)
            }
          }
        }
