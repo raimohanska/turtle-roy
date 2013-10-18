@@ -47,6 +47,9 @@ function Piano() {
            }
          }
        }
+     },
+     pause: function(done) {
+       setTimeout(done, 500)
      }
    }
    return piano
@@ -54,4 +57,5 @@ function Piano() {
 
 var piano = Piano()
 var play = piano.play
+var pause = piano.pause
 var c = "c", d = "d", e = "e", f = "f", g = "g", b = "b"
