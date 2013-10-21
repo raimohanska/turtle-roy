@@ -30,6 +30,11 @@ class TurtleServlet extends ScalatraServlet {
   get("/turtles") {
     render(storage.turtles)
   }
+  
+  get("/turtles/:author") {
+    render(storage.findByAuthor(params("author")))
+  }
+
   private def handleTurtle(maybeTurtle : Option[Turtle]) = maybeTurtle match {
     case Some(turtle) => render(turtle)
     case None => halt(404, "Turtle not found")

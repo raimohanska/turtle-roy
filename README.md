@@ -19,6 +19,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     save "asdf"                 | save current work as "asdf"
     open "asdf"                 | open saved work "asdf" (presuming you've saved with this name and current author name)
     whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
+    ls                          | list your saved works
     play c                      | plays the note C    
     sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
     repeat 4 (say "hello")      | says "hello" 5 times

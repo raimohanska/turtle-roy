@@ -60,7 +60,7 @@
               history.push(line)
             }
             error.push("")
-            if (evaled != undefined) {
+            if (evaled != undefined && evaled.result != null) {
               return [fmtValue(JSON.stringify(evaled.result))];
             } else {
               return true;

@@ -130,8 +130,8 @@
           _(royloader.splitRoy(code)).each(function(line) {
             evaled = royloader.evalRoy(line)
             if (typeof evaled.result == "function") {
-              evaled.result()
-              evaled.result = undefined
+              var result = evaled.result()
+              evaled.result = result
             }
           })
           return evaled
@@ -178,37 +178,54 @@
 
         function withoutSave(f) {
           return function() {
-            f.apply(this, arguments)
+            var result = f.apply(this, arguments)
             repl.skipHistory()
+            return result
           }
         }
         function withAuthor(f) {
           var author = $("#nick").val()
           if (!author) {
-            repl.print("Who are you? Type login <yourname>")
+            return "Who are you? Type login <yourname>"
           } else {
-            f(author)
+            return f(author)
           }
+        }
+        function syncAjax(params) {
+          var result
+          params.async = false
+          $.ajax(params).then(function(x) {
+            result = x
+          })
+          return result
         }
         window.login = withoutSave(function(name) {
           $("#nick").val(name).trigger("keyup")
         })
         window.open = withoutSave(function(name) {
-          withAuthor(function(author) {
+          return withAuthor(function(author) {
             turtleLoader.load("/turtle/" + author + "/" + name)
           })
         })
         window.save = withoutSave(function(name) {
-          withAuthor(function(author) {
+          return withAuthor(function(author) {
             $("#description").val(name).trigger("keyup")
             $("#share button").trigger("click")
           })
         })
-        window.whoami = withoutSave(function() {
-          return withAuthor(function(author) { 
-            repl.print(author)
+        window.ls = withoutSave(function() {
+          return withAuthor(function(author) {
+            var turtles = syncAjax({url: "/turtles/" + author})
+            var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
+            return names
           })
         })
+        window.whoami = withoutSave(function() {
+          return withAuthor(_.identity)
+        })
+        window.hello = function() {
+          return "hell"
+        }
       })
     </script>
   </head>
