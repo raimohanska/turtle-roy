@@ -36,9 +36,11 @@ let sequence = \fs ->
 
 let nop x = undefined
 let par = \fs ->
-  \() ->
-    map (\f -> f(nop)) fs
-    null
+  \callback ->
+    let barrier = window.Barrier callback fs
+    map (\f -> f(\() -> barrier.countDown())) fs
+    undefined
+
 let repeat n f = sequence (times n f)
 let s = sequence
 let r = repeat
