@@ -70,7 +70,9 @@
         shareClick = shareButton.asEventStream("click")
         shared = shareClick.map(true).toProperty(false)
         nickname = Bacon.UI.textFieldValue($("#nick"), $.cookie("author"))
-        nickname.assign($.cookie, "author")
+        nickname.onValue(function(author) {
+          $.cookie("author", author, { expires: 365 })
+        })
         description = Bacon.UI.textFieldValue($("#description"))
         shareData = Bacon.combineTemplate({
             author: nickname,
