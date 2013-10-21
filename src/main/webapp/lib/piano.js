@@ -1,5 +1,12 @@
+var audio_context = new (window.AudioContext || window.webkitAudioContext || DummyAudioContext);
+
+function DummyAudioContext() {
+  this.createOscillator = function() {
+    throw "No WebAudio support"
+  }
+}
+
 function Oscillator() {
-    var audio_context = new (window.AudioContext || window.webkitAudioContext);
     var oscillator = audio_context.createOscillator();
 
     function play(freq) {
