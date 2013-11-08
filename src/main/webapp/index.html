@@ -99,11 +99,9 @@
         Bacon.UI.toggle(showLink, shareLink)
         Bacon.UI.toggle(showLink.not(), shareButton)
         shareResult.map(".id").onValue(function(id) {
-          var relativeUrl = "/?turtle=" + id
-          shareLink.attr("href", relativeUrl)
+          shareLink.attr("href", relativeUrl(id))
           shareLink.text("share this link!")
-          var absoluteUrl = "http://turtle-roy.herokuapp.com" + relativeUrl
-          repl.print("Saved! URL=" + absoluteUrl)
+          repl.print("Saved! URL=" + absoluteUrl(id))
         })
         var inputs = $("#share input")
         code.changes().onValue(function() { 
@@ -113,11 +111,21 @@
         anythingToShare = code.changes().map(true).toProperty(false)
         Bacon.UI.fadeToggle(anythingToShare, $("#share"), "slow")
       }
+
+      function relativeUrl(id) {
+          return "/?turtle=" + id
+      }
+
+      function absoluteUrl(id) {
+          return "http://turtle-roy.herokuapp.com" + relativeUrl(id)
+      }
+
       function TurtleLoader(repl, editor) {
         var turtleId = document.location.search.split("=")[1]
         function loadTurtle(url) {
           $.ajax(url).done(function(turtle) {
             editor.reset()
+            repl.print("Loaded \"" + turtle.content.description + "\" URL=" + absoluteUrl(turtle.id))
             repl.paste(turtle.content.code)
             document.title = turtle.content.description + " -" + document.title
           })
