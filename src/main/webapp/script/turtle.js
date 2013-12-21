@@ -7,6 +7,8 @@
     element.css({position: "relative", width: w, height: h})
     var paper = createCanvas(0)
     var turtle = createCanvas(1)
+    var cursor = {} // keys: image, width, height, left, top
+    	
     paper.save()
     turtle.save()
 
@@ -30,15 +32,19 @@
       return canvas.get(0).getContext('2d');
     }
     function clearTurtle() {
-      turtle.clearRect(-11, -11, 23, 23)
-    }
+      turtle.clearRect(-50, -50, 100, 100)
+    } 
     function drawTurtle() {
-      turtle.beginPath(); 
-      turtle.moveTo(0, -10);
-      turtle.lineTo(5, 10);
-      turtle.lineTo(-5, 10);
-      turtle.lineTo(0, -10);
-      turtle.stroke();
+      if ("image" in cursor) {
+        turtle.drawImage(cursor.image, cursor.left, cursor.top) 
+      } else {
+        turtle.beginPath(); 
+        turtle.moveTo(0, -10);
+        turtle.lineTo(5, 10);
+        turtle.lineTo(-5, 10);
+        turtle.lineTo(0, -10);
+        turtle.stroke();  
+      }      
     }
 
     var api = {
@@ -75,6 +81,19 @@
       }),
       spin: function(degrees, delay) {
         this.lt(360)
+      },
+      cursor: function(name) {
+        image = new Image()
+        image.onload = function() {
+          clearTurtle()
+          cursor.image = image
+          cursor.height = this.height
+          cursor.width = this.width
+          cursor.left = -1 * this.width / 2
+          cursor.top = -1 * this.height / 2
+          drawTurtle()
+        }
+        image.src = "images/" + name + ".png"
       },
       clear: Smoothly.do(function() {
         init()
