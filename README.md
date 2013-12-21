@@ -12,6 +12,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     rt 90                       | turns right 90 degrees
     penup                       | lifts the pen, no trace left when moving
     pendown                     | lowers the pen again for drawing
+    cursor "rocket-large"       | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess & rocket
     clear                       | clear the paper and reset turtle to center
     say "wat"                   | speak!
     print "x"                   | print to console
@@ -76,3 +77,5 @@ Lists
 Thanks to Miikka "arcatan" Koskinen for creating [tryroy](https://github.com/miikka/tryroy), from where I shamelessly stole the Roy browser REPL.
 
 Thanks to Brian McKenna for the [Roy](https://github.com/pufuwozu/roy) language and support.
+
+See origins of the cursor images from src/main/webapp/images/image-sources.txt
