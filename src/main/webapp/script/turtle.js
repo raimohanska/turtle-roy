@@ -32,13 +32,17 @@
       return canvas.get(0).getContext('2d');
     }
     function clearTurtle() {
-      turtle.clearRect(-50, -50, 100, 100)
+      if ("image" in cursor) {
+        turtle.clearRect(cursor.clearOffset, cursor.clearOffset, cursor.clearSize, cursor.clearSize)
+      } else {
+        turtle.clearRect(-11, -11, 23, 23)
+      }
     } 
     function drawTurtle() {
       if ("image" in cursor) {
         turtle.drawImage(cursor.image, cursor.left, cursor.top) 
       } else {
-        turtle.beginPath(); 
+        turtle.beginPath();
         turtle.moveTo(0, -10);
         turtle.lineTo(5, 10);
         turtle.lineTo(-5, 10);
@@ -89,8 +93,10 @@
           cursor.image = image
           cursor.height = this.height
           cursor.width = this.width
-          cursor.left = -1 * this.width / 2
-          cursor.top = -1 * this.height / 2
+          cursor.left = -this.width / 2
+          cursor.top = -this.height / 2
+          cursor.clearSize = Math.sqrt(Math.pow(this.height, 2) + Math.pow(this.width, 2)) + 1
+          cursor.clearOffset = -cursor.clearSize / 2
           drawTurtle()
         }
         image.src = "images/" + name + ".png"
