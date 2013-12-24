@@ -12,7 +12,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     rt 90                       | turns right 90 degrees
     penup                       | lifts the pen, no trace left when moving
     pendown                     | lowers the pen again for drawing
-    cursor "rocket-large"       | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess & rocket
+    setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket & turtle
     clear                       | clear the paper and reset turtle to center
     say "wat"                   | speak!
     print "x"                   | print to console
