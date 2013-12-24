@@ -86,7 +86,7 @@
       spin: function(degrees, delay) {
         this.lt(360)
       },
-      cursor: function(name) {
+      setshape: function(name) {
         image = new Image()
         image.onload = function() {
           clearTurtle()
