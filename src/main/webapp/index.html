@@ -125,7 +125,6 @@
         function loadTurtle(url) {
           $.ajax(url).done(function(turtle) {
             editor.reset()
-            repl.print("Loaded \"" + turtle.content.description + "\" URL=" + absoluteUrl(turtle.id))
             repl.paste(turtle.content.code)
             document.title = turtle.content.description + " -" + document.title
           })
