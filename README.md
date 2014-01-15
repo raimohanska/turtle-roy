@@ -7,7 +7,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
 # Turtle Roy API
 
-    fd 100                      | moves 100 pixelx forward
+    fd 100                      | moves 100 pixels forward
     lt 45                       | turns left 45 degrees
     rt 90                       | turns right 90 degrees
     penup                       | lifts the pen, no trace left when moving
