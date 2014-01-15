@@ -12,7 +12,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     rt 90                       | turns right 90 degrees
     penup                       | lifts the pen, no trace left when moving
     pendown                     | lowers the pen again for drawing
-    setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket & turtle
+    setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
     clear                       | clear the paper and reset turtle to center
     say "wat"                   | speak!
     print "x"                   | print to console
@@ -22,9 +22,15 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
     ls                          | list your saved works
     play c                      | plays the note C    
+    play c 500                  | plays the note C for 500 milliseconds
+    play c*2                    | plays the note C2 (frequency = C * 2)
     sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
+    s [fd 100, rt 90]           | same as above
     repeat 4 (say "hello")      | says "hello" 5 times
+    r 4 (say "hello")           | same as above
     par [play c, play e]        | playes notes C and E in parallel
+
+In addition to this, you may use the full [Roy](http://roy.brianmckenna.org/) programming language.
 
 # Examples
 
