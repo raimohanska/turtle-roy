@@ -77,7 +77,7 @@ Lists
     
 # Running
 
-    ./sbt ~container:start
+    ./start
 
 # Credits
 
