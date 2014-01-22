@@ -1,15 +1,13 @@
-function Sharing(code) {
+function Sharing(code, storage) {
   var shareButton = $("#share button")
   $("#share label").click(function() {
     $("#share form").slideToggle("fast")
   })
   var shareClick = shareButton.asEventStream("click")
   var shared = shareClick.map(true).toProperty(false)
-  var nickname = Bacon.UI.textFieldValue($("#nick"), $.cookie("author"))
-  nickname.onValue(function(author) {
-    $.cookie("author", author, { expires: 365 })
-  })
-  var description = Bacon.UI.textFieldValue($("#description"))
+  var nickname = Bacon.$.textFieldValue($("#nick"))
+  nickname.bind(storage.author)
+  var description = Bacon.$.textFieldValue($("#description"))
   var shareData = Bacon.combineTemplate({
       author: nickname,
       description: description,
@@ -23,17 +21,18 @@ function Sharing(code) {
       data: JSON.stringify(data)
     }
   }).ajax()
-  var pending = shareResult.pending(shareClick)
+  var pending = shareClick.awaiting(shareResult)
   pending.assign($("#share .ajax"), "toggle")
-  var changedSinceShare = shareClick.pending(code.changes())
+  var changedSinceShare = code.changes().awaiting(shareClick)
   var okToShare = nickname.map(nonEmpty)
-    .and(description.map(nonEmpty)).and(pending.not())
+    .and(description.map(nonEmpty))
+    .and(pending.not())
     .and(changedSinceShare)
   okToShare.not().assign(shareButton, "attr", "disabled")
   var shareLink = $("#share a")
   var showLink = shared.and(pending.not()).and(changedSinceShare.not())
-  Bacon.UI.toggle(showLink, shareLink)
-  Bacon.UI.toggle(showLink.not(), shareButton)
+  showLink.assign(shareLink, "toggle")
+  showLink.not().assign(shareButton, "toggle")
   shareResult.map(".id").onValue(function(id) {
     shareLink.attr("href", relativeUrl(id))
     shareLink.text("share this link!")
@@ -43,9 +42,11 @@ function Sharing(code) {
   code.changes().onValue(function() { 
     $("#description").val("").trigger("keyup")
   })
-  Bacon.UI.enable(showLink.not(), inputs)
+  showLink.assign(inputs, "attr", "disabled")
   var anythingToShare = code.changes().map(true).toProperty(false)
-  Bacon.UI.fadeToggle(anythingToShare, $("#share"), "slow")
+  anythingToShare.onValue(function(val) {
+    $("#share")[val?"fadeIn":"fadeOut"]("slow")
+  })
 
   function relativeUrl(id) {
       return "/?turtle=" + id

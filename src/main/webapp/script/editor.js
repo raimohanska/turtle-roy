@@ -1,6 +1,6 @@
 function Editor(royEnv, repl) {
   var editorElement = $(".editor textarea")
-  var code = Bacon.UI.textFieldValue(editorElement)
+  code = Bacon.$.textFieldValue(editorElement)
   $(".editor").hide()
   $(".editor-link").asEventStream("click").onValue(function() {
     $(".editor").toggle()
@@ -14,7 +14,7 @@ function Editor(royEnv, repl) {
 
   var ctrlSpace = editorElement.asEventStream("keyup")
     .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
-    .do(".preventDefault")
+    .doAction(".preventDefault")
   $(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
     royEnv.evalRoy(program)
   })

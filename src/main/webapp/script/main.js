@@ -7,7 +7,8 @@ $(function() {
   turtle.spin(360, 10)
   var editor = Editor(royEnv, repl)
   Cookbook(editor, repl)
-  Sharing(editor.code)
+  var storage = Storage()
+  Sharing(editor.code, storage)
   var turtleLoader = TurtleLoader(repl, editor);
   _.merge(window, Commands(turtleLoader));
 })
