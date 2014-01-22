@@ -1,3 +1,4 @@
+ // callbacks monad
 let callbacks = {
   return: \x ->
     \callback -> callback x
@@ -8,6 +9,7 @@ let callbacks = {
         action2 callback
       action1 callback1
 }
+
 let makeCallback = \f ->
     \callback ->
       f ()
@@ -26,8 +28,6 @@ let wait seconds = (\callback -> setTimeout callback (seconds * 1000))
 let say text = makeCallback (\() -> speak text)
 let print = window.repl.print
 
-// Action sequencing / repeat utils
-
 let sequence = \fs -> 
   let action = \callback ->
     if empty fs then
@@ -36,7 +36,6 @@ let sequence = \fs ->
       (head fs) (\() -> (sequence (tail fs)) callback)
   tco action
 
-let nop x = undefined
 let par = \fs ->
   \callback ->
     let barrier = window.Barrier callback fs
