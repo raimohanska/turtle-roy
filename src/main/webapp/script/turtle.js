@@ -1,7 +1,7 @@
 ;(function() {
   Turtle = function(element, w, h) {
-    var x = w / 2
-    var y = h / 2
+    var xCenter = w / 2
+    var yCenter = h / 2
     var pendown = true
 
     element.css({position: "relative", width: w, height: h})
@@ -19,9 +19,17 @@
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
-      paper.clearRect(0, 0, w, h)
-      paper.translate(x, y);
-      turtle.translate(x, y);
+      turtle.clearRect(0, 0, w, h)
+      paper.translate(xCenter, yCenter);
+      turtle.translate(xCenter, yCenter);
+      drawTurtle()
+    }
+    function turtleToHome() {
+      clearTurtle()
+      paper.setTransform(1, 0, 0, 1, 0, 0)
+      turtle.setTransform(1, 0, 0, 1, 0, 0)
+      paper.translate(xCenter, yCenter);
+      turtle.translate(xCenter, yCenter);
       drawTurtle()
     }
     function createCanvas(zIndex) {
@@ -103,6 +111,9 @@
       },
       clear: Smoothly.do(function() {
         init()
+      }),
+      home: Smoothly.do(function() {
+        turtleToHome()
       })
     }
     return api

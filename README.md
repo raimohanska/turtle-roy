@@ -14,6 +14,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     pendown                     | lowers the pen again for drawing
     setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
     clear                       | clear the paper and reset turtle to center
+    home                        | reset the turtle to center
     say "wat"                   | speak!
     print "x"                   | print to console
     login "raimo"               | login as "raimo" (this is the author name in your saved work)
