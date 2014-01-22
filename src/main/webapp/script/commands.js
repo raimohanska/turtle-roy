@@ -1,4 +1,4 @@
-function Commands(turtleLoader) {
+function Commands(turtleLoader, storage, code) {
   function withoutSave(f) {
     return function() {
       var result = f.apply(this, arguments)
@@ -7,7 +7,7 @@ function Commands(turtleLoader) {
     }
   }
   function withAuthor(f) {
-    var author = $("#nick").val()
+    var author = storage.author.get()
     if (!author) {
       return "Who are you? Type login <yourname>"
     } else {
@@ -22,9 +22,12 @@ function Commands(turtleLoader) {
     })
     return result
   }
-  return {
-    login: withoutSave(function(name) {
-      $("#nick").val(name).trigger("keyup")
+  var api = {
+    login: withoutSave(function(author) {
+      storage.author.set(author)
+    }),
+    logout: withoutSave(function() {
+      storage.author.set("")
     }),
     open: withoutSave(function(name) {
       return withAuthor(function(author) {
@@ -33,8 +36,11 @@ function Commands(turtleLoader) {
     }),
     save: withoutSave(function(name) {
       return withAuthor(function(author) {
-        $("#description").val(name).trigger("keyup")
-        $("#share button").trigger("click")
+        storage.saveBus.push({
+          author: storage.author.get(),
+          description: name,
+          code: code.get()
+        })
       })
     }),
     ls: withoutSave(function() {
@@ -48,4 +54,5 @@ function Commands(turtleLoader) {
       return withAuthor(_.identity)
     })
   }
+  return api
 }

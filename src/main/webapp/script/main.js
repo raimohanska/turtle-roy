@@ -10,5 +10,5 @@ $(function() {
   var storage = Storage()
   Sharing(editor.code, storage)
   var turtleLoader = TurtleLoader(repl, editor);
-  _.merge(window, Commands(turtleLoader));
+  _.merge(window, Commands(turtleLoader, storage, editor.code));
 })
