@@ -1,7 +1,4 @@
-let jsarray xs =
-  let plusOne = Array.prototype.concat.apply [1] xs
-  let jsarr = Array.apply null plusOne
-  jsarr.slice 1
+let jsarray xs = Array.prototype.slice.call xs 0
 let always x = (\() -> x)
 let length xs = (jsarray xs).length
 let empty xs = (length xs) == 0
