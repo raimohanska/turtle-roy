@@ -40,9 +40,6 @@
         addExample("Lists - concat", "concat [1,2,3] [4,5,6]")
         addExample("Lists - reverse", "let reverse xs = if (empty xs) then [] else concat (reverse (tail xs)) [head xs]\nreverse [1,2,3]")
 
-        $("#cookbook").hover(function() {
-          $("#cookbook ul").slideDown("fast")
-        }, function() {})
         $("#cookbook label").click(function() {
           $("#cookbook ul").slideToggle("fast")
         })
@@ -61,9 +58,6 @@
       }
       function Sharing(code) {
         shareButton = $("#share button")
-        $("#share label").hover(function() {
-          $("#share form").slideDown("fast")
-        }, function() {})
         $("#share label").click(function() {
           $("#share form").slideToggle("fast")
         })
