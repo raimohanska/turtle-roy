@@ -9,6 +9,14 @@ $(function() {
   Cookbook(editor, repl)
   var storage = Storage()
   Sharing(editor.code, storage)
-  var turtleLoader = TurtleLoader(repl, editor);
-  _.merge(window, Commands(turtleLoader, storage, editor.code));
+
+  storage.openResult.onValue(function(turtle) {
+    editor.reset()
+    repl.paste(turtle.content.code)
+    document.title = turtle.content.description + " -" + document.title
+  })
+  var turtleId = document.location.search.split("=")[1]
+  if (turtleId) storage.open(turtleId)
+
+  _.merge(window, Commands(storage, editor.code));
 })

@@ -1,4 +1,4 @@
-function Commands(turtleLoader, storage, code) {
+function Commands(storage, code) {
   function withoutSave(f) {
     return function() {
       var result = f.apply(this, arguments)
@@ -31,7 +31,7 @@ function Commands(turtleLoader, storage, code) {
     }),
     open: withoutSave(function(name) {
       return withAuthor(function(author) {
-        turtleLoader.load("/turtle/" + author + "/" + name)
+        storage.open(author + "/" + name)
       })
     }),
     save: withoutSave(function(name) {

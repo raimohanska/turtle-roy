@@ -13,10 +13,16 @@ function Storage() {
     }
   }).ajax()
   var savePending = saveBus.awaiting(saveResult)
+
+  var openBus = new Bacon.Bus()
+  var openResult = openBus.ajax()
+
   return {
     author: author,
     saveBus: saveBus,
     saveResult: saveResult,
-    savePending: savePending
+    savePending: savePending,
+    open: function(name) { openBus.push("/turtle/" + name) },
+    openResult: openResult
   }
 }
