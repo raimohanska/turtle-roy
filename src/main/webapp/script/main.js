@@ -8,6 +8,6 @@ $(function() {
   var editor = Editor(royEnv, repl)
   Cookbook(editor, repl)
   Sharing(editor.code)
-  var turtleLoader = TurtleLoader(repl, editor)
-  Commands(turtleLoader)
+  var turtleLoader = TurtleLoader(repl, editor);
+  _.merge(window, Commands(turtleLoader));
 })

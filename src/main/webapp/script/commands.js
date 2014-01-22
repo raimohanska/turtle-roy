@@ -22,28 +22,30 @@ function Commands(turtleLoader) {
     })
     return result
   }
-  window.login = withoutSave(function(name) {
-    $("#nick").val(name).trigger("keyup")
-  })
-  window.open = withoutSave(function(name) {
-    return withAuthor(function(author) {
-      turtleLoader.load("/turtle/" + author + "/" + name)
+  return {
+    login: withoutSave(function(name) {
+      $("#nick").val(name).trigger("keyup")
+    }),
+    open: withoutSave(function(name) {
+      return withAuthor(function(author) {
+        turtleLoader.load("/turtle/" + author + "/" + name)
+      })
+    }),
+    save: withoutSave(function(name) {
+      return withAuthor(function(author) {
+        $("#description").val(name).trigger("keyup")
+        $("#share button").trigger("click")
+      })
+    }),
+    ls: withoutSave(function() {
+      return withAuthor(function(author) {
+        var turtles = syncAjax({url: "/turtles/" + author})
+        var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
+        return names
+      })
+    }),
+    whoami: withoutSave(function() {
+      return withAuthor(_.identity)
     })
-  })
-  window.save = withoutSave(function(name) {
-    return withAuthor(function(author) {
-      $("#description").val(name).trigger("keyup")
-      $("#share button").trigger("click")
-    })
-  })
-  window.ls = withoutSave(function() {
-    return withAuthor(function(author) {
-      var turtles = syncAjax({url: "/turtles/" + author})
-      var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
-      return names
-    })
-  })
-  window.whoami = withoutSave(function() {
-    return withAuthor(_.identity)
-  })
+  }
 }
