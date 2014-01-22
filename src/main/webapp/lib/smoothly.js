@@ -17,15 +17,15 @@
 
     function checkQueue() {
       polling = false
-      var chunk = Math.max(1, queue.length / 100)
-      var left = chunk
-      while (left > 0 && queue.length > 0) {
-        var first = queue.splice(0,1)[0]
-        first()
-        left--
-      }
-      if (queue.length > 0) {
-        schedule()
+      var chunkSize = Math.min(queue.length, Math.floor(Math.max(1, queue.length / 100)))
+      if (chunkSize > 0) {
+        var todo = queue.splice(0, chunkSize)
+        for (var i = 0; i < chunkSize; i++) {
+          todo[i]()
+        }
+        if (queue.length > 0) {
+          schedule()
+        }
       }
     }
 
