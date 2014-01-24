@@ -38,6 +38,38 @@ body, .editor textarea {
   width: 900px; height: 30px;
 }
 
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+
+#cheatsheet {
+  width: 1200px;
+  padding: 30px; 
+  display:none;
+  background: #FFF;
+  border-radius: 5px; 
+  -moz-border-radius: 5px; 
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+  -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
+}
+
+#cheatsheet p { color: #666; text-shadow: none; }
+
+#help {
+  position: absolute;
+  right: 80px;
+  color: black;
+}
+
 #cookbook {
   position: absolute;
   right: 0;
@@ -163,6 +195,16 @@ input:focus {
   right: 20px;
   text-decoration: none;
 }
+
+.wrap{
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  width:100%;
+  height:100%;
+  display:none;
+  overflow:auto;
+}    
 
 .jquery-console-inner {
   width: 900px;

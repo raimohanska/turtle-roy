@@ -1,0 +1,90 @@
+<h1 id="turtle-roy">Turtle Roy</h1>
+<p>
+   A <a href="http://roy.brianmckenna.org/">Roy</a> programming/learning
+   environment with <a href="http://en.wikipedia.org/wiki/Turtle_graphics">Turtle
+   Graphics</a>, as in the <a
+      href="http://el.media.mit.edu/logo-foundation/logo/programming.html">Logo</a>
+   programming language.
+</p>
+<h1 id="turtle-roy-api">Turtle Roy API</h1>
+<pre>
+fd 100                      | moves 100 pixels forward
+lt 45                       | turns left 45 degrees
+rt 90                       | turns right 90 degrees
+penup                       | lifts the pen, no trace left when moving
+pendown                     | lowers the pen again for drawing
+setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
+clear                       | clear the paper and reset turtle to center
+home                        | reset the turtle to center
+say "wat"                   | speak!
+print "x"                   | print to console
+login "raimo"               | login as "raimo" (this is the author name in your saved work)
+save "asdf"                 | save current work as "asdf"
+open "asdf"                 | open saved work "asdf" (presuming you've saved with this name and current author name)
+whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
+ls                          | list your saved works
+play c                      | plays the note C    
+play c 500                  | plays the note C for 500 milliseconds
+play c*2                    | plays the note C2 (frequency = C * 2)
+sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
+s [fd 100, rt 90]           | same as above
+repeat 4 (say "hello")      | says "hello" 5 times
+r 4 (say "hello")           | same as above
+par [play c, play e]        | playes notes C and E in parallel
+</pre>
+<p>
+   In addition to this, you may use the full <a
+      href="http://roy.brianmckenna.org/">Roy</a> programming language.
+</p>
+<h1 id="examples">Examples</h1>
+<p>Basic Turtle commands</p>
+<pre>
+fd 100
+lt 90
+rt 45
+</pre>
+<p>Square</p>
+<pre>
+let square = repeat 4 (sequence[fd 50, lt 90])
+square
+</pre>
+<p>Flower</p>
+<pre>
+let flower = repeat 36 (rt 10, square)
+flower
+</pre>
+<p>Math</p>
+<pre>
+3 + 4
+3 / 4
+let factorial n = if n==1 then 1 else n * (factorial n - 1)
+factorial 12
+</pre>
+<p>Strings</p>
+<pre>
+"apple" ++ "sauce"
+"apple" + 10 (won't compile)
+</pre>
+<p>Lists</p>
+<pre>
+range 1 99
+head [1,2,3]
+tail [1,2,3]
+concat [1,2,3] [4,5,6]
+length [1,2,3]
+let reverse xs = if (empty xs) then [] else concat (reverse (tail xs)) [head xs]
+reverse [1,2,3]
+</pre>
+<h1 id="credits">Credits</h1>
+<p>
+   Thanks to Miikka "arcatan" Koskinen for creating <a
+      href="https://github.com/miikka/tryroy">tryroy</a>, from where I
+   shamelessly stole the Roy browser REPL.
+</p>
+<p>
+   Thanks to Brian McKenna for the <a
+      href="https://github.com/pufuwozu/roy">Roy</a> language and support.
+</p>
+<p>See origins of the cursor images from
+   src/main/webapp/images/image-sources.txt
+</p>
