@@ -1,4 +1,4 @@
-function nonEmpty(x) { return x.length > 0 }
+function nonEmpty(x) { return x && x.length > 0 }
 
 $(function() {
   var royEnv = RoyEnv()
