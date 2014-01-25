@@ -68,13 +68,19 @@ Strings
 Lists
 
     range 1 99
+    times 100 "lol"
     head [1,2,3]
     tail [1,2,3]
     concat [1,2,3] [4,5,6]
     length [1,2,3]
+    empty []
     let reverse xs = if (empty xs) then [] else concat (reverse (tail xs)) [head xs]
     reverse [1,2,3]
-    
+    sum [1,2,3]
+    map (\x -> x * 2) [1,2,3]
+    filter (\x -> x > 1) [1,2,3]
+    foldl (\x y -> x * y) 1 [1,2,3]
+
 # Running
 
     ./start
