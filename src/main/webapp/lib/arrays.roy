@@ -7,6 +7,7 @@ let cons x xs = concat [x] xs
 let head xs = xs@0
 let tail xs = (jsarray xs).slice 1
 let times n x = map (always x) (range 1 n)
+let sum xs = foldl (\x y -> x + y) 0 xs
 let map f xs = 
   if empty xs then
     []
