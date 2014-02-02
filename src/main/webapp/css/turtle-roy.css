@@ -14,6 +14,21 @@ body, .editor textarea {
   font-size: 14px;
 }
 
+body.embedded {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.embedded #top {
+  display: none;
+}
+
+.embedded #bottom {
+  display: none;
+}
+
+
 #top {
   width: 100%; height: 50px;
   position: relative;

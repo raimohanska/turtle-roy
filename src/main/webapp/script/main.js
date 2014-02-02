@@ -1,10 +1,15 @@
 function nonEmpty(x) { return x && x.length > 0 }
 
 $(function() {
+  overhead = 300
+  if (window.parent) {
+    $("body").addClass("embedded")
+    overhead = 200
+  }
   var royEnv = RoyEnv()
   function width() { return $("body").width() }
   function height() { 
-    return Math.min(width() / 2, $(window).height() - 300)
+    return Math.min(width() / 2, $(window).height() - overhead)
   }
   repl = royRepl.init($(".console"), royEnv)
   turtle = Turtle($("#turtlegraphics"), width(), height())
