@@ -3,7 +3,9 @@ function nonEmpty(x) { return x && x.length > 0 }
 $(function() {
   var royEnv = RoyEnv()
   function width() { return $("body").width() }
-  function height() { return 300 }
+  function height() { 
+    return Math.min(width() / 2, $(window).height() - 300)
+  }
   repl = royRepl.init($(".console"), royEnv)
   turtle = Turtle($("#turtlegraphics"), width(), height())
   turtle.spin(360, 10)
