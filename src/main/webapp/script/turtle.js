@@ -1,14 +1,20 @@
 ;(function() {
   Turtle = function(element, w, h) {
-    var xCenter = w / 2
-    var yCenter = h / 2
+    function xCenter() { return w / 2 }
+    function yCenter() { return h / 2 }
+    function setSize(width, height) {
+      w = width
+      h = height
+      element.css({position: "relative", width: w, height: h})
+      element.find("canvas").attr("width", w).attr("height", h)
+    }
     var pendown = true
 
-    element.css({position: "relative", width: w, height: h})
     var paper = createCanvas(0)
     var turtle = createCanvas(1)
+    setSize(w, h)
     var cursor = {} // keys: image, width, height, left, top
-    	
+	
     paper.save()
     turtle.save()
 
@@ -20,20 +26,20 @@
       turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
       turtle.clearRect(0, 0, w, h)
-      paper.translate(xCenter, yCenter);
-      turtle.translate(xCenter, yCenter);
+      paper.translate(xCenter(), yCenter());
+      turtle.translate(xCenter(), yCenter());
       drawTurtle()
     }
     function turtleToHome() {
       clearTurtle()
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
-      paper.translate(xCenter, yCenter);
-      turtle.translate(xCenter, yCenter);
+      paper.translate(xCenter(), yCenter());
+      turtle.translate(xCenter(), yCenter());
       drawTurtle()
     }
     function createCanvas(zIndex) {
-      var canvas = $("<canvas></canvas>").attr("width", w).attr("height", h)
+      var canvas = $("<canvas></canvas>")
       canvas.css({position: "absolute", left: 0, right: 0})
       canvas.css({"z-index": zIndex})
       element.append(canvas)
@@ -60,6 +66,10 @@
     }
 
     var api = {
+      resize: function(newWidth, newHeight) {
+        setSize(newWidth, newHeight)
+        clear()
+      },
       fd: function(dist) {
         Smoothly.step(dist, 5, function(step) {
           if (pendown) {

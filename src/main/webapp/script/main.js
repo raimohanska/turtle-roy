@@ -2,10 +2,12 @@ function nonEmpty(x) { return x && x.length > 0 }
 
 $(function() {
   var royEnv = RoyEnv()
+  function width() { return $("body").width() }
+  function height() { return 300 }
   repl = royRepl.init($(".console"), royEnv)
-  turtle = Turtle($("#turtlegraphics"), 900, 300)
+  turtle = Turtle($("#turtlegraphics"), width(), height())
   turtle.spin(360, 10)
-  var editor = Editor(royEnv, repl)
+  var editor = Editor($("body"), royEnv, repl)
   Cookbook(editor, repl)
   var storage = Storage()
   Sharing(editor.code, storage)
@@ -19,4 +21,8 @@ $(function() {
   if (turtleId) storage.open(turtleId)
 
   _.merge(window, Commands(storage, editor.code));
+
+  $(window).resize(function() {
+    turtle.resize(width(), height())
+  })
 })

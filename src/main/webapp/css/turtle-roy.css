@@ -6,6 +6,8 @@ body {
   font-size: 14px;
   color: #839496;
   background: #eeeeee;
+  width: 95%;
+  height: 600px;
 }
 
 body, .editor textarea {
@@ -14,7 +16,7 @@ body, .editor textarea {
 }
 
 #top {
-  width: 900px; height: 50px;
+  width: 100%; height: 50px;
   position: relative;
 }
 
@@ -35,7 +37,7 @@ body, .editor textarea {
 
 #bottom {
   position: relative;
-  width: 900px; height: 30px;
+  width: 100%; height: 30px;
 }
 
 #lean_overlay {
@@ -154,13 +156,25 @@ input:focus {
   outline:none;
 }
 
+.editor {
+  display: none;
+}
+
+.editor-mode .editor {
+  display: block;
+}
+
+.editor-mode .console {
+  display: none;
+}
+
 .editor, .console {
   position: relative;
-  width: 900px; height: 200px;
+  height: 200px;
 }
 
 .editor textarea {
-  width: 897px;
+  width: 100%;
   height: 196px;
   resize: none;
   background-color: #002b36;
@@ -207,7 +221,7 @@ input:focus {
 }    
 
 .jquery-console-inner {
-  width: 900px;
+  width: 100%;
   height: 172px;
   padding: 1em 0em;
   background-color: #002b36;
