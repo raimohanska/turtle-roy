@@ -2,7 +2,7 @@ function nonEmpty(x) { return x && x.length > 0 }
 
 $(function() {
   overhead = 300
-  if (window.parent) {
+  if (window.self !== window.top) {
     $("body").addClass("embedded")
     overhead = 200
   }
