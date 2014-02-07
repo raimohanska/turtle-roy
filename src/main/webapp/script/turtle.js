@@ -14,7 +14,7 @@
     var turtle = createCanvas(1)
     setSize(w, h)
     var cursor = {} // keys: image, width, height, left, top
-	
+
     paper.save()
     turtle.save()
 
@@ -51,18 +51,18 @@
       } else {
         turtle.clearRect(-11, -11, 23, 23)
       }
-    } 
+    }
     function drawTurtle() {
       if ("image" in cursor) {
-        turtle.drawImage(cursor.image, cursor.left, cursor.top) 
+        turtle.drawImage(cursor.image, cursor.left, cursor.top)
       } else {
         turtle.beginPath();
         turtle.moveTo(0, -10);
         turtle.lineTo(5, 10);
         turtle.lineTo(-5, 10);
         turtle.lineTo(0, -10);
-        turtle.stroke();  
-      }      
+        turtle.stroke();
+      }
     }
 
     var api = {
@@ -118,6 +118,10 @@
           drawTurtle()
         }
         image.src = "images/" + name + ".png"
+      },
+      background: function(color) {
+          console.log("JEE");
+          $("#turtlegraphics").css("background-color", color);
       },
       clear: Smoothly.do(function() {
         init()

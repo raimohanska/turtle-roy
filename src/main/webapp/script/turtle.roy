@@ -27,8 +27,10 @@ let clear = makeCallback(\() -> turtle.clear ())
 let wait seconds = (\callback -> setTimeout callback (seconds * 1000))
 let say text = makeCallback (\() -> speak text)
 let print = window.repl.print
+let background color = makeCallback(\() -> turtle.background color)
+let bg = background
 
-let sequence = \fs -> 
+let sequence = \fs ->
   let action = \callback ->
     if empty fs then
       callMaybe callback
