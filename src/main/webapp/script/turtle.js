@@ -120,7 +120,6 @@
         image.src = "images/" + name + ".png"
       },
       background: function(color) {
-          console.log("JEE");
           $("#turtlegraphics").css("background-color", color);
       },
       clear: Smoothly.do(function() {
