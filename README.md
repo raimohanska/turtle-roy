@@ -22,7 +22,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     open "asdf"                 | open saved work "asdf" (presuming you've saved with this name and current author name)
     whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
     ls                          | list your saved works
-    play c                      | plays the note C    
+    play c                      | plays the note C
     play c 500                  | plays the note C for 500 milliseconds
     play c*2                    | plays the note C2 (frequency = C * 2)
     sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
@@ -30,6 +30,7 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     repeat 4 (say "hello")      | says "hello" 5 times
     r 4 (say "hello")           | same as above
     par [play c, play e]        | playes notes C and E in parallel
+    bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
 
 In addition to this, you may use the full [Roy](http://roy.brianmckenna.org/) programming language.
 
