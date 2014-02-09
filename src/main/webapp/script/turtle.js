@@ -30,6 +30,7 @@
       turtle.translate(xCenter(), yCenter());
       $("#turtlegraphics").css("background-color", "white");
       paper.font="20px Courier"
+      setColor("black")
       drawTurtle()
     }
     function turtleToHome() {
@@ -65,6 +66,10 @@
         turtle.lineTo(0, -10);
         turtle.stroke();
       }
+    }
+    function setColor(color) {
+      paper.strokeStyle=color
+      paper.fillStyle=color
     }
 
     var api = {
@@ -124,6 +129,11 @@
       background: function(color) {
         Smoothly.do(function() {
           $("#turtlegraphics").css("background-color", color);
+        })()
+      },
+      color: function(color) {
+        Smoothly.do(function() {
+          setColor(color)
         })()
       },
       text: function(text) {
