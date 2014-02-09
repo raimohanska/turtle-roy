@@ -28,6 +28,7 @@
       turtle.clearRect(0, 0, w, h)
       paper.translate(xCenter(), yCenter());
       turtle.translate(xCenter(), yCenter());
+      $("#turtlegraphics").css("background-color", "white");
       drawTurtle()
     }
     function turtleToHome() {
