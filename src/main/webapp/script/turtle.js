@@ -29,6 +29,7 @@
       paper.translate(xCenter(), yCenter());
       turtle.translate(xCenter(), yCenter());
       $("#turtlegraphics").css("background-color", "white");
+      paper.font="20px Courier"
       drawTurtle()
     }
     function turtleToHome() {
@@ -69,7 +70,7 @@
     var api = {
       resize: function(newWidth, newHeight) {
         setSize(newWidth, newHeight)
-        clear()
+        init()
       },
       fd: function(dist) {
         Smoothly.step(dist, 5, function(step) {
@@ -121,7 +122,19 @@
         image.src = "images/" + name + ".png"
       },
       background: function(color) {
+        Smoothly.do(function() {
           $("#turtlegraphics").css("background-color", color);
+        })()
+      },
+      text: function(text) {
+        Smoothly.do(function() {
+          paper.fillText(text, 0, 0)
+        })()
+      },
+      font: function(font) {
+        Smoothly.do(function() {
+          paper.font = font
+        })()
       },
       clear: Smoothly.do(function() {
         init()
