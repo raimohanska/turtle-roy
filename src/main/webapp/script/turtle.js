@@ -153,7 +153,8 @@
         turtleToHome()
       })
     }
-    return api
+    window.recorder = Recorder(api)
+    return window.recorder
   }
 
   window.Barrier = function(callback, things) {
