@@ -7,12 +7,19 @@ function Recorder(api) {
       recorder[key] = proxyMethod(key, f)
     }
   }
-  recorder.calls = calls
+  recorder._recorder = {
+    calls: function() {
+      return calls
+    },
+    reset: function() {
+      calls = []
+    }
+  }
   return recorder
 
   function proxyMethod(key, f) {
       return function() {
-        calls.push({key: key, args: Array.prototype.slice.call(arguments)})
+        calls.push([key, Array.prototype.slice.call(arguments)])
         return f.apply(api, arguments)
       }
   }

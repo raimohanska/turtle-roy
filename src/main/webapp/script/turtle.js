@@ -146,15 +146,18 @@
           paper.font = font
         })()
       },
-      clear: Smoothly.do(function() {
-        init()
-      }),
+      clear: function() {
+        recorder._recorder.reset()
+        Smoothly.do(function() {
+          init()
+        })()
+      },
       home: Smoothly.do(function() {
         turtleToHome()
       })
     }
-    window.recorder = Recorder(api)
-    return window.recorder
+    var recorder = window.Recorder(api)
+    return recorder
   }
 
   window.Barrier = function(callback, things) {

@@ -29,3 +29,5 @@ libraryDependencies ++= Seq(
   "com.novus" %% "salat-core" % "0.0.8-SNAPSHOT",
   "ch.qos.logback" % "logback-classic" % "1.0.0"
 )
+
+port in container.Configuration := 8070
