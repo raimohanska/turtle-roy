@@ -54,7 +54,7 @@ Square
 
 Flower
 
-    let flower = repeat 36 (rt 10, square)
+    let flower = repeat 36 (sequence[rt 10, square])
     flower
 
 Math
