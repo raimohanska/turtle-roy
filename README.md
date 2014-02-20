@@ -7,33 +7,35 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
 # Turtle Roy API
 
-    fd 100                      | moves 100 pixels forward
-    lt 45                       | turns left 45 degrees
-    rt 90                       | turns right 90 degrees
-    penup                       | lifts the pen, no trace left when moving
-    pendown                     | lowers the pen again for drawing
-    setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
-    clear                       | clear the paper and reset turtle to center
-    home                        | reset the turtle to center
-    say "wat"                   | speak!
-    print "x"                   | print to console
-    login "raimo"               | login as "raimo" (this is the author name in your saved work)
-    save "asdf"                 | save current work as "asdf"
-    open "asdf"                 | open saved work "asdf" (presuming you've saved with this name and current author name)
-    whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
-    ls                          | list your saved works
-    play c                      | plays the note C
-    play c 500                  | plays the note C for 500 milliseconds
-    play c*2                    | plays the note C2 (frequency = C * 2)
-    sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
-    s [fd 100, rt 90]           | same as above
-    repeat 4 (say "hello")      | says "hello" 5 times
-    r 4 (say "hello")           | same as above
-    par [play c, play e]        | playes notes C and E in parallel
-    bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
-    color "red"                 | change pen color (red, rgb(255,0,0), #FF0000)
-    text "HELLO"                | draw the text "HELLO" beside the turtle
-    font "40px Arial"           | changes to the 40px Arial font
+Command                     | Result
+----------------------------|-------------------------------------------
+fd 100                      | moves 100 pixels forward
+lt 45                       | turns left 45 degrees
+rt 90                       | turns right 90 degrees
+penup                       | lifts the pen, no trace left when moving
+pendown                     | lowers the pen again for drawing
+setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
+clear                       | clear the paper and reset turtle to center
+home                        | reset the turtle to center
+say "wat"                   | speak!
+print "x"                   | print to console
+login "raimo"               | login as "raimo" (this is the author name in your saved work)
+save "asdf"                 | save current work as "asdf"
+open "asdf"                 | open saved work "asdf" (presuming you've saved with this name and current author name)
+whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
+ls                          | list your saved works
+play c                      | plays the note C
+play c 500                  | plays the note C for 500 milliseconds
+play c*2                    | plays the note C2 (frequency = C * 2)
+sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
+s [fd 100, rt 90]           | same as above
+repeat 4 (say "hello")      | says "hello" 5 times
+r 4 (say "hello")           | same as above
+par [play c, play e]        | playes notes C and E in parallel
+bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
+color "red"                 | change pen color (red, rgb(255,0,0), #FF0000)
+text "HELLO"                | draw the text "HELLO" beside the turtle
+font "40px Arial"           | changes to the 40px Arial font
 
 # Array / List API
 
