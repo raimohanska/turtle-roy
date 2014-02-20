@@ -35,6 +35,26 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
     text "HELLO"                | draw the text "HELLO" beside the turtle
     font "40px Arial"           | changes to the 40px Arial font
 
+# Array / List API
+
+example                     | result         |   explanation
+--------------------------------------------------------------------
+range 1 3                   | [1,2,3]        |   range of numbers
+length [1,2,3]              | 3              |   list length
+empty [1]                   | false          |   is list empty
+concat [1,2] [3]            | [1,2,3]        |   concatenate lists
+cons 1 [2,3]                | [1,2,3]        |   prepend to list
+head [1,2]                  | 1              |   first item on list
+tail [1,2,3]                | [2,3]          |   all but first item on list
+last [1,2]                  | 2              |   last item on list
+times 2 "yes"               | ["yes", "yes"] |   repeat same element
+sum [1,2,3]                 | 6              |   sum of items on list
+map (\x -> x * 2) [1,2]     | [2,4]          |   map list items with function
+filter (\x -> x ==1) [1,2]  | [1]            |   filter list with function
+zip plus [1,2] [3,4]        | [4,6]          |   zip lists pairwise with function
+scanl plus 0 [1,2,3]        | [0,1,3,6]      |   accumulate values, output all
+foldl plus 0 [1,2,3]        | 6              |   accumulate values, output last
+
 In addition to this, you may use the full [Roy](http://roy.brianmckenna.org/) programming language.
 
 # Examples
