@@ -6,6 +6,7 @@ let concat xs ys = (jsarray xs).concat ys
 let cons x xs = concat [x] xs
 let head xs = xs@0
 let tail xs = (jsarray xs).slice 1
+let last xs = xs@((length xs) - 1)
 let times n x = map (always x) (range 1 n)
 let sum xs = foldl (\x y -> x + y) 0 xs
 let map f xs = 
@@ -21,14 +22,12 @@ let filter f xs =
       cons (head xs) (filter f (tail xs))
     else
       filter f (tail xs)
-let foldl f seed xs =
-  if empty xs then
-    seed
-  else
-    foldl f (f seed (head xs)) (tail xs)
 let range start end = 
   if start > end then
     []
   else
     cons start (range (start+1) end)
 
+let zip f xs ys = if (((length xs) == 0) || ((length ys) == 0)) then [] else cons (f (head xs) (head ys)) (zip f (tail xs) (tail ys))
+let scanl f seed xs = if empty xs then [seed] else cons seed (scan f (f seed (head xs)) (tail xs))
+let foldl f seed xs = last (scanl f seed xs)
