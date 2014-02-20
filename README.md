@@ -37,8 +37,8 @@ Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
 
 # Array / List API
 
-example                     | result         |   explanation
---------------------------------------------------------------------
+Example                     | Result         |   Description
+----------------------------|----------------|----------------------
 range 1 3                   | [1,2,3]        |   range of numbers
 length [1,2,3]              | 3              |   list length
 empty [1]                   | false          |   is list empty
