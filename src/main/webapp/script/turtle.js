@@ -20,6 +20,10 @@
 
     init()
 
+    function fontWithSize(size) {
+      return size + "px Courier"
+    }
+
     function init() {
       clearTurtle()
       paper.setTransform(1, 0, 0, 1, 0, 0)
@@ -29,7 +33,7 @@
       paper.translate(xCenter(), yCenter());
       turtle.translate(xCenter(), yCenter());
       $("#turtlegraphics").css("background-color", "white");
-      paper.font="20px Courier"
+      paper.font=fontWithSize(20)
       setColor("black")
       drawTurtle()
     }
@@ -142,6 +146,9 @@
         })()
       },
       font: function(font) {
+        if (typeof font == "number") {
+          font = fontWithSize(font)
+        }
         Smoothly.do(function() {
           paper.font = font
         })()
