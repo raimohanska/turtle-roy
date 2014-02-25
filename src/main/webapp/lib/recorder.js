@@ -13,6 +13,9 @@ function Recorder(api) {
     },
     reset: function() {
       calls = []
+    },
+    export: function() {
+      return JSON.stringify(calls)
     }
   }
   return recorder
