@@ -24,6 +24,17 @@ body.embedded {
   visibility: hidden;
 }
 
+.loading > .loading-indicator {
+  visibility: visible;
+  display: block;
+  margin-top: 50%;
+  text-align: center;
+}
+
+.loading-indicator {
+  display: none;
+}
+
 .embedded #top {
   display: none;
 }
