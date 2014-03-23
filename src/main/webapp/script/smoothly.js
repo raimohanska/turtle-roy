@@ -1,4 +1,4 @@
-;(function() {
+define([], function() {
     var queue = []
     var polling = false
     var delay = 1
@@ -53,9 +53,9 @@
         delayedStep(remainder)()
       }
     }
-  window.Smoothly = {
+  return {
     step: stepper,
     do: delayed
   }
-})()
+})
 

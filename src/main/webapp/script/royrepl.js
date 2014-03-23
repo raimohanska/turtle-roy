@@ -1,5 +1,4 @@
-;(function() {
-
+define(["bacon", "jquery.console"], function(Bacon) {
   function fmt(value, className) {
     return {msg: value, className: "jquery-console-message-" + className};
   }
@@ -7,7 +6,7 @@
   function fmtValue(value) { return fmt(value, "value"); }
   function fmtType(value) { return fmt(value, "type"); }
   function fmtError(value) { return fmt(value, "error"); }
-  
+
   function init(consoleElement, roy) {
     var history = new Bacon.Bus()
     var error = new Bacon.Bus()
@@ -98,7 +97,7 @@
     }
   }
 
-  window.royRepl = {
+  return {
     init: function(element, roy) { return init(element, roy) },
   }
-})()
+})

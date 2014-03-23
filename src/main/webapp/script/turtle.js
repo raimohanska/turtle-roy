@@ -1,5 +1,5 @@
-;(function() {
-  Turtle = function(element, w, h) {
+define(["smoothly", "recorder"], function(Smoothly, Recorder) {
+  var Turtle = function(element, w, h) {
     function xCenter() { return w / 2 }
     function yCenter() { return h / 2 }
     function setSize(width, height) {
@@ -163,11 +163,11 @@
         turtleToHome()
       })
     }
-    var recorder = window.Recorder(api)
+    var recorder = Recorder(api)
     return recorder
   }
 
-  window.Barrier = function(callback, things) {
+  var Barrier = function(callback, things) {
     var count = things.length
     return {
       countDown: function(x) {
@@ -176,4 +176,5 @@
       }
     }
   }
-})()
+  return Turtle
+})

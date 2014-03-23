@@ -1,0 +1,15 @@
+{
+  "name": "turtle-roy",
+  "version": "0.0.0",
+  "dependencies": {
+    "lodash": "2.4.1",
+    "jquery": "1.10.2",
+    "jquery.cookie": "1.4.0",
+    "jquery-leanmodal": "dfe236edf80087bd837b2ee719e4c156684e5d18",
+    "jquery-console": "f9777cd96f9eaad694698d464418e984ca418414",
+    "bacon": "0.7.8",
+    "bacon.model": "0.1.6",
+    "bacon.jquery": "0.4.6",
+    "requirejs": "2.1.11"
+  }
+}

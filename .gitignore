@@ -5,3 +5,4 @@ perms.txt
 .idea
 .idea_modules
 out
+src/main/webapp/components/

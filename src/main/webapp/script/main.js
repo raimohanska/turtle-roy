@@ -1,6 +1,30 @@
-function nonEmpty(x) { return x && x.length > 0 }
-
-$(function() {
+require.config({
+  paths: {
+    "kirouter": "../components/ki-router/dist/ki-router"
+    ,"jquery": "../components/jquery/jquery"
+    ,"lodash": "../components/lodash/dist/lodash"
+    ,"jquery.cookie": "../components/jquery.cookie/jquery.cookie"
+    ,"jquery.console": "../components/jquery-console/jquery.console"
+    ,"jquery.leanmodal": "../components/jquery-leanmodal/jquery.leanModal"
+    ,"bacon": "../components/bacon/dist/Bacon"
+    ,"bacon.model": "../components/bacon.model/dist/bacon.model"
+    ,"bacon.jquery": "../components/bacon.jquery/dist/bacon.jquery"
+    ,"bacon.validation": "../components/bacon.validation/dist/bacon.validation"
+    ,"handlebars": "../components/handlebars/handlebars.amd"
+    ,"royloader": "../lib/royloader"
+    ,"roy": "../lib/roy"
+  },
+  shim: {
+    'royloader': {
+      exports: 'royloader'
+    }
+    ,'jquery.console': {
+      deps: ["jquery"]
+    }
+  }
+})
+require(["lodash", "jquery", "royenv", "royrepl", "turtle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet"], 
+    function(_, $, RoyEnv, RoyRepl, Turtle, Editor, Commands, Cookbook, Storage, Sharing) {
   overhead = 300
   if (window.self !== window.top) {
     $("body").addClass("embedded")
@@ -11,7 +35,7 @@ $(function() {
   function height() { 
     return Math.min(width() / 2, $(window).height() - overhead)
   }
-  repl = royRepl.init($(".console"), royEnv)
+  repl = RoyRepl.init($(".console"), royEnv)
   turtle = Turtle($("#turtlegraphics"), width(), height())
   turtle.spin(360, 10)
   var editor = Editor($("body"), royEnv, repl)
@@ -33,3 +57,5 @@ $(function() {
     turtle.resize(width(), height())
   })
 })
+
+function nonEmpty(x) { return x && x.length > 0 }

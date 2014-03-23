@@ -6,34 +6,6 @@
 
     <link rel="stylesheet" href="css/turtle-roy.css" />
 
-    <script src="lib/jquery-1.8.2.min.js"></script>
-    <script src="lib/jquery.console.js"></script>
-    <script src="lib/jquery.cookie.js"></script>
-    <script src="lib/jquery.leanModal.min.js"></script>
-    <script src="lib/lodash.min.js"></script>
-    <script src="lib/tco.js"></script>
-    <script src="lib/roy.js"></script>
-    <script src="lib/htmlrepl.js"></script>
-    <script src="lib/royloader.js"></script>
-    <script src="lib/Bacon.js"></script>
-    <script src="lib/bacon.model.js"></script>
-    <script src="lib/bacon.jquery.js"></script>
-    <script src="lib/smoothly.js"></script>
-    <script src="lib/piano.js"></script>
-    <script src="lib/recorder.js"></script>
-    <script src="speak.js/speakClient.js"></script>
-    <script src="script/turtle.js"></script>
-    <script src="script/help.js"></script>
-    <script src="script/cookbook.js"></script>
-    <script src="script/storage.js"></script>
-    <script src="script/sharing.js"></script>
-    <script src="script/editor.js"></script>
-    <script src="script/commands.js"></script>
-    <script src="script/royenv.js"></script>
-    <script src="script/main.js"></script>
-    <script src="script/ga.js"></script>
-    <script language="roy" src="lib/arrays.roy"></script>
-    <script language="roy" src="script/turtle.roy"></script>
   </head>
   <body>
      <div id="top">
@@ -77,8 +49,16 @@
      <div id="audio"></div>
      <div id="cheatsheet">
      </div>
-     <script>
-       $('#cheatsheet').load('cheatsheet.html');
-     </script>
+    <script data-main="script/main.js" src="/components/requirejs/require.js"></script>
+    <!--
+    <script src="lib/jquery.leanModal.min.js"></script>
+    <script src="lib/tco.js"></script>
+    <script src="lib/piano.js"></script>
+    <script src="speak.js/speakClient.js"></script>
+    <script src="script/help.js"></script>
+    <script src="script/ga.js"></script>
+    <script language="roy" src="lib/arrays.roy"></script>
+    <script language="roy" src="script/turtle.roy"></script>
+    -->
   </body>
 </html>
