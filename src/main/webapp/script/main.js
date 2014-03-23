@@ -12,16 +12,12 @@ require.config({
     ,"bacon.jquery": "../components/bacon.jquery/dist/bacon.jquery"
     ,"bacon.validation": "../components/bacon.validation/dist/bacon.validation"
     ,"handlebars": "../components/handlebars/handlebars.amd"
-    ,"royloader": "../lib/royloader"
     ,"roy": "../lib/roy"
     ,"text": "../lib/text"
     ,"speak": "../speak.js/speakClient"
   },
   shim: {
-    'royloader': {
-      exports: 'royloader'
-    }
-    ,'jquery.console': {
+    'jquery.console': {
       deps: ["jquery"]
     }
     ,'jquery.leanmodal': {
@@ -40,11 +36,12 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   function height() { 
     return Math.min(width() / 2, $(window).height() - overhead)
   }
-  var repl = RoyRepl.init($(".console"), RoyEnv)
+  var royEnv = RoyEnv()
+  var repl = RoyRepl.init($(".console"), royEnv)
   var turtle = Turtle($("#turtlegraphics"), width(), height())
-  var editor = Editor($("body"), RoyEnv, repl)
+  var editor = Editor($("body"), royEnv, repl)
 
-  TurtleBundle(turtle, repl, editor, function() {
+  TurtleBundle(royEnv, turtle, repl, editor, function() {
     turtle.spin(360, 10)
     Cookbook(editor, repl)
     Sharing(editor.code)
