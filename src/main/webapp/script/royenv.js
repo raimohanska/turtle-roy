@@ -2,7 +2,6 @@
 define(["roy", "lodash"], function(_roy, _) {
   return function RoyEnv() {
     var sandbox = Sandbox()
-    window.sandbox = sandbox // TODO: remove this debug line
     var royloader = RoyEvaluator(sandbox.eval)
     return {
       royEnv: royloader.royEnv,
