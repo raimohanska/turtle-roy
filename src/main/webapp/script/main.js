@@ -13,6 +13,8 @@ require.config({
     ,"handlebars": "../components/handlebars/handlebars.amd"
     ,"royloader": "../lib/royloader"
     ,"roy": "../lib/roy"
+    ,"text": "../lib/text"
+    ,"speak": "../speak.js/speakClient"
   },
   shim: {
     'royloader': {
@@ -23,38 +25,40 @@ require.config({
     }
   }
 })
-require(["lodash", "jquery", "royenv", "royrepl", "turtle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet"], 
-    function(_, $, RoyEnv, RoyRepl, Turtle, Editor, Commands, Cookbook, Storage, Sharing) {
+require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet", "help"], 
+    function(_, $, RoyEnv, RoyRepl, Turtle, TurtleBundle, Editor, Commands, Cookbook, Storage, Sharing) {
   overhead = 300
   if (window.self !== window.top) {
     $("body").addClass("embedded")
     overhead = 200
   }
-  var royEnv = RoyEnv()
   function width() { return $("body").width() }
   function height() { 
     return Math.min(width() / 2, $(window).height() - overhead)
   }
-  repl = RoyRepl.init($(".console"), royEnv)
-  turtle = Turtle($("#turtlegraphics"), width(), height())
-  turtle.spin(360, 10)
-  var editor = Editor($("body"), royEnv, repl)
-  Cookbook(editor, repl)
-  var storage = Storage()
-  Sharing(editor.code, storage)
+  var repl = RoyRepl.init($(".console"), RoyEnv)
+  var turtle = Turtle($("#turtlegraphics"), width(), height())
 
-  storage.openResult.onValue(function(turtle) {
-    editor.reset()
-    repl.paste(turtle.content.code)
-    document.title = turtle.content.description + " -" + document.title
-  })
-  var turtleId = document.location.search.split("=")[1]
-  if (turtleId) storage.open(turtleId)
+  TurtleBundle(turtle, repl).onValue(function() {
+    turtle.spin(360, 10)
+    var editor = Editor($("body"), RoyEnv, repl)
+    Cookbook(editor, repl)
+    var storage = Storage()
+    Sharing(editor.code, storage)
 
-  _.merge(window, Commands(storage, editor.code));
+    storage.openResult.onValue(function(turtle) {
+      editor.reset()
+      repl.paste(turtle.content.code)
+      document.title = turtle.content.description + " -" + document.title
+    })
+    var turtleId = document.location.search.split("=")[1]
+    if (turtleId) storage.open(turtleId)
 
-  $(window).resize(function() {
-    turtle.resize(width(), height())
+    _.merge(window, Commands(storage, editor.code));
+
+    $(window).resize(function() {
+      turtle.resize(width(), height())
+    })
   })
 })
 
