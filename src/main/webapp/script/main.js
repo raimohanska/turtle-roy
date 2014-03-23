@@ -24,6 +24,9 @@ require.config({
     ,'jquery.console': {
       deps: ["jquery"]
     }
+    ,'jquery.leanmodal': {
+      deps: ["jquery"]
+    }
   }
 })
 require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet", "help"], 
