@@ -1,3 +1,4 @@
+"use strict";
 define(["royloader", "roy", "lodash"], function(royloader, roy, _) {
   return {
     royEnv: royloader.royEnv,

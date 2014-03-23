@@ -1,8 +1,9 @@
+"use strict";
 define([], function() {
   return function Recorder(api) {
     var calls = []
     var recorder = {}
-    for (key in api) {
+    for (var key in api) {
       var f = api[key]
       if (typeof f == "function") {
         recorder[key] = proxyMethod(key, f)

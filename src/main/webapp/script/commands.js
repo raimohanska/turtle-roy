@@ -1,5 +1,6 @@
-define([], function() {
-  return function Commands(storage, code) {
+"use strict";
+define(["storage"], function(storage) {
+  return function Commands(code) {
     function withoutSave(f) {
       return function() {
         var result = f.apply(this, arguments)

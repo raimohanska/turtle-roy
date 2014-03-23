@@ -1,3 +1,4 @@
+"use strict";
 define([], function() {
   var audio_context = new (window.AudioContext || window.webkitAudioContext || DummyAudioContext);
 
@@ -43,7 +44,7 @@ define([], function() {
       "b": 493.88,
       "h": 493.88
     }
-    defaultDuration = 500
+    var defaultDuration = 500
     var oscillators = []
 
     function getOscillator() {
@@ -55,7 +56,7 @@ define([], function() {
     function releaseOscillator(osc) {
       oscillators.push(osc)
     }
-    piano = {
+    var piano = {
        play: function(note, duration) {
          if (!duration) duration = defaultDuration
          return function(done) {

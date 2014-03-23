@@ -1,3 +1,4 @@
+"use strict";
 define([], function() {
     var queue = []
     var polling = false

@@ -1,3 +1,4 @@
+"use strict";
 define([], function() {
   return function tco(f) {
     var result, active = false, accumulated = []

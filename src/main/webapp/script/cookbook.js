@@ -1,3 +1,4 @@
+"use strict";
 define([], function() {
   return function Cookbook(editor, repl) {
     var square = "let square = repeat 4 (sequence[fd 50, lt 90])"

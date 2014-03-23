@@ -1,3 +1,4 @@
+"use strict";
 define(["bacon", "jquery.console"], function(Bacon) {
   function fmt(value, className) {
     return {msg: value, className: "jquery-console-message-" + className};

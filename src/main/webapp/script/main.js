@@ -1,3 +1,4 @@
+"use strict";
 require.config({
   paths: {
     "kirouter": "../components/ki-router/dist/ki-router"
@@ -26,8 +27,8 @@ require.config({
   }
 })
 require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet", "help"], 
-    function(_, $, RoyEnv, RoyRepl, Turtle, TurtleBundle, Editor, Commands, Cookbook, Storage, Sharing) {
-  overhead = 300
+    function(_, $, RoyEnv, RoyRepl, Turtle, TurtleBundle, Editor, Commands, Cookbook, storage, Sharing) {
+  var overhead = 300
   if (window.self !== window.top) {
     $("body").addClass("embedded")
     overhead = 200
@@ -38,13 +39,12 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   }
   var repl = RoyRepl.init($(".console"), RoyEnv)
   var turtle = Turtle($("#turtlegraphics"), width(), height())
+  var editor = Editor($("body"), RoyEnv, repl)
 
-  TurtleBundle(turtle, repl).onValue(function() {
+  TurtleBundle(turtle, repl, editor, function() {
     turtle.spin(360, 10)
-    var editor = Editor($("body"), RoyEnv, repl)
     Cookbook(editor, repl)
-    var storage = Storage()
-    Sharing(editor.code, storage)
+    Sharing(editor.code)
 
     storage.openResult.onValue(function(turtle) {
       editor.reset()
@@ -54,7 +54,6 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
     var turtleId = document.location.search.split("=")[1]
     if (turtleId) storage.open(turtleId)
 
-    _.merge(window, Commands(storage, editor.code));
 
     $(window).resize(function() {
       turtle.resize(width(), height())

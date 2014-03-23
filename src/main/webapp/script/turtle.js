@@ -1,3 +1,4 @@
+"use strict";
 define(["smoothly", "recorder"], function(Smoothly, Recorder) {
   var Turtle = function(element, w, h) {
     function xCenter() { return w / 2 }

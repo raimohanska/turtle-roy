@@ -1,5 +1,6 @@
-define([], function() {
-  return function Sharing(code, storage) {
+"use strict";
+define(["storage"], function(storage) {
+  return function Sharing(code) {
     var shareButton = $("#share button")
     $("#share label").click(function() {
       $("#share form").slideToggle("fast")
