@@ -6,3 +6,4 @@ perms.txt
 .idea_modules
 out
 src/main/webapp/components/
+node_modules

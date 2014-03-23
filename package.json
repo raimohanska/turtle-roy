@@ -1,0 +1,13 @@
+{
+    "name": "turtle-roy",
+    "version": "0.0.0",
+    "dependencies": {
+        "bower": "1.2.8"
+    },
+    "engines": {
+        "node": "~0.10.0"
+    },
+    "scripts": {
+        "postinstall": "./node_modules/bower/bin/bower install"
+    }
+}
