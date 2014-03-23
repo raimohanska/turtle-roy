@@ -1,5 +1,5 @@
 "use strict";
-define(["roy", "lodash"], function(_roy, _) {
+define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
   return function RoyEnv() {
     var sandbox = Sandbox()
     var royloader = RoyEvaluator(sandbox.eval)
@@ -25,25 +25,6 @@ define(["roy", "lodash"], function(_roy, _) {
         return evaled
       },
       splitRoy: royloader.splitRoy
-    }
-  }
-
-  function Sandbox() {
-    var iframe = document.createElement("iframe");
-    iframe.style.display = "none";
-    document.body.appendChild(iframe);
-    var frame = window.frames[window.frames.length-1]
-
-    return {
-      eval: function(code) {
-        return frame.eval(code)
-      },
-      setGlobals: function(env) {
-        _.forEach(env, function(value, key) { 
-          frame[key] = value 
-        })
-      },
-      context: frame
     }
   }
 
