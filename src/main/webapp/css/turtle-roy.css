@@ -20,6 +20,10 @@ body.embedded {
   width: 100%;
 }
 
+.loading > * {
+  visibility: hidden;
+}
+
 .embedded #top {
   display: none;
 }
@@ -45,7 +49,7 @@ body.embedded {
   margin: 0;
 }
 
-#turtlegraphics {
+.turtlegraphics {
   background: white;
 }
 

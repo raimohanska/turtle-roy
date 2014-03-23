@@ -36,10 +36,12 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   function height() { 
     return Math.min(width() / 2, $(window).height() - overhead)
   }
+
+  var element = $("#turtle-roy")
   var royEnv = RoyEnv()
-  var repl = RoyRepl.init($(".console"), royEnv)
-  var turtle = Turtle($("#turtlegraphics"), width(), height())
-  var editor = Editor($("body"), royEnv, repl)
+  var repl = RoyRepl.init(element.find(".console"), royEnv)
+  var turtle = Turtle(element.find(".turtlegraphics"), width(), height())
+  var editor = Editor(element, royEnv, repl)
 
   TurtleBundle(royEnv, turtle, repl, editor, function() {
     turtle.spin(360, 10)
@@ -54,10 +56,11 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
     var turtleId = document.location.search.split("=")[1]
     if (turtleId) storage.open(turtleId)
 
+    element.removeClass("loading")
+  })
 
-    $(window).resize(function() {
-      turtle.resize(width(), height())
-    })
+  $(window).resize(function() {
+    turtle.resize(width(), height())
   })
 })
 
