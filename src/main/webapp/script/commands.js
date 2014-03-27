@@ -1,6 +1,6 @@
 "use strict";
 define(["storage"], function(storage) {
-  return function Commands(code) {
+  return function Commands(code, repl) {
     function withoutSave(f) {
       return function() {
         var result = f.apply(this, arguments)

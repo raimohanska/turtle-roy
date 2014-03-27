@@ -4,7 +4,7 @@ define(["lodash", "tco", "piano", "commands", "speak"], function(_, tco, Piano, 
   return function turtleBundle(royEnv, turtle, repl, editor, callback) {
     var globals = { repl: repl, turtle: turtle, tco: tco, speak: speak }
     royEnv.setGlobals(Piano())
-    royEnv.setGlobals(Commands(editor.code))
+    royEnv.setGlobals(Commands(editor.code, repl))
     royEnv.setGlobals(globals)
     var all = Bacon.combineAsArray(
       Bacon.fromCallback(royEnv, "evalScript", "arrays.roy")
