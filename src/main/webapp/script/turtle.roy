@@ -43,7 +43,7 @@ let sequence = \fs ->
 
 let par = \fs ->
   \callback ->
-    let barrier = window.Barrier callback fs
+    let barrier = Barrier callback fs
     map (\f -> f(\() -> barrier.countDown())) fs
     undefined
 

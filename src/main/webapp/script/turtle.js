@@ -164,18 +164,8 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         turtleToHome()
       })
     }
-    var recorder = Recorder(api)
-    return recorder
+    return Recorder(api)
   }
 
-  var Barrier = function(callback, things) {
-    var count = things.length
-    return {
-      countDown: function(x) {
-        count--
-        if (count == 0 && callback) callback()
-      }
-    }
-  }
   return Turtle
 })
