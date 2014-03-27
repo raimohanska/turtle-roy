@@ -60,11 +60,10 @@ define([], function() {
        play: function(note, duration) {
          if (!duration) duration = defaultDuration
          return function(done) {
-           if (note instanceof Array) {
-             if (note.length)
-               piano.play(note[0], duration)(function() {
-                 piano.play(note.slice(1), duration)(done)
-               })
+           if (note.length) {
+             piano.play(note[0], duration)(function() {
+               piano.play(note.slice(1), duration)(done)
+             })
            } else {
              var osc = getOscillator()
              if (note != " ") {
