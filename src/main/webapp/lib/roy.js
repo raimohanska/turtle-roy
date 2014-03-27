@@ -2249,9 +2249,6 @@
                 if (value !== value) {
                     throw new Error('Numeric literal whose value is NaN');
                 }
-                if (value < 0 || value === 0 && 1 / value < 0) {
-                    throw new Error('Numeric literal whose value is negative');
-                }
                 if (value === 1 / 0) {
                     return json ? 'null' : renumber ? '1e400' : '1e+400';
                 }
