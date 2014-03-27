@@ -117,7 +117,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         this.lt(360)
       },
       setshape: function(name) {
-        image = new Image()
+        var image = new Image()
         image.onload = function() {
           clearTurtle()
           cursor.image = image
