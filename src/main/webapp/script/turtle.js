@@ -164,7 +164,8 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         turtleToHome()
       })
     }
-    return Recorder(api)
+    var recorder = Recorder(api)
+    return recorder
   }
 
   return Turtle
