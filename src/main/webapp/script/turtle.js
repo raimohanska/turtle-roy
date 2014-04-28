@@ -31,12 +31,15 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
       turtle.clearRect(0, 0, w, h)
-      paper.translate(xCenter(), yCenter());
-      turtle.translate(xCenter(), yCenter());
-      $("#turtlegraphics").css("background-color", "white");
+      paper.translate(xCenter(), yCenter())
+      turtle.translate(xCenter(), yCenter())
+      setBackground("white")
       paper.font=fontWithSize(20)
       setColor("black")
       drawTurtle()
+    }
+    function setBackground(color) {
+      element.css("background-color", color);
     }
     function turtleToHome() {
       clearTurtle()
@@ -133,7 +136,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       },
       background: function(color) {
         Smoothly.do(function() {
-          $("#turtlegraphics").css("background-color", color);
+          setBackground(color)
         })()
       },
       color: function(color) {
