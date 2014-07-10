@@ -16,12 +16,10 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
     var skipHistory
     var cs = consoleElement.jqconsole(welcomeMessage, promptLabel)
     setInterval(function() {$(".jqconsole-cursor").toggleClass("blink")}, 500)
-    function sendToConsole(message) {
-      message.forEach(function(msg) {
-        cs.Write(msg.msg + '\n', msg.className);
-      })
+    function sendToConsole(msg) {
+      cs.Write(msg.msg + '\n', msg.className);
     }
-    function syncEvalAsMessage(line) {
+    function evalAsMessageStream(line) {
       var parts = line.split(" ");
 
       switch (parts[0]) {
@@ -29,18 +27,18 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
         var term = parts[1]
         var env = roy.royEnv(term)
         if (env) {
-          return [fmtType(env)];
+          return Bacon.once(fmtType(env));
         } else {
-          return [fmtError(term + " is not defined.")];
+          return Bacon.once(fmtError(term + " is not defined."));
         }
 
       case ":c":
         try {
           var code = parts.slice(1).join(" ");
           var compiled = roy.compileRoy(code)
-          return [fmt(compiled.output, "code")];
+          return Bacon.once(fmt(compiled.output, "code"));
         } catch(e) {
-          return [fmtError(e.toString())];
+          return Bacon.once(fmtError(e.toString()));
         }
 
       default:
@@ -53,22 +51,22 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
           }
           error.push("")
           if (evaled != undefined && evaled.result != null) {
-            return [fmtValue(JSON.stringify(evaled.result))];
+            return Bacon.once(fmtValue(JSON.stringify(evaled.result)));
           } else {
-            return [];
+            return Bacon.once();
           }
         } catch(e) {
           var msg = fmtError(e.toString())
           error.push(msg.msg)
-          return [msg];
+          return Bacon.once(msg);
         }
       }
     }
     function prompt() {
       cs.Prompt(true, function(line) {
-        var response = syncEvalAsMessage(line)
-        sendToConsole(response)
-        prompt()
+        var response = evalAsMessageStream(line)
+        response.onValue(sendToConsole)
+        response.onEnd(prompt)
       })  
     }
     prompt()
