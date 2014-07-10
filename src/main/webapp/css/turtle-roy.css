@@ -237,6 +237,7 @@ input:focus {
   top: 2px;
   right: 20px;
   text-decoration: none;
+  z-index: 1;
 }
 
 .wrap{
