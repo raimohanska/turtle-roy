@@ -17,7 +17,7 @@ require.config({
     ,"speak": "../speak.js/speakClient"
   },
   shim: {
-    'jquery.console': {
+    'jq-console': {
       deps: ["jquery"]
     }
     ,'jquery.leanmodal': {
