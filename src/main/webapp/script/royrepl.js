@@ -9,7 +9,12 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
   function fmtValue(value) { return fmt(value, "value"); }
   function fmtType(value) { return fmt(value, "type"); }
   function fmtCommand(value) { return fmt(promptLabel + value, "command"); }
-  function fmtError(value) { return fmt(value, "error"); }
+  function fmtError(value) { 
+    if (value.statusText) {
+      value = value.statusText
+    }
+    return fmt(value, "error"); 
+  }
 
   function init(consoleElement, roy) {
     var history = new Bacon.Bus()
@@ -68,6 +73,7 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
       cs.Prompt(true, function(line) {
         var response = evalAsMessageStream(line)
         response.onValue(sendToConsole)
+        response.errors().mapError(fmtError).onValue(sendToConsole)
         response.onEnd(prompt)
       })  
     }
