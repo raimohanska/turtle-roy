@@ -16,14 +16,6 @@ define(["storage"], function(storage) {
         return f(author)
       }
     }
-    function syncAjax(params) {
-      var result
-      params.async = false
-      $.ajax(params).then(function(x) {
-        result = x
-      })
-      return result
-    }
     var api = {
       login: withoutSave(function(author) {
         storage.author.set(author)
@@ -47,9 +39,11 @@ define(["storage"], function(storage) {
       }),
       ls: withoutSave(function() {
         return withAuthor(function(author) {
-          var turtles = syncAjax({url: "/turtles/" + author})
-          var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
-          return names
+          return Bacon.fromPromise($.ajax({url: "/turtles/" + author}))
+            .map(function(turtles) {
+              var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
+              return names
+            })
         })
       }),
       whoami: withoutSave(function() {

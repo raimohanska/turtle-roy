@@ -51,9 +51,10 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
           }
           error.push("")
           if (evaled != undefined && evaled.result != null) {
-            return Bacon.once(fmtValue(JSON.stringify(evaled.result)));
+            return Bacon.once().flatMap(evaled.result)
+              .map(function(result) { return fmtValue(JSON.stringify(result))});
           } else {
-            return Bacon.once();
+            return Bacon.never();
           }
         } catch(e) {
           var msg = fmtError(e.toString())
