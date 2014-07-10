@@ -8,6 +8,7 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
 
   function fmtValue(value) { return fmt(value, "value"); }
   function fmtType(value) { return fmt(value, "type"); }
+  function fmtCommand(value) { return fmt(promptLabel + value, "command"); }
   function fmtError(value) { return fmt(value, "error"); }
 
   function init(consoleElement, roy) {
@@ -75,7 +76,7 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
       history: history,
       paste: function(text) {
         Bacon.sequentially(200, roy.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
-          sendToConsole(fmtValue(line))
+          sendToConsole(fmtCommand(line))
           evalAsMessageStream(line).onValue(sendToConsole)
         })
       },
