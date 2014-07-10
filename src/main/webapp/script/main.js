@@ -1,8 +1,7 @@
 "use strict";
 require.config({
   paths: {
-    "kirouter": "../components/ki-router/dist/ki-router"
-    ,"jquery": "../components/jquery/jquery"
+    "jquery": "../components/jquery/jquery"
     ,"lodash": "../components/lodash/dist/lodash"
     ,"jquery.cookie": "../components/jquery.cookie/jquery.cookie"
     ,"jquery.console": "../lib/jquery.console"
