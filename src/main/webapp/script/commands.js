@@ -26,6 +26,7 @@ define(["storage"], function(storage) {
       open: withoutSave(function(name) {
         return withAuthor(function(author) {
           storage.open(author + "/" + name)
+          return storage.openResult.take(1).errors().endOnError()
         })
       }),
       save: withoutSave(function(name) {
@@ -35,6 +36,7 @@ define(["storage"], function(storage) {
             description: name,
             code: code.get()
           })
+          return storage.saveResult.take(1).map("saved").endOnError()
         })
       }),
       ls: withoutSave(function() {
