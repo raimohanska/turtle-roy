@@ -8,6 +8,7 @@
     "bacon": "0.7.8",
     "bacon.model": "0.1.6",
     "bacon.jquery": "0.4.6",
+    "jq-console": "2.10.0",
     "requirejs": "2.1.11"
   }
 }

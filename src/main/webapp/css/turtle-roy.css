@@ -248,36 +248,61 @@ input:focus {
   display:none;
   overflow:auto;
 }    
-
-.jquery-console-inner {
+/* The console container element */
+.console {
   width: 100%;
   height: 172px;
   padding: 1em 0em;
   background-color: #002b36;
   overflow: auto;
 }
-
-.jquery-console-cursor {
+/* The inner console element. */
+.jqconsole {
+    padding: 10px;
+}
+/* The cursor. */
+.jqconsole-cursor {
   background: #CFCF20;
 }
-
-.jquery-console-cursor.blink {
+.jqconsole-cursor.blink {
   background: none;
 }
-
-.jquery-console-prompt-label {
+/* The cursor color when the console looses focus. */
+.jqconsole-blurred .jqconsole-cursor {
+    background-color: #666;
+}
+/* The current prompt text color */
+.jqconsole-prompt {
+    color: #586e75;
+}
+/* The command history */
+.jqconsole-old-prompt {
+    color: #586e75;
+    opacity: 0.9;
+    font-weight: normal;
+}
+/* The text color when in input mode. */
+.jqconsole-input {
   color: #586e75;
 }
-
-.jquery-console-message-value {
+/* Previously entered input. */
+.jqconsole-old-input {
+    color: #bb0;
+    font-weight: normal;
+}
+/* The text color of the output. */
+.jqconsole-output {
+    color: white;
+}
+.jqconsole-value {
   color: #268bd2;
 }
 
-.jquery-console-message-type {
+.jqconsole-type {
   color: #2aa198;
 }
 
-.jquery-console-message-error {
+.jqconsole-error {
   color: #dc322f;
 }
 
