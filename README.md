@@ -110,7 +110,17 @@ Lists
 
 # Running
 
+Run the server
+
     ./start
+
+And
+
+    open http://localhost:8070
+
+Optionally also start the mongo db
+
+    ./runmongo
 
 # Credits
 
