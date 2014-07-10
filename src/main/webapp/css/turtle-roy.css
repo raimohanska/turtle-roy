@@ -270,7 +270,6 @@ input:focus {
 }
 /* The cursor color when the console looses focus. */
 .jqconsole-blurred .jqconsole-cursor {
-    background-color: #666;
 }
 /* The current prompt text color */
 .jqconsole-prompt {
