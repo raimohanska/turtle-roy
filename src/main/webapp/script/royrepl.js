@@ -74,56 +74,12 @@ define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
     return {
       history: history,
       paste: function(text) {
-      },
-      error: error.toProperty(),
-      print: function(line) {
-      },
-      skipHistory: function() {
-        skipHistory = true
-      }
-    }
-  }
-
-  function init_old(consoleElement, roy) {
-    var history = new Bacon.Bus()
-    var error = new Bacon.Bus()
-    var sendToConsole;
-    var skipHistory
-
-    var controller = consoleElement.console({
-      promptLabel: 'λ> ',
-      autofocus: true,
-      animateScroll: true,
-      promptHistory: true,
-      welcomeMessage: "Welcome to Turtle Roy.\nTry this: repeat 360 (sequence[fd 1, lt 1])\nOr try one of the examples below.",
-
-      commandValidate: function(line) {
-        return line != "";
-      },
-
-      commandHandle: function (line, report) {
-        sendToConsole = report
-      }
-    });
-    return {
-      history: history,
-      paste: function(text) {
         Bacon.sequentially(200, roy.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
-          var typer = consoleElement.find(".jquery-console-typer")
-          console.log("line:" + line + ".")
-          typer.trigger("paste").val(line).focus()
-          var e = jQuery.Event("keydown");
-          e.which = 13;
-          e.keyCode = 13;
-          setTimeout(function() {
-            typer.trigger(e);
-          }, 100)
+          sendToConsole(fmtValue(line))
+          evalAsMessageStream(line).onValue(sendToConsole)
         })
       },
       error: error.toProperty(),
-      print: function(line) {
-        sendToConsole(line) 
-      },
       skipHistory: function() {
         skipHistory = true
       }

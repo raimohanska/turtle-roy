@@ -273,11 +273,11 @@ input:focus {
 }
 /* The current prompt text color */
 .jqconsole-prompt {
-    color: #586e75;
+    color: #839496;
 }
 /* The command history */
 .jqconsole-old-prompt {
-    color: #586e75;
+    color: #839496;
     opacity: 0.9;
     font-weight: normal;
 }

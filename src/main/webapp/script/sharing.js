@@ -31,7 +31,6 @@ define(["storage"], function(storage) {
     storage.saveResult.map(".id").onValue(function(id) {
       shareLink.attr("href", relativeUrl(id))
       shareLink.text("share this link!")
-      repl.print("Saved! URL=" + absoluteUrl(id))
     })
     var inputs = $("#share input")
     code.changes().map("")
