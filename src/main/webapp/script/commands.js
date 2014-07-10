@@ -25,28 +25,16 @@ define(["storage"], function(storage) {
       }),
       open: withoutSave(function(name) {
         return withAuthor(function(author) {
-          storage.open(author + "/" + name)
-          return storage.openResult.take(1).errors().endOnError()
+          return storage.open(author + "/" + name)
         })
       }),
       save: withoutSave(function(name) {
         return withAuthor(function(author) {
-          storage.saveBus.push({
-            author: storage.author.get(),
-            description: name,
-            code: code.get()
-          })
-          return storage.saveResult.take(1).map("saved").endOnError()
+          return storage.save(name, code.get())
         })
       }),
       ls: withoutSave(function() {
-        return withAuthor(function(author) {
-          return Bacon.fromPromise($.ajax({url: "/turtles/" + author}))
-            .map(function(turtles) {
-              var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
-              return names
-            })
-        })
+        return withAuthor(storage.ls)
       }),
       whoami: withoutSave(function() {
         return withAuthor(_.identity)

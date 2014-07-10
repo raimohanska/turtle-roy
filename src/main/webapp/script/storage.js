@@ -18,12 +18,39 @@ define(["bacon", "jquery", "jquery.cookie", "bacon.model", "bacon.jquery"], func
   var openBus = new Bacon.Bus()
   var openResult = openBus.ajax()
 
+  function withAuthor(f) {
+    return author.take(1).flatMap(f)
+  }
+
   return {
     author: author,
     saveBus: saveBus,
     saveResult: saveResult,
     savePending: savePending,
-    open: function(name) { openBus.push("/turtle/" + name) },
-    openResult: openResult
+    save: function(name, code) {
+      return withAuthor(function(author) {
+        var turtle = {
+          author: author,
+          description: name,
+          code: code
+        }      
+        saveBus.push(turtle)
+        return saveResult.take(1).map("saved").endOnError()
+      })
+    },
+    open: function(name) { 
+      openBus.push("/turtle/" + name) 
+      return openResult.take(1).errors().endOnError()
+    },
+    openResult: openResult,
+    ls: function() {
+      return withAuthor(function(author) {
+        return Bacon.fromPromise($.ajax({url: "/turtles/" + author}))
+          .map(function(turtles) {
+            var names = _.sortBy(_.uniq(turtles.map(function(t) { return t.content.description })), _.identity)
+            return names
+          })
+      })
+    }
   }
 })
