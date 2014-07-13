@@ -4,7 +4,6 @@ require.config({
     "jquery": "../components/jquery/jquery"
     ,"lodash": "../components/lodash/dist/lodash"
     ,"jquery.cookie": "../components/jquery.cookie/jquery.cookie"
-    ,"jquery.console": "../lib/jquery.console"
     ,"jquery.leanmodal": "../lib/jquery.leanModal"
     ,"jq-console": "../components/jq-console/jqconsole.min"
     ,"bacon": "../components/bacon/dist/Bacon"

@@ -1,5 +1,5 @@
 "use strict";
-define(["bacon", "jquery.console", "jq-console"], function(Bacon) {
+define(["bacon","jq-console"], function(Bacon) {
   var welcomeMessage = "Welcome to Turtle Roy.\nTry this: repeat 360 (sequence[fd 1, lt 1])\nOr try one of the examples below.\n"
   var promptLabel = 'λ> '
   function fmt(value, className) {
