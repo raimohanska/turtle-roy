@@ -89,11 +89,14 @@ define(["bacon","jq-console"], function(Bacon) {
       error: error.toProperty(),
       skipHistory: function() {
         skipHistory = true
+      },
+      focus: function() {
+        cs.Focus()
       }
     }
   }
 
   return {
-    init: function(element, roy) { return init(element, roy) },
+    init: function(element, roy) { return init(element, roy) }
   }
 })

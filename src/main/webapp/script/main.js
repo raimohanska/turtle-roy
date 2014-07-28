@@ -42,7 +42,9 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   var turtle = Turtle(element.find(".turtlegraphics"), width(), height())
   var editor = Editor(element, royEnv, repl)
 
-  TurtleBundle(royEnv, turtle, repl, editor, function() {
+  var loaded = TurtleBundle(royEnv, turtle, repl, editor).loaded
+
+  loaded.onValue(function() {
     turtle.spin(360, 10)
     Cookbook(editor, repl)
     Sharing(editor.code)
@@ -56,6 +58,7 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
     if (turtleId) storage.open(turtleId)
 
     element.removeClass("loading")
+    repl.focus()
   })
 
   $(window).resize(function() {
