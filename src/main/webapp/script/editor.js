@@ -2,9 +2,6 @@ define(["bacon.jquery"], function() {
   return function Editor(root, royEnv, repl) {
     var editorElement = root.find(".editor textarea")
     code = Bacon.$.textFieldValue(editorElement)
-    root.find(".editor-link").asEventStream("click").onValue(function() {
-      root.toggleClass("editor-mode")
-    })
 
     repl.history.onValue(function(line) {
       editorElement.val(editorElement.val() ? editorElement.val() + "\n" + line : line)

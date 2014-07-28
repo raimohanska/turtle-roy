@@ -57,14 +57,28 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
     })
     var turtleId = document.location.search.split("=")[1]
     if (turtleId) storage.open(turtleId)
-
     element.removeClass("loading")
-    repl.focus()
+    takeFocus()
+  })
+  
+  element.find(".turtlegraphics").clickE().onValue(takeFocus)
+
+  element.find(".editor-link").asEventStream("click").onValue(function() {
+    element.toggleClass("editor-mode")
+    takeFocus()
   })
 
   $(window).resize(function() {
     turtle.resize(width(), height())
   })
+
+  function takeFocus() {
+    if (element.find(".editor").is(":visible")) {
+      element.find(".editor textarea").focus()
+    } else {
+      repl.focus()
+    }
+  }
 })
 
 function nonEmpty(x) { return x && x.length > 0 }
