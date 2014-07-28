@@ -95,6 +95,12 @@ define(["bacon","jq-console"], function(Bacon) {
       },
       print: function(text) {
         sendToConsole(fmtValue(text))
+      },
+      prompt: function(text, handler) {
+        sendToConsole(fmt(text, "command"))
+        cs.Prompt(true, function(line) {
+          handler(line)
+        })
       }
     }
   }
