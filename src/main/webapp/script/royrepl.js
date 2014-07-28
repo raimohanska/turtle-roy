@@ -92,6 +92,9 @@ define(["bacon","jq-console"], function(Bacon) {
       },
       focus: function() {
         cs.Focus()
+      },
+      print: function(text) {
+        sendToConsole(fmtValue(text))
       }
     }
   }
