@@ -1,4 +1,3 @@
-"use strict";
 define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
   return function RoyEnv() {
     var sandbox = Sandbox()

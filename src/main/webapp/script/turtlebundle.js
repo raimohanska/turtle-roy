@@ -7,8 +7,8 @@ define(["lodash", "tco", "barrier", "piano", "commands", "speak"], function(_, t
     royEnv.setGlobals(Commands(editor.code, repl))
     royEnv.setGlobals(globals)
     var all = Bacon.combineAsArray(
-      Bacon.fromCallback(royEnv, "evalScript", "arrays.roy")
-      ,Bacon.fromCallback(royEnv, "evalScript", "turtle.roy")
+      Bacon.fromCallback(royEnv, "evalScript", "script/arrays.roy")
+      ,Bacon.fromCallback(royEnv, "evalScript", "script/turtle.roy")
     )
     return { loaded: all.map(true) }
   }
