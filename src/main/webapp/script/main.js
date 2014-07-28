@@ -22,7 +22,8 @@ require.config({
     ,'jquery.leanmodal': {
       deps: ["jquery"]
     }
-  }
+  },
+  waitSeconds: 60
 })
 require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet", "help"], 
     function(_, $, RoyEnv, RoyRepl, Turtle, TurtleBundle, Editor, Commands, Cookbook, storage, Sharing) {
