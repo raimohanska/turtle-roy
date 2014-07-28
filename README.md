@@ -110,6 +110,10 @@ Lists
 
 # Running
 
+Build the frontend
+
+    grunt
+
 Run the server
 
     ./start
