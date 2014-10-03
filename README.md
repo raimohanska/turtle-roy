@@ -1,3 +1,9 @@
+# Work in progress!
+
+Working on adding support for programming with Blockly blocks.
+
+Currently the integration to mongodb is missing, because scalatra was replaced with express.
+
 # Turtle Roy
 
 A [Roy](http://roy.brianmckenna.org/) programming/learning environment with [Turtle Graphics](http://en.wikipedia.org/wiki/Turtle_graphics), as in the
