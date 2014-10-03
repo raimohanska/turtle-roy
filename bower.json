@@ -9,6 +9,7 @@
     "bacon.model": "0.1.6",
     "bacon.jquery": "0.4.6",
     "jq-console": "git://github.com/pasieronen/jq-console.git#d2238f6311c4bc84a5a705760194d94b201a7673",
-    "requirejs": "2.1.11"
+    "requirejs": "2.1.11",
+    "blockly": "https://github.com/raimohanska/blockly.git"
   }
 }
