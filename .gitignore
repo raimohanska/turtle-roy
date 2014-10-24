@@ -1,10 +1,5 @@
 .DS_Store
 db
-target
-perms.txt
-.idea
-.idea_modules
-out
-bower_components/
+bower_components
 node_modules
-src/main/webapp/turtleroy.js
+output

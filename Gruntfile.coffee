@@ -2,6 +2,7 @@ console.log "Building with Grunt"
 module.exports = (grunt) ->
   require('load-grunt-tasks')(grunt)
   webDir = "public"
+  outDir = "output"
 
   grunt.initConfig {
     requirejs: {
@@ -10,7 +11,7 @@ module.exports = (grunt) ->
           baseUrl: webDir + "/script",
           mainConfigFile: webDir + "/script/main.js",
           name: "main",
-          out: webDir + "/turtleroy.js",
+          out: outDir + "/turtleroy.js",
           optimize: "none",
           exclude: [ "roy" ]
         }

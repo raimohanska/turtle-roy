@@ -15,5 +15,6 @@ MongoClient.connect(mongoUrl, function(err, conn) {
 app.use(express.compress())
 app.use(express.json())
 app.use('/', express.static(__dirname + '/public'))
+app.use('/', express.static(__dirname + '/output'))
 app.use('/components', express.static(__dirname + '/bower_components'))
 app.listen(port)
