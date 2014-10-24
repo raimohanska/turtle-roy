@@ -110,13 +110,14 @@ Lists
 
 # Running
 
-Build the frontend
+Build
 
+    npm install
     grunt
 
 Run the server
 
-    ./start
+    ./server
 
 And
 

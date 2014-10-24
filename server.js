@@ -1,5 +1,5 @@
 var express = require('express')
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 8070
 var app = express()
 var MongoClient = require('mongodb').MongoClient
 var url = process.env["MONGOHQ_URL"] || "mongodb://localhost/turtleroy"
