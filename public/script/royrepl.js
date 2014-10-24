@@ -22,10 +22,11 @@ define(["bacon","jq-console"], function(Bacon) {
     var skipHistory
     var cs = consoleElement.jqconsole(welcomeMessage, promptLabel)
     setInterval(function() {$(".jqconsole-cursor").toggleClass("blink")}, 500)
+    var evalLine = evalRoy
     function sendToConsole(msg) {
       cs.Write(msg.msg + '\n', msg.className);
     }
-    function evalAsMessageStream(line) {
+    function evalRoy(line) {
       var parts = line.split(" ");
 
       switch (parts[0]) {
@@ -46,34 +47,50 @@ define(["bacon","jq-console"], function(Bacon) {
         } catch(e) {
           return Bacon.once(fmtError(e.toString()));
         }
-
       default:
-        try {
-          var evaled = roy.evalJs(line)
-          //var evaled = roy.evalRoy(line)
-          if (skipHistory) {
-            skipHistory = false
-          } else {
-            history.push(line)
-          }
-          error.push("")
-          if (evaled != undefined && evaled.result != null) {
-            console.log("got", evaled)
-            return Bacon.once().flatMap(evaled.result)
-              .map(function(result) { return fmtValue(JSON.stringify(result))});
-          } else {
-            return Bacon.never();
-          }
-        } catch(e) {
-          var msg = fmtError(e.toString())
-          error.push(msg.msg)
-          return Bacon.once(msg);
+        if (line == ":js") {
+          evalLine = evalJs
+          return Bacon.once(fmtValue("Javascript mode!"))
+        } else {
+          return evalUsing(line, roy.evalRoy)
         }
+      }
+    }
+
+    function evalJs(line) {
+        if (line == ":roy") {
+          evalLine = evalRoy
+          return Bacon.once(fmtValue("Roy mode!"))
+        } else {
+          return evalUsing(line, roy.evalJs)
+        }
+    }
+
+    function evalUsing(line, evalFunc) {
+      try {
+        var evaled = evalFunc(line)
+        if (skipHistory) {
+          skipHistory = false
+        } else {
+          history.push(line)
+        }
+        error.push("")
+        if (evaled != undefined && evaled.result != null) {
+          console.log("got", evaled)
+          return Bacon.once().flatMap(evaled.result)
+            .map(function(result) { return fmtValue(JSON.stringify(result))});
+        } else {
+          return Bacon.never();
+        }
+      } catch(e) {
+        var msg = fmtError(e.toString())
+        error.push(msg.msg)
+        return Bacon.once(msg);
       }
     }
     function prompt() {
       cs.Prompt(true, function(line) {
-        var response = evalAsMessageStream(line)
+        var response = evalLine(line)
         response.onValue(sendToConsole)
         response.errors().mapError(fmtError).onValue(sendToConsole)
         response.onEnd(prompt)
@@ -85,7 +102,7 @@ define(["bacon","jq-console"], function(Bacon) {
       paste: function(text) {
         Bacon.sequentially(200, roy.splitRoy(text)).filter(nonEmpty).onValue(function(line) {
           sendToConsole(fmtCommand(line))
-          evalAsMessageStream(line).onValue(sendToConsole)
+          evalLine(line).onValue(sendToConsole)
         })
       },
       error: error.toProperty(),
