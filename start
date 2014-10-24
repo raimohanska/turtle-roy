@@ -1,1 +1,0 @@
-./sbt ~container:start
