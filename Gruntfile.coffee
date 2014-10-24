@@ -1,7 +1,7 @@
 console.log "Building with Grunt"
 module.exports = (grunt) ->
   require('load-grunt-tasks')(grunt)
-  webDir = "src/main/webapp"
+  webDir = "public"
 
   grunt.initConfig {
     requirejs: {

@@ -2,10 +2,10 @@ var express = require('express')
 var port = process.env.PORT || 8070
 var app = express()
 var MongoClient = require('mongodb').MongoClient
-var url = process.env["MONGOHQ_URL"] || "mongodb://localhost/turtleroy"
+var mongoUrl = process.env["MONGOHQ_URL"] || "mongodb://localhost/turtleroy"
 var TurtleStore = require("./turtlestore")
 
-MongoClient.connect(url, function(err, conn) {
+MongoClient.connect(mongoUrl, function(err, conn) {
   if (err) {
     throw err
   }
@@ -14,5 +14,6 @@ MongoClient.connect(url, function(err, conn) {
 
 app.use(express.compress())
 app.use(express.json())
-app.use('/', express.static(__dirname + '/src/main/webapp'))
+app.use('/', express.static(__dirname + '/public'))
+app.use('/components', express.static(__dirname + '/bower_components'))
 app.listen(port)
