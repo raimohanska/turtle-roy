@@ -76,7 +76,6 @@ define(["bacon","jq-console"], function(Bacon) {
         }
         error.push("")
         if (evaled != undefined && evaled.result != null) {
-          console.log("got", evaled)
           return Bacon.once().flatMap(evaled.result)
             .map(function(result) { return fmtValue(JSON.stringify(result))});
         } else {
