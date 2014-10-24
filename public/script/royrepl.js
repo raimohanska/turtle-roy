@@ -22,11 +22,12 @@ define(["bacon","jq-console"], function(Bacon) {
     var skipHistory
     var cs = consoleElement.jqconsole(welcomeMessage, promptLabel)
     setInterval(function() {$(".jqconsole-cursor").toggleClass("blink")}, 500)
-    var evalLine = evalRoy
+
     function sendToConsole(msg) {
       cs.Write(msg.msg + '\n', msg.className);
     }
-    function evalRoy(line) {
+
+    function evalLine(line) {
       var parts = line.split(" ");
 
       switch (parts[0]) {
@@ -48,22 +49,16 @@ define(["bacon","jq-console"], function(Bacon) {
           return Bacon.once(fmtError(e.toString()));
         }
       default:
-        if (line == ":js") {
-          evalLine = evalJs
+        if (line == ":roy") {
+          roy.eval = roy.evalRoy
+          return Bacon.once(fmtValue("Roy mode!"))
+        } else if (line == ":js") {
+          roy.eval = roy.evalJs
           return Bacon.once(fmtValue("Javascript mode!"))
         } else {
-          return evalUsing(line, roy.evalRoy)
+          return evalUsing(line, roy.eval)
         }
       }
-    }
-
-    function evalJs(line) {
-        if (line == ":roy") {
-          evalLine = evalRoy
-          return Bacon.once(fmtValue("Roy mode!"))
-        } else {
-          return evalUsing(line, roy.evalJs)
-        }
     }
 
     function evalUsing(line, evalFunc) {

@@ -12,7 +12,7 @@ define(["bacon.jquery"], function() {
       .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
       .doAction(".preventDefault")
     root.find(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
-      royEnv.evalRoy(program)
+      royEnv.eval(program)
     })
 
     return {

@@ -2,7 +2,7 @@ define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
   return function RoyEnv() {
     var sandbox = Sandbox()
     var royloader = RoyEvaluator(sandbox.eval)
-    return {
+    var api = {
       royEnv: royloader.royEnv,
       compileRoy: royloader.compileRoy,
       setGlobals: sandbox.setGlobals,
@@ -26,6 +26,8 @@ define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
       },
       splitRoy: royloader.splitRoy
     }
+    api.eval = api.evalRoy
+    return api
   }
 
   function flattenFunctionValue(evaled) {
