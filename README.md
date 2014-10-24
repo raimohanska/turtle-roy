@@ -108,14 +108,14 @@ Lists
     filter (\x -> x > 1) [1,2,3]
     foldl (\x y -> x * y) 1 [1,2,3]
 
-# Running
+# Building and running
 
-Build
+Build (and rebuild on javascript changes)
 
     npm install
     grunt
 
-Run the server
+Run the server (node.js / express)
 
     ./server
 
