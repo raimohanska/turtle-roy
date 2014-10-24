@@ -49,7 +49,8 @@ define(["bacon","jq-console"], function(Bacon) {
 
       default:
         try {
-          var evaled = roy.evalRoy(line);
+          var evaled = roy.evalJs(line)
+          //var evaled = roy.evalRoy(line)
           if (skipHistory) {
             skipHistory = false
           } else {
@@ -57,6 +58,7 @@ define(["bacon","jq-console"], function(Bacon) {
           }
           error.push("")
           if (evaled != undefined && evaled.result != null) {
+            console.log("got", evaled)
             return Bacon.once().flatMap(evaled.result)
               .map(function(result) { return fmtValue(JSON.stringify(result))});
           } else {

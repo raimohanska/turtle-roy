@@ -16,15 +16,24 @@ define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
         var evaled;
         _(royloader.splitRoy(code)).each(function(line) {
           evaled = royloader.evalRoy(line)
-          if (typeof evaled.result == "function") {
-            var result = evaled.result()
-            evaled.result = result
-          }
+          flattenFunctionValue(evaled)
         })
         return evaled
       },
+      evalJs: function(code) {
+        var result = sandbox.eval.call(this, code)
+        return flattenFunctionValue({ result: result })
+      },
       splitRoy: royloader.splitRoy
     }
+  }
+
+  function flattenFunctionValue(evaled) {
+    if (typeof evaled.result == "function") {
+      var result = evaled.result()
+      evaled.result = result
+    }
+    return evaled
   }
 
   function RoyEvaluator(ctxEval) {
