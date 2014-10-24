@@ -31,7 +31,6 @@ function TurtleStore(conn, app) {
     return Bacon.fromNodeCallback(turtles.find(query), "toArray")
   }
   function sendResult(resultE, res) {
-    resultE.log("result")
     resultE.onError(res, "send")
     resultE.onValue(function(value) {
       if (value) {
