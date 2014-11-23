@@ -14,7 +14,8 @@
         "grunt-shell": "0.6.4",
         "mongodb": "~2.0",
         "baconjs": "~0.7",
-        "randomstring": "~1"
+        "randomstring": "~1",
+        "bluetooth-serial-port": "~1"
     },
     "engines": {
         "node": "~0.10.0"

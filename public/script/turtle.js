@@ -98,9 +98,11 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           turtle.translate(0, -step)
           drawTurtle()
         })
+        remoteTurtle.send("fd", dist)
       },
       lt: function(angle) {
         this.rt(-angle)
+        remoteTurtle.send("lt", angle)
       },
       rt: function(angle) {
         Smoothly.step(angle, 10, function(a) {
@@ -109,6 +111,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           turtle.rotate(a * Math.PI / 180)
           drawTurtle()
         })
+        remoteTurtle.send("rt", angle)
       },
       pendown: Smoothly.do(function() {
         pendown = true
@@ -170,6 +173,21 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     var recorder = Recorder(api)
     return recorder
   }
+
+  var remoteTurtle = (function() {
+    return {
+      send: function(command, param) {
+        if (Math.abs(param) == 360) return
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({ command: command, param: param }),
+          dataType: "json",
+          url: "/robomove"
+        })
+      }
+    }
+  })()
 
   return Turtle
 })
