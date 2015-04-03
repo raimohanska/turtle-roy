@@ -15,11 +15,11 @@ define([], function() {
         oscillator = audio_context.createOscillator();
         oscillator.frequency.value = freq;
         oscillator.connect(audio_context.destination);
-        oscillator.noteOn(0);
+        oscillator.start(0);
       }
 
       function stop() {
-        oscillator.noteOff(0);
+        oscillator.stop(0);
       }
 
       return {
