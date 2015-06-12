@@ -115,17 +115,19 @@ Build (and rebuild on javascript changes)
     npm install
     grunt
 
+Install mongodb
+
+    brew install mongo
+
 Run the server (node.js / express)
 
+    ./runmongo
     ./server
 
 And
 
     open http://localhost:8070
 
-Optionally also start the mongo db
-
-    ./runmongo
 
 # Credits
 
