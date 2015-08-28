@@ -18,3 +18,5 @@ app.use('/', express.static(__dirname + '/public'))
 app.use('/', express.static(__dirname + '/output'))
 app.use('/components', express.static(__dirname + '/bower_components'))
 app.listen(port)
+
+console.log("Listening on port", port)
