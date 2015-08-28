@@ -27,6 +27,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
 
     function init() {
       clearTurtle()
+      delete cursor.image
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
       paper.clearRect(0, 0, w, h)
@@ -121,19 +122,27 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         this.lt(360)
       },
       setshape: function(name) {
-        var image = new Image()
-        image.onload = function() {
-          clearTurtle()
-          cursor.image = image
-          cursor.height = this.height
-          cursor.width = this.width
-          cursor.left = -this.width / 2
-          cursor.top = -this.height / 2
-          cursor.clearSize = Math.sqrt(Math.pow(this.height, 2) + Math.pow(this.width, 2)) + 1
-          cursor.clearOffset = -cursor.clearSize / 2
-          drawTurtle()
-        }
-        image.src = "images/" + name + ".png"
+        Smoothly.do(function() {
+          if (name == "default") {
+            clearTurtle()
+            delete cursor.image
+            drawTurtle()
+          } else {
+            var image = new Image()
+            image.onload = function() {
+              clearTurtle()
+              cursor.image = image
+              cursor.height = this.height
+              cursor.width = this.width
+              cursor.left = -this.width / 2
+              cursor.top = -this.height / 2
+              cursor.clearSize = Math.sqrt(Math.pow(this.height, 2) + Math.pow(this.width, 2)) + 1
+              cursor.clearOffset = -cursor.clearSize / 2
+              drawTurtle()
+            }
+            image.src = "images/" + name + ".png"
+          }
+        })()
       },
       background: function(color) {
         Smoothly.do(function() {
