@@ -107,6 +107,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
           clearTurtle()
           paper.rotate(a * Math.PI / 180)
           turtle.rotate(a * Math.PI / 180)
+          pendown = true
           drawTurtle()
         })
       },
