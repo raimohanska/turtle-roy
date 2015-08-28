@@ -70,7 +70,7 @@ define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
       var chunkLines = []
       function spit() {
         if (chunkLines.length) {
-          var chunkCode = chunkLines.join("\n")
+          var chunkCode = chunkLines.join("")
           result.push(chunkCode)
           chunkLines = []
         }
