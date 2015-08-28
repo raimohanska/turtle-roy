@@ -16,14 +16,7 @@ module.exports = (grunt) ->
           exclude: [ "roy" ]
         }
       }
-    },
-    watch: {
-      js: {
-        files: [webDir + "/script/**"],
-        tasks: 'requirejs'
-      }
-    }
-  }
+    }  }
 
   grunt.registerTask 'build', ['requirejs']
-  grunt.registerTask 'default', [ 'build', 'watch' ]
+  grunt.registerTask 'default', [ 'build' ]

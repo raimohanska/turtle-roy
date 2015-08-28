@@ -113,7 +113,6 @@ Lists
 Build (and rebuild on javascript changes)
 
     npm install
-    grunt
 
 Install mongodb
 
@@ -128,6 +127,9 @@ And
 
     open http://localhost:8070
 
+To build client-side code on every change, just
+
+    npm run watch
 
 # Credits
 

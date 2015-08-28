@@ -7,19 +7,20 @@
         "load-grunt-tasks": "0.4.0",
         "grunt": "~0.4.4",
         "grunt-cli": "~0.1.13",
-        "grunt-contrib-watch": "0.6.1",
         "grunt-contrib-copy": "0.5.0",
         "grunt-contrib-less": "~0.11",
         "grunt-contrib-requirejs": "~0.4",
         "grunt-shell": "0.6.4",
         "mongodb": "~2.0",
         "baconjs": "~0.7",
+        "chokidar-cmd": "^1",
         "randomstring": "~1"
     },
     "engines": {
         "node": "~0.10.0"
     },
     "scripts": {
-        "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build"
+        "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build",
+        "watch": "node_modules/chokidar-cmd/cmd.js --initial -c 'npm install' -t public/script"
     }
 }
