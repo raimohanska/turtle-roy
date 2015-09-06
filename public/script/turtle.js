@@ -27,6 +27,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
 
     function init() {
       clearTurtle()
+      pendown = true
       delete cursor.image
       paper.setTransform(1, 0, 0, 1, 0, 0)
       turtle.setTransform(1, 0, 0, 1, 0, 0)
