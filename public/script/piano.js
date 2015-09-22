@@ -58,8 +58,17 @@ define([], function() {
     }
     var piano = {
        play: function(note, duration) {
+         if (typeof note == "function") {
+            var done = note
+            note = freqTable.c
+            duration = defaultDuration
+            playF(done)
+            return
+         }
+         if (!note) note = freqTable.c
          if (!duration) duration = defaultDuration
-         return function(done) {
+         return playF
+         function playF(done) {
            if (note.length) {
              piano.play(note[0], duration)(function() {
                piano.play(note.slice(1), duration)(done)
@@ -79,9 +88,15 @@ define([], function() {
            }
          }
        },
-       pause: function(done, duration) {
+       pause: function(duration) {
+         if (typeof duration == "function") {
+           var done = duration
+           setTimeout(done, defaultDuration)
+         }
          if (!duration) duration = defaultDuration
-         setTimeout(done, defaultDuration)
+         return function(done) {
+           setTimeout(done, duration)
+         }
        },
        tempo: function(tempo) {
          defaultDuration = tempo
