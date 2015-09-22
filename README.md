@@ -25,8 +25,10 @@ open "asdf"                 | open saved work "asdf" (presuming you've saved wit
 whoami                      | show the author name of the logged-in user (this is just saved in a cookie)
 ls                          | list your saved works
 play c                      | plays the note C
-play c 500                  | plays the note C for 500 milliseconds
+play c 500                  | plays the note C for 500 milliseconds (half a second)
 play c*2                    | plays the note C2 (frequency = C * 2)
+pause                       | pauses for a while
+pause 1000                  | pauses for 1000 milliseconds (1 second)
 sequence [fd 100, rt 90]    | 100 pixels forward, then right turn
 s [fd 100, rt 90]           | same as above
 repeat 4 (say "hello")      | says "hello" 5 times
