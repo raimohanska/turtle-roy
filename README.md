@@ -110,6 +110,11 @@ Lists
     filter (\x -> x > 1) [1,2,3]
     foldl (\x y -> x * y) 1 [1,2,3]
 
+# Export
+
+You can export your drawing as a series of commands in JSON format by opening your browser's 
+developer console and typing `turtle.export()`.
+
 # Building and running
 
 Build (and rebuild on javascript changes)

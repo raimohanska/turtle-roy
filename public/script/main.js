@@ -25,6 +25,7 @@ require.config({
   },
   waitSeconds: 60
 })
+var turtle
 require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "editor", "commands", "cookbook", "storage", "sharing", "cheatsheet", "help"], 
     function(_, $, RoyEnv, RoyRepl, Turtle, TurtleBundle, Editor, Commands, Cookbook, storage, Sharing) {
   var overhead = 300
@@ -40,7 +41,7 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   var element = $("#turtle-roy")
   var royEnv = RoyEnv()
   var repl = RoyRepl.init(element.find(".console"), royEnv)
-  var turtle = Turtle(element.find(".turtlegraphics"), width(), height())
+  turtle = Turtle(element.find(".turtlegraphics"), width(), height())
   var editor = Editor(element, royEnv, repl)
 
   var loaded = TurtleBundle(royEnv, turtle, repl, editor).loaded

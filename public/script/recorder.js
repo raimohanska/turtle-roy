@@ -20,11 +20,14 @@ define([], function() {
         return JSON.stringify(calls)
       }
     }
+    recorder.export = recorder._recorder.export
     return recorder
 
     function proxyMethod(key, f) {
         return function() {
-          calls.push([key, Array.prototype.slice.call(arguments)])
+          if (key != "spin") {
+            calls.push([key, Array.prototype.slice.call(arguments)])
+          }
           return f.apply(api, arguments)
         }
     }
