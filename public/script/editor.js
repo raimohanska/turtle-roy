@@ -21,8 +21,15 @@ define(["bacon.jquery"], function() {
     })
 
     root.find(".run-link").asEventStream("click").merge(runBus).map(code).onValue(function(program) {
-      royEnv.eval(program)
+      clearError()
+      try {
+        royEnv.eval(program)
+      } catch (e) {
+        showError(e)
+      }
     })
+    
+    code.changes().onValue(clearError)
 
     return {
       code: code,
@@ -33,6 +40,33 @@ define(["bacon.jquery"], function() {
       refresh: function() {
         codeMirror.refresh()
       }
+    }
+
+    var errorLine = undefined
+
+    function clearError() {
+      showErrorText("")
+      if (errorLine !== undefined) { 
+        codeMirror.removeLineClass(errorLine, 'gutter', 'line-error')
+        errorLine = undefined
+      }
+    }
+
+    function showError(error) {
+      if (error.lineNumber > codeMirror.lineCount()) {
+        error.lineNumber = undefined
+      }
+      if (error.lineNumber) {
+        errorLine = error.lineNumber - 1
+        codeMirror.addLineClass(errorLine, 'gutter', 'line-error');
+        showErrorText("Error on line " + error.lineNumber + ": " + error.message)
+      } else {
+        showErrorText("Error: " + error.message)
+      }
+    }
+    
+    function showErrorText(text) {
+      editorElement.parent().find(".error").text(text)
     }
   }
 })

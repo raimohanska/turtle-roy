@@ -228,8 +228,14 @@ input:focus {
 .editor .error {
   color: red;
   position: absolute;
-  right: 20px;
-  bottom: 2px;
+  right: 6px;
+  bottom: 6px;
+  font-style: normal;
+  font-size: 0.95em;
+}
+
+.editor .line-error {
+  background: rgb(122, 47, 47);
 }
 
 .console {
