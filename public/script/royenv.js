@@ -18,6 +18,7 @@ define(["roy", "lodash", "sandbox"], function(_roy, _, Sandbox) {
           try {
             evaled = royEvaluator.evalRoy(line)
           } catch (e) {
+            if (typeof e == "string") e = new Error(e)
             e.lineNumber = royEvaluator.toSourceLineNumber(code, index)
             throw e
           }
