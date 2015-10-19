@@ -6,8 +6,11 @@ define([], function() {
       accumulated.push(arguments)
       if (!active) {
         active = true
-        while (accumulated.length) result = f.apply(this, accumulated.shift())
-        active = false
+        try {
+          while (accumulated.length) result = f.apply(this, accumulated.shift())
+        } finally {
+          active = false
+        }
         return result
       }
     }
