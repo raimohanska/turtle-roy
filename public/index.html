@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>Turtle Roy</title>
     <link rel="stylesheet" href="css/turtle-roy.css" />
+    <link rel="stylesheet" type="text/css" href="/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="/codemirror/theme/solarized.css">
   </head>
   <body>
      <div id="top">
@@ -24,7 +26,7 @@
        </div>
        <div class="editor">
          <div class="links">
-           <a class="run-link" href="#" title="run (ctrl-space)">run</a>
+           <a class="run-link" href="#" title="run (ctrl-enter)">run</a>
            |
            <a class="editor-link" href="#">show console</a>
          </div>
@@ -53,6 +55,8 @@
      <div id="cheatsheet">
      </div>
     <script src="script/ga.js"></script>
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <script src="/codemirror/mode/haskell/haskell.js"></script>
     <script data-main="turtleroy.js" src="/components/requirejs/require.js"></script>
   </body>
 </html>

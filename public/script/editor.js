@@ -1,17 +1,26 @@
 define(["bacon.jquery"], function() {
   return function Editor(root, royEnv, repl) {
     var editorElement = root.find(".editor textarea")
-    code = Bacon.$.textFieldValue(editorElement)
+    var runBus = Bacon.Bus()
+    codeMirror = CodeMirror.fromTextArea(editorElement.get(0), {
+      lineNumbers: true,
+      mode: "haskell",
+      theme: "solarized dark",
+      extraKeys: {
+        "Ctrl-Enter": function() { runBus.push() },
+        "Ctrl-Space": function() { runBus.push() }
+      }
+    })
+  
+    code = Bacon.fromEvent(codeMirror, "change")
+      .map(".getValue")
+      .toProperty(codeMirror.getValue())
 
     repl.history.onValue(function(line) {
-      editorElement.val(editorElement.val() ? editorElement.val() + "\n" + line : line)
-      editorElement.trigger("paste")
+      codeMirror.setValue(codeMirror.getValue() ? codeMirror.getValue() + "\n" + line : line)
     })
 
-    var ctrlSpace = editorElement.asEventStream("keyup")
-      .filter(function(e) { return e.ctrlKey && e.keyCode == 32})
-      .doAction(".preventDefault")
-    root.find(".run-link").asEventStream("click").merge(ctrlSpace).map(code).onValue(function(program) {
+    root.find(".run-link").asEventStream("click").merge(runBus).map(code).onValue(function(program) {
       royEnv.eval(program)
     })
 
@@ -20,6 +29,9 @@ define(["bacon.jquery"], function() {
       reset: function() {
         editorElement.val("")
         editorElement.trigger("paste")
+      },
+      refresh: function() {
+        codeMirror.refresh()
       }
     }
   }

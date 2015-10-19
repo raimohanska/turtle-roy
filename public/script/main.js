@@ -67,6 +67,7 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   element.find(".editor-link").asEventStream("click").onValue(function() {
     element.toggleClass("editor-mode")
     takeFocus()
+    editor.refresh()
   })
 
   $(window).resize(function() {

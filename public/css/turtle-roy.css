@@ -216,9 +216,13 @@ input:focus {
   position: absolute;
   top: 2px;
   right: 20px;
+  z-index: 10;
 }
 .editor a {
   text-decoration: none;
+}
+.editor .CodeMirror {
+  height: 100%;
 }
 
 .editor .error {
