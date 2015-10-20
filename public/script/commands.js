@@ -30,7 +30,9 @@ define(["storage"], function(storage) {
       }),
       save: withoutSave(function(name) {
         return withAuthor(function(author) {
-          return storage.save(name, code.get())
+          return code.take(1).flatMap(function(code) { 
+            return storage.save(name, code)
+          })
         })
       }),
       ls: withoutSave(function() {
