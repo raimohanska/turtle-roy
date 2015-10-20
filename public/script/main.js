@@ -60,6 +60,13 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
     if (turtleId) storage.open(turtleId)
     element.removeClass("loading")
     takeFocus()
+
+    window.exportDrawing = function() {
+      storage.author.onValue(function(author) {
+        var commands = turtle.export()
+        alert(JSON.stringify({author: author, commands: commands}))
+      })
+    }
   })
   
   element.find(".turtlegraphics").clickE().onValue(takeFocus)

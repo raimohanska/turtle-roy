@@ -16,11 +16,8 @@ define([], function() {
       reset: function() {
         calls = []
       },
-      export: function() {
-        return JSON.stringify(calls)
-      }
     }
-    recorder.export = recorder._recorder.export
+    recorder.export = recorder._recorder.calls
     return recorder
 
     function proxyMethod(key, f) {
