@@ -1,0 +1,29 @@
+<style>
+#gallery img { 
+  max-width: 200px; 
+  border: 1px solid #cccccc;
+}
+#gallery .turtle { display: inline-block; }
+</style>
+
+<script src="/components/jquery/jquery.js"></script>
+<script>
+  fetch("/gallery")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(json) {
+    json.forEach(function(turtle) {
+      var data = turtle.content.preview
+      var elem = $("<span>").addClass("turtle")
+      elem.append($("<h3>")
+        .append($("<a>")
+          .attr("href", "/?turtle=" + turtle.id)
+          .text(turtle.content.author + ": " + turtle.content.description)))
+      elem.append($("<img>").attr("src", data))
+      $("#gallery").append(elem)
+    })
+  })
+</script>
+<div id="gallery">
+</div>
