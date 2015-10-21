@@ -27,14 +27,16 @@ define(["bacon", "jquery", "jquery.cookie", "bacon.model", "bacon.jquery"], func
     saveBus: saveBus,
     saveResult: saveResult,
     savePending: savePending,
-    save: function(name, code) {
+    save: function(name, code, turtle) {
       return withAuthor(function(author) {
-        var turtle = {
+        var saveData = {
           author: author,
           description: name,
-          code: code
+          code: code,
+          //commands: turtle.export()
+          preview: turtle.exportImage()
         }      
-        saveBus.push(turtle)
+        saveBus.push(saveData)
         return saveResult.take(1).map("saved").endOnError()
       })
     },

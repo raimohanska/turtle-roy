@@ -49,7 +49,7 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   loaded.onValue(function() {
     turtle.spin(360, 10)
     Cookbook(editor, repl)
-    Sharing(editor.code)
+    Sharing(editor.code, turtle)
 
     storage.openResult.onValue(function(turtle) {
       editor.reset()
@@ -63,7 +63,7 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
 
     window.exportDrawing = function() {
       storage.author.onValue(function(author) {
-        var commands = turtle.export()
+        var commands = turtle.exportCommands()
         console.log(JSON.stringify({author: author, commands: commands}))
       })
     }

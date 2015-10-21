@@ -1,0 +1,12 @@
+<script>
+  fetch("http://localhost:8070/turtle/dude/asdf")
+  .then(function(response) {
+    return response.json()
+  })
+  .then(function(json) {
+    var data = json.content.preview
+    console.log(data)
+    document.getElementById("preview").src = data
+  })
+</script>
+<img id="preview" src="">

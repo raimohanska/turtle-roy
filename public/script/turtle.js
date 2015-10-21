@@ -11,8 +11,9 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     }
     var pendown = true
 
-    var paper = createCanvas(0)
-    var turtle = createCanvas(1)
+    var paperCanvas = createCanvas(0)
+    var paper = paperCanvas.getContext('2d')
+    var turtle = createCanvas(1).getContext('2d')
     setSize(w, h)
     var cursor = {} // keys: image, width, height, left, top
 
@@ -56,7 +57,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       canvas.css({position: "absolute", left: 0, right: 0})
       canvas.css({"z-index": zIndex})
       element.append(canvas)
-      return canvas.get(0).getContext('2d');
+      return canvas.get(0);
     }
     function clearTurtle() {
       if ("image" in cursor) {
@@ -178,6 +179,13 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       })
     }
     var recorder = Recorder(api)
+    recorder.exportImage = function() {
+      try {
+        return paperCanvas.toDataURL("image/png")
+      } catch (e) {
+        console.log("Unable to generate preview image", e)
+      }
+    }
     return recorder
   }
 

@@ -1,6 +1,6 @@
 "use strict";
 define(["storage"], function(storage) {
-  return function Commands(code, repl) {
+  return function Commands(code, repl, turtle) {
     function withoutSave(f) {
       return function() {
         var result = f.apply(this, arguments)
@@ -31,7 +31,7 @@ define(["storage"], function(storage) {
       save: withoutSave(function(name) {
         return withAuthor(function(author) {
           return code.take(1).flatMap(function(code) { 
-            return storage.save(name, code)
+            return storage.save(name, code, turtle)
           })
         })
       }),

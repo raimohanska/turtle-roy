@@ -17,7 +17,7 @@ define([], function() {
         calls = []
       },
     }
-    recorder.export = recorder._recorder.calls
+    recorder.exportCommands = recorder._recorder.calls
     return recorder
 
     function proxyMethod(key, f) {
