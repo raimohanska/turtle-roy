@@ -62,9 +62,10 @@ define(["bacon","jq-console"], function(Bacon) {
     }
 
     function evalUsing(line, evalFunc) {
+      line = line.trim()
       try {
         var evaled = evalFunc(line)
-        if (skipHistory) {
+        if (skipHistory || line === "") {
           skipHistory = false
         } else {
           history.push(line)
