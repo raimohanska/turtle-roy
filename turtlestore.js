@@ -4,6 +4,12 @@ var randomstring = require("randomstring")
 function TurtleStore(conn, app) {
   var turtles = conn.collection("turtle")
 
+  app.get("/gallery", function(req, res) {
+    sendResult(mongoFind({
+      "content.preview": { $exists: true }
+    }), res)
+  })
+
   app.get("/turtles", function(req, res) {
     sendResult(mongoFind({}), res)
   })
