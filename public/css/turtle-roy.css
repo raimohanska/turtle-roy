@@ -78,18 +78,25 @@ body.embedded {
     width:100%;
     background: #000;
     display: none;
+    overflow: hidden;
 }
 
 #cheatsheet {
-  width: 1200px;
-  padding: 30px; 
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  left: 50px;
+  right: 50px;
+  overflow: scroll;
+  padding: 30px;
   display:none;
+
   background: #FFF;
-  border-radius: 5px; 
-  -moz-border-radius: 5px; 
+  border-radius: 5px;
+  -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
-  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.7);
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7);
   -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7);
 }
 
@@ -258,7 +265,7 @@ input:focus {
   height:100%;
   display:none;
   overflow:auto;
-}    
+}
 /* The console container element */
 .console {
   width: 100%;
