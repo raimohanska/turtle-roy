@@ -107,6 +107,9 @@ define(["bacon","jq-console"], function(Bacon) {
       focus: function() {
         cs.Focus()
       },
+      help: function() {
+        $("#help").click()
+      },
       print: function(text) {
         sendToConsole(fmtValue(text))
       },
