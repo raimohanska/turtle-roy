@@ -108,7 +108,7 @@ define(["bacon","jq-console"], function(Bacon) {
         cs.Focus()
       },
       help: function() {
-        sendToConsole(fmtValue("interactive help goes here"))  
+        $("#help").click()
       },
       print: function(text) {
         sendToConsole(fmtValue(text))
