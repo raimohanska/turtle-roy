@@ -37,7 +37,7 @@ define(["bacon", "jquery", "jquery.cookie", "bacon.model", "bacon.jquery"], func
           preview: turtle.exportImage()
         }      
         saveBus.push(saveData)
-        return saveResult.take(1).map("saved").endOnError()
+        return saveResult.take(1).map(function(x) { return "saved: " + document.location.host + "/?turtle=" + x.id }).endOnError()
       })
     },
     open: function(name) { 
