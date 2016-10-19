@@ -34,7 +34,7 @@ function TurtleStore(conn, app) {
     return Bacon.fromNodeCallback(turtles, "insert", [data])
   }
   function mongoFind(query) {
-    return Bacon.fromNodeCallback(turtles.find(query).sort({date: -1}), "toArray")
+    return Bacon.fromNodeCallback(turtles.find(query).limit(100).sort({date: -1}), "toArray")
   }
   function sendResult(resultE, res) {
     resultE.onError(res, "send")
