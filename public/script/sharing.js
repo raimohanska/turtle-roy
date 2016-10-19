@@ -5,7 +5,7 @@ define(["storage"], function(storage) {
     $("#share label").click(function() {
       $("#share form").slideToggle("fast")
     })
-    var shareClick = shareButton.asEventStream("click")
+    var shareClick = shareButton.asEventStream("click").doAction(".preventDefault")
     var shared = storage.saveBus.map(true).toProperty(false)
     var nickname = Bacon.$.textFieldValue($("#nick"))
     nickname.bind(storage.author)
