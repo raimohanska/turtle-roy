@@ -6,6 +6,7 @@ define(["bacon", "jquery", "jquery.cookie", "bacon.model", "bacon.jquery"], func
   })
   var saveBus = new Bacon.Bus()
   var saveResult = saveBus.map(function(data) {
+    data.preview = turtle.exportImage()
     return {
       url: "/turtle",
       type: "post",
@@ -32,9 +33,7 @@ define(["bacon", "jquery", "jquery.cookie", "bacon.model", "bacon.jquery"], func
         var saveData = {
           author: author,
           description: name,
-          code: code,
-          //commands: turtle.export()
-          preview: turtle.exportImage()
+          code: code
         }      
         saveBus.push(saveData)
         return saveResult.take(1).map(function(x) { return "saved: " + document.location.host + "/?turtle=" + x.id }).endOnError()
