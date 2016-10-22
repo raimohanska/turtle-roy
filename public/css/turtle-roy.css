@@ -335,3 +335,21 @@ a:visited {
   background: #073642;
   padding: 1em;
 }
+
+#gallery {
+  margin-top: 20px;
+}
+
+#gallery img { 
+  max-width: 200px; 
+  border: 1px solid #cccccc;
+}
+#gallery .turtle { 
+  background: white;
+  padding: 10px;
+  margin: 5px;
+  margin-top: 15px;
+  display: inline-block; 
+  border: 1px solid #cccccc;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.05);
+}
