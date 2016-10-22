@@ -12,9 +12,17 @@
        <h1>TURTLE ROY GALLERY</h1>
        <p>Here's some of the latest code art shared by Turtle Roy users. Click on one of them to see it in full detail and view the source code. Or <a href="/">create your own</a>!</p>
      </div>
-    <div id="gallery">
+    <div id="gallery" class= "loading">
+       <div class="loading-indicator">
+         PLEASE WAIT...
+       </div>
     </div>
   </body>
+  <div id="templates" style="display: none;">
+    <span class="turtle">
+      <h3><a></a></h3>
+      <img>
+  </div>
 </html>
 
 <script src="/components/jquery/jquery.js"></script>
@@ -24,15 +32,14 @@
     return response.json()
   })
   .then(function(json) {
-  $("#gallery").children().remove()
+  $("#gallery").removeClass("loading").children().remove()
     json.forEach(function(turtle) {
       var data = turtle.content.preview
-      var elem = $("<span>").addClass("turtle")
-      elem.append($("<h3>")
-        .append($("<a>")
+      var elem = $("#templates .turtle").clone()
+      elem.find("h3 a")
+          .text(turtle.content.author + ": " + turtle.content.description)
           .attr("href", "/?turtle=" + turtle.id)
-          .text(turtle.content.author + ": " + turtle.content.description)))
-      elem.append($("<img>").attr("src", data))
+      elem.find("img").attr("src", data)
       $("#gallery").append(elem)
     })
   })
