@@ -2,7 +2,7 @@ var express = require('express')
 var port = process.env.PORT || 8070
 var app = express()
 var MongoClient = require('mongodb').MongoClient
-var mongoUrl = process.env["MONGOHQ_URL"] || "mongodb://localhost/turtleroy"
+var mongoUrl = process.env["MONGODB_URI"] || "mongodb://localhost/turtleroy"
 var TurtleStore = require("./turtlestore")
 
 MongoClient.connect(mongoUrl, function(err, conn) {
