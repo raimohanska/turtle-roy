@@ -33,6 +33,9 @@ let help = window.repl.help
 let color c = makeCallback(\() -> turtle.color c)
 let background color = makeCallback(\() -> turtle.background color)
 let bg = background
+let interval i f = setInterval f i
+let later i f = setTimeout f i 
+let lol = text "LOL"
 
 let sequence = \fs ->
   let action = \callback ->
