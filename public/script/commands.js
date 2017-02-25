@@ -35,6 +35,13 @@ define(["storage"], function(storage) {
           })
         })
       }),
+      quicklink: withoutSave(function(name) {
+        return withAuthor(function(author) {
+          return code.take(1).map(function(code) { 
+            return document.location.host + "/?code=" + encodeURIComponent(code)
+          })
+        })
+      }),
       ls: withoutSave(function() {
         return withAuthor(storage.ls)
       }),

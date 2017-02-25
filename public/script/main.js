@@ -56,10 +56,15 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
       repl.paste(turtle.content.code)
       document.title = turtle.content.description + " -" + document.title
     })
-    var turtleId = document.location.search.split("=")[1]
+    var queryParams = parseQuery(document.location.search)
+    var turtleId = queryParams.turtle
     if (turtleId) {
-      element.addClass("editor-mode")
+      showEditor()
       storage.open(turtleId)
+    } else if (queryParams.code) {
+      showEditor()
+      editor.reset()
+      repl.paste(queryParams.code)
     }
     element.removeClass("loading")
     takeFocus()
@@ -96,3 +101,14 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
 })
 
 function nonEmpty(x) { return x && x.length > 0 }
+
+function parseQuery(qstr) {
+  if (qstr == '') return {}
+  var query = {}
+  var a = qstr.substr(1).split('&')
+  for (var i = 0; i < a.length; i++) {
+    var b = a[i].split('=')
+    query[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '')
+  }
+  return query
+}
