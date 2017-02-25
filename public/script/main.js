@@ -57,7 +57,10 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
       document.title = turtle.content.description + " -" + document.title
     })
     var turtleId = document.location.search.split("=")[1]
-    if (turtleId) storage.open(turtleId)
+    if (turtleId) {
+      element.addClass("editor-mode")
+      storage.open(turtleId)
+    }
     element.removeClass("loading")
     takeFocus()
 
@@ -71,11 +74,13 @@ require(["lodash", "jquery", "royenv", "royrepl", "turtle", "turtlebundle", "edi
   
   element.find(".turtlegraphics").clickE().onValue(takeFocus)
 
-  element.find(".editor-link").asEventStream("click").onValue(function() {
+  function showEditor() {
     element.toggleClass("editor-mode")
     takeFocus()
     editor.refresh()
-  })
+  }
+
+  element.find(".editor-link").asEventStream("click").onValue(showEditor)
 
   $(window).resize(function() {
     turtle.resize(width(), height())
