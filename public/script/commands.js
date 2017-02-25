@@ -42,6 +42,12 @@ define(["storage"], function(storage) {
           })
         })
       }),
+      exportdrawing: withoutSave(function(name) {
+        return withAuthor(function(author) {
+          var commands = turtle.exportCommands()
+          return commands
+        })
+      }),
       ls: withoutSave(function() {
         return withAuthor(storage.ls)
       }),
