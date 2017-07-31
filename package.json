@@ -18,7 +18,7 @@
         "randomstring": "~1"
     },
     "engines": {
-        "node": "~0.10.0"
+        "node": "4.8.4"
     },
     "scripts": {
         "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build",
