@@ -31,6 +31,7 @@ let say text = makeCallback (\() -> speak text)
 let print = window.repl.print
 let help = window.repl.help
 let color c = makeCallback(\() -> turtle.color c)
+let width w = makeCallback(\() -> turtle.width w)
 let background color = makeCallback(\() -> turtle.background color)
 let bg = background
 let interval i f = setInterval f i

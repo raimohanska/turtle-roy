@@ -19,6 +19,7 @@ clear                       | clear the paper and reset turtle to center
 home                        | reset the turtle to center
 bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
 color "red"                 | change pen color (red, rgb(255,0,0), #FF0000)
+width 10                    | use pen width of 10 pixels
 text "HELLO"                | draw the text "HELLO" beside the turtle
 font "40px Arial"           | changes to the 40px Arial font
 font 100                    | changes to the 100px Courier font
@@ -135,11 +136,12 @@ Build (and rebuild on javascript changes)
 
 Install mongodb
 
-    brew install mongo
+    brew tap mongodb/brew
+    brew install mongodb-community
 
 Run the server (node.js / express)
 
-    ./runmongo
+    ./runmongo&
     ./server
 
 And

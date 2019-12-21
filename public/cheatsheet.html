@@ -14,6 +14,9 @@ rt 90                       | turns right 90 degrees
 penup                       | lifts the pen, no trace left when moving
 pendown                     | lowers the pen again for drawing
 setshape "rocket-large"     | changes the cursor. available (with and without -large): butterfly, car, fairy, formula, princess, rocket, turtle
+bg "red"                    | change background color (red, rgb(255,0,0), #FF0000)
+color "red"                 | change pen color (red, rgb(255,0,0), #FF0000)
+width 10                    | use pen width of 10 pixels
 clear                       | clear the paper and reset turtle to center
 home                        | reset the turtle to center
 say "wat"                   | speak!
@@ -32,6 +35,11 @@ repeat 4 (say "hello")      | says "hello" 5 times
 r 4 (say "hello")           | same as above
 par [play c, play e]        | playes notes C and E in parallel
 </pre>
+<p>
+   See full command reference on <a
+      href="http://roy.brianmckenna.org/">Github</a>.
+</p>
+
 <p>
    In addition to this, you may use the full <a
       href="http://roy.brianmckenna.org/">Roy</a> programming language.

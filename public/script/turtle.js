@@ -13,8 +13,10 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
 
     var paperCanvas = createCanvas(0)
     var paper = paperCanvas.getContext('2d')
+
     var turtle = createCanvas(1).getContext('2d')
     setSize(w, h)
+    var lineWidth = 1
     var cursor = {} // keys: image, width, height, left, top
 
     paper.save()
@@ -69,7 +71,7 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
     function drawTurtle() {
       if ("image" in cursor) {
         turtle.drawImage(cursor.image, cursor.left, cursor.top)
-      } else {
+      } else {        
         turtle.beginPath();
         turtle.moveTo(0, -10);
         turtle.lineTo(5, 10);
@@ -92,8 +94,8 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
         Smoothly.step(dist, 5, function(step) {
           if (pendown) {
             paper.beginPath()
-            paper.moveTo(0, 0)
-            paper.lineTo(0, -step)
+            paper.moveTo(0, 0 + (lineWidth / 2))
+            paper.lineTo(0, -step - (lineWidth / 2))
             paper.stroke()
           }
           clearTurtle()
@@ -153,6 +155,12 @@ define(["smoothly", "recorder"], function(Smoothly, Recorder) {
       color: function(color) {
         Smoothly.do(function() {
           setColor(color)
+        })()
+      },
+      width: function(width) {
+        Smoothly.do(function() {
+          lineWidth = width
+          paper.lineWidth = lineWidth
         })()
       },
       text: function(text) {
