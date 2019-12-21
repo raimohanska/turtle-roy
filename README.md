@@ -25,6 +25,8 @@ font 100                    | changes to the 100px Courier font
 
 # Sound functions
 
+Command                     | Result
+----------------------------|-------------------------------------------
 say "wat"                   | speak!
 play c                      | plays the note C
 play c 500                  | plays the note C for 500 milliseconds (half a second)
@@ -34,6 +36,8 @@ pause 1000                  | pauses for 1000 milliseconds (1 second)
 
 # Other functions
 
+Command                     | Result
+----------------------------|-------------------------------------------
 print "x"                   | print to console
 login "raimo"               | login as "raimo" (this is the author name in your saved work)
 save "asdf"                 | save current work as "asdf"
