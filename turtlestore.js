@@ -2,7 +2,7 @@ var Bacon = require("baconjs")
 var randomstring = require("randomstring")
 
 function TurtleStore(conn, app) {
-  var turtles = conn.collection("turtle")
+  var turtles = conn.db().collection("turtle")
 
   app.get("/gallery", function(req, res) {
     sendResult(mongoFind({
