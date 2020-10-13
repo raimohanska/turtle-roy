@@ -159,3 +159,5 @@ Thanks to Miikka "arcatan" Koskinen for creating [tryroy](https://github.com/mii
 Thanks to Brian McKenna for the [Roy](https://github.com/pufuwozu/roy) language and support.
 
 See origins of the cursor images from src/main/webapp/images/image-sources.txt
+
+Thanks to mLab for their free hosted MongoDB database.
