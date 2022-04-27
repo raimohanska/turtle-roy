@@ -7,7 +7,7 @@
         "chokidar-cmd": "^1",
         "codemirror": "~4.7",
         "express": "~3",
-        "grunt": "~0.4.4",
+        "grunt": "~1.5.2",
         "grunt-cli": "~0.1.13",
         "grunt-contrib-copy": "0.5.0",
         "grunt-contrib-less": "~0.11",
