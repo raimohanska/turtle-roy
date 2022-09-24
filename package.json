@@ -1,27 +1,29 @@
 {
-    "name": "turtle-roy",
-    "version": "0.0.0",
-    "dependencies": {
-        "baconjs": "~0.7",
-        "bower": "1.8.8",
-        "chokidar-cmd": "^1",
-        "codemirror": "~4.7",
-        "express": "~3",
-        "grunt": "~0.4.4",
-        "grunt-cli": "~0.1.13",
-        "grunt-contrib-copy": "0.5.0",
-        "grunt-contrib-less": "~0.11",
-        "grunt-contrib-requirejs": "~0.4",
-        "grunt-shell": "0.6.4",
-        "load-grunt-tasks": "0.4.0",
-        "mongodb": "~3.6",
-        "randomstring": "~1"
-    },
-    "engines": {
-        "node": "15"
-    },
-    "scripts": {
-        "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build",
-        "watch": "node_modules/chokidar-cmd/cmd.js --initial -c 'npm install' -t public/script"
-    }
+  "name": "turtle-roy",
+  "version": "0.0.0",
+  "dependencies": {
+    "baconjs": "~0.7",
+    "bower": "1.8.8",
+    "chokidar-cmd": "^1",
+    "codemirror": "~4.7",
+    "express": "~3",
+    "grunt": "~0.4.4",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-copy": "0.5.0",
+    "grunt-contrib-less": "~0.11",
+    "grunt-contrib-requirejs": "~0.4",
+    "grunt-shell": "0.6.4",
+    "load-grunt-tasks": "0.4.0",
+    "mongodb": "~3.6",
+    "randomstring": "~1"
+  },
+  "engines": {
+    "node": "15"
+  },
+  "scripts": {
+    "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build",
+    "watch": "node_modules/chokidar-cmd/cmd.js --initial -c 'npm install' -t public/script",
+    "docker:build": "docker build . -t turtle-roy",
+    "docker:run": "docker run -it --init --env-file .env.docker -p 8070:8070 turtle-roy"
+  }
 }

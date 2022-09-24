@@ -1,0 +1,43 @@
+{
+  "name": "bacon",
+  "version": "0.7.75",
+  "main": "dist/Bacon.js",
+  "ignore": [
+    ".*",
+    "*.md",
+    "*.coffee",
+    "*.png",
+    "browsertest/",
+    "examples/",
+    "lib/",
+    "nuspec/",
+    "performance/",
+    "readme/",
+    "spec/",
+    "src/",
+    "build",
+    "coffeelint.json",
+    "component.json",
+    "package.json",
+    "grunt",
+    "release",
+    "test",
+    "runtests",
+    "testem.json",
+    "update-cdnjs",
+    "version",
+    "assemble*.js",
+    "build-deps.js",
+    "test-individually.js"
+  ],
+  "homepage": "https://github.com/raimohanska/bacon.js",
+  "_release": "0.7.75",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.7.75",
+    "commit": "3998f2fe19e8742d5603dc31bb2a567b66017f6f"
+  },
+  "_source": "https://github.com/raimohanska/bacon.js.git",
+  "_target": "0.7.75",
+  "_originalSource": "bacon"
+}

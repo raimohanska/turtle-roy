@@ -1,5 +1,6 @@
 .DS_Store
 db
-bower_components
 node_modules
 output
+/.env*
+npm-debug.log
