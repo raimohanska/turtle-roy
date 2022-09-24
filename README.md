@@ -3,7 +3,7 @@
 A [Roy](http://roy.brianmckenna.org/) programming/learning environment with [Turtle Graphics](http://en.wikipedia.org/wiki/Turtle_graphics), as in the
 [Logo](http://el.media.mit.edu/logo-foundation/logo/programming.html) programming language.
 
-Try it online: [turtle-roy.heroku.com/](http://turtle-roy.heroku.com/)
+Try it online: [turtle-roy.fly.dev/](https://turtle-roy.fly.dev/)
 
 # Turtle functions
 
