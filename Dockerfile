@@ -7,5 +7,5 @@ RUN npm install --ignore-scripts
 COPY . .
 RUN node_modules/grunt-cli/bin/grunt build
 # 3. run
-EXPOSE 8070
+EXPOSE 8080
 CMD [ "node", "server.js" ]

@@ -24,6 +24,6 @@
     "postinstall": "node_modules/bower/bin/bower install && node_modules/grunt-cli/bin/grunt build",
     "watch": "node_modules/chokidar-cmd/cmd.js --initial -c 'npm install' -t public/script",
     "docker:build": "docker build . -t turtle-roy",
-    "docker:run": "docker run -it --init --env-file .env.docker -p 8070:8070 turtle-roy"
+    "docker:run": "docker run -it --init --env-file .env.docker -p 8080:8080 turtle-roy"
   }
 }
